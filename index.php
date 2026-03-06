@@ -322,29 +322,6 @@
   </section>
 
   <!-- ============================================
-       SECCIÓN 6: VIDEO DEMO
-       ============================================ -->
-  <section class="video-demo section section--gray" id="video-demo">
-    <div class="container text-center">
-      <span class="section-label reveal">Demo en vivo</span>
-      <h2 class="section-title reveal delay-1">Mira La Manzana<br>en acción</h2>
-      <p class="section-subtitle reveal delay-2">Descubre en 2 minutos cómo simplificar tu facturación y fichajes.</p>
-
-      <div class="video-demo__wrapper reveal-scale delay-3">
-        <div class="video-demo__player">
-          <!-- PLACEHOLDER: Reemplazar con video real del cliente -->
-          <div class="placeholder-video">
-            <div class="play-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </div>
-            <span>Video demo — Reemplazar con video real</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
        SECCIÓN 7: TESTIMONIOS / CASOS
        ============================================ -->
   <section class="testimonials section" id="casos">

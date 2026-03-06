@@ -164,7 +164,7 @@
 
 /* Pillars (section--gray) — mid dark */
 [data-theme="dark"] .pillars {
-  background: #1a1a1a;
+  background: #000000;
 }
 
 /* How it works — green gradient */
@@ -302,7 +302,7 @@
 
 /* Pricing — keep dark/neutral for contrast between white sections */
 [data-theme="dark"] .pricing {
-  background: #1a1a1a;
+  background: #000000;
 }
 
 /* FAQ — green background in dark mode (same as light) */
