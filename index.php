@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="RK Solutions — La Manzana: facturación, fichajes y cumplimiento normativo en una sola plataforma. Solicita tu demo gratis.">
-  <title>RK Solutions — La Manzana | Facturación y Fichajes simplificados</title>
+  <title>La Manzana - RK Solutions</title>
 
   <!-- Google Fonts: Poppins + Manrope -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
