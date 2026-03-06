@@ -70,7 +70,7 @@
         <!-- Visual -->
         <div class="hero__visual reveal-right delay-2">
           <div class="hero__mockup">
-            <iframe src="https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0" class="hero__mockup-video" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="eager"></iframe>
+            <iframe src="about:blank" srcdoc="<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%;background:#000}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:60px;width:68px;text-align:center;font:48px/1.5 sans-serif;color:#fff;text-shadow:0 0 20px rgba(0,0,0,.7)}</style><a href='https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0'><img src='https://img.youtube.com/vi/ZVm05C_6VOs/hqdefault.jpg' alt='Demo La Manzana'><span>&#x25B6;</span></a>" class="hero__mockup-video" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
 
             <!-- Floating cards (desktop) -->
             <div class="hero__float-card hero__float-card--top">

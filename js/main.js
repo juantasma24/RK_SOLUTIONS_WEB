@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const backToTop = document.getElementById('backToTop');
   const topCtaBar = document.querySelector('.top-cta-bar');
 
+  var scrollTicking = false;
+
   function handleScroll() {
     const scrollY = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -52,11 +54,15 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    // Active nav link based on section
-    updateActiveNav();
+    scrollTicking = false;
   }
 
-  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      requestAnimationFrame(handleScroll);
+      scrollTicking = true;
+    }
+  }, { passive: true });
   handleScroll();
 
   // Back to top click
@@ -91,28 +97,34 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ============================================
-  // 3) ACTIVE NAV LINK (Intersection)
+  // 3) ACTIVE NAV LINK (IntersectionObserver)
   // ============================================
-  function updateActiveNav() {
-    var sections = document.querySelectorAll('section[id]');
+  (function () {
     var navLinks = document.querySelectorAll('.header__nav a');
-    var scrollY = window.scrollY + 120;
+    var sections = document.querySelectorAll('section[id]');
 
-    sections.forEach(function (section) {
-      var top = section.offsetTop;
-      var height = section.offsetHeight;
-      var id = section.getAttribute('id');
-
-      if (scrollY >= top && scrollY < top + height) {
-        navLinks.forEach(function (link) {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + id) {
-            link.classList.add('active');
+    if (navLinks.length && sections.length) {
+      var navObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.getAttribute('id');
+            navLinks.forEach(function (link) {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '#' + id) {
+                link.classList.add('active');
+              }
+            });
           }
         });
-      }
-    });
-  }
+      }, {
+        rootMargin: '-20% 0px -80% 0px'
+      });
+
+      sections.forEach(function (section) {
+        navObserver.observe(section);
+      });
+    }
+  })();
 
   // ============================================
   // 4) SCROLL REVEAL ANIMATIONS
@@ -356,7 +368,24 @@ document.addEventListener('DOMContentLoaded', function () {
       mouseInHero = false;
     });
 
+    var heroVisible = true;
+    var blobRafId = null;
+
+    // Pause blob animation when hero is out of viewport
+    var heroObserver = new IntersectionObserver(function (entries) {
+      heroVisible = entries[0].isIntersecting;
+      if (heroVisible && !blobRafId) {
+        blobRafId = requestAnimationFrame(animateBlobs);
+      }
+    }, { threshold: 0 });
+    heroObserver.observe(heroSection);
+
     function animateBlobs() {
+      if (!heroVisible) {
+        blobRafId = null;
+        return;
+      }
+
       time += 0.005;
       var rect = heroSection.getBoundingClientRect();
       var w = rect.width;
@@ -391,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function () {
         gradientBlobs[i].style.transform = 'translate(' + b.cx.toFixed(1) + 'px, ' + b.cy.toFixed(1) + 'px)';
       });
 
-      requestAnimationFrame(animateBlobs);
+      blobRafId = requestAnimationFrame(animateBlobs);
     }
 
     // Initialize positions
@@ -403,7 +432,7 @@ document.addEventListener('DOMContentLoaded', function () {
     blobs[2].cx = 0.5 * initRect.width - blobs[2].off;
     blobs[2].cy = 0.4 * initRect.height - blobs[2].off;
 
-    animateBlobs();
+    blobRafId = requestAnimationFrame(animateBlobs);
   }
 
 });

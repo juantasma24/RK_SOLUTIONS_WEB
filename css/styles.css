@@ -539,7 +539,6 @@ body {
   color: var(--color-black);
   background-color: var(--color-white);
   overflow-x: hidden;
-  transition: background-color var(--transition-base), color var(--transition-base);
 }
 
 img {
@@ -852,6 +851,7 @@ ul, ol {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  will-change: transform;
 }
 
 [data-theme="dark"] .header {
@@ -1140,6 +1140,7 @@ ul, ol {
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+  contain: layout style;
 }
 
 .hero__gradient-blob {
@@ -1342,6 +1343,7 @@ ul, ol {
   align-items: center;
   width: max-content;
   animation: marquee 20s linear infinite;
+  will-change: transform;
 }
 
 .trust-bar__logos:hover {
