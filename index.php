@@ -26,17 +26,11 @@
     <div class="hero__apples" id="heroApples">
       <img src="assets/img/manzana-3d-1.png" alt="" class="hero__apple hero__apple--1" aria-hidden="true">
       <img src="assets/img/manzana-3d-2.png" alt="" class="hero__apple hero__apple--2" aria-hidden="true">
-      <img src="assets/img/manzana-3d-3.png" alt="" class="hero__apple hero__apple--3" aria-hidden="true">
-      <img src="assets/img/manzana-3d-4.png" alt="" class="hero__apple hero__apple--4" aria-hidden="true">
-      <img src="assets/img/manzana-3d-5.png" alt="" class="hero__apple hero__apple--5" aria-hidden="true">
+      <img src="assets/img/manzana-3d-4.png" alt="" class="hero__apple hero__apple--3" aria-hidden="true">
+      <img src="assets/img/manzana-3d-1.png" alt="" class="hero__apple hero__apple--4" aria-hidden="true">
     </div>
 
     <div class="container hero__container">
-      <!-- Isotipo grande central -->
-      <div class="hero__isotipo">
-        <img src="assets/img/isotipo-manzana.svg" alt="La Manzana" class="hero__isotipo-img">
-      </div>
-
       <!-- Título con tipografías mixtas -->
       <h1 class="hero__title">
         <span class="hero__title-line hero__title-line--1">La</span>

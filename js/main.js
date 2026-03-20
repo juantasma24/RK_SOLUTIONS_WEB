@@ -111,42 +111,73 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => revealObserver.observe(el));
   }
 
+  /* --- Hero title letter-by-letter hover --- */
+  document.querySelectorAll('.hero__title-line').forEach(line => {
+    const text = line.textContent;
+    line.innerHTML = '';
+    [...text].forEach(ch => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      line.appendChild(span);
+    });
+  });
+
   /* --- Falling 3D apples in hero --- */
+  const heroApplesContainer = document.querySelector('.hero__apples');
   const heroApples = document.querySelectorAll('.hero__apple');
-  if (heroApples.length) {
+
+  // Store each apple's CSS-defined rotation before JS touches them
+  const appleRotations = [15, -10, 15, -15]; // matching CSS: apple 1-4
+
+  if (heroApples.length && heroApplesContainer) {
+    heroApplesContainer.style.overflow = 'visible';
+
+    let maxEndTime = 0;
+
     heroApples.forEach((apple, i) => {
+      const baseRotation = appleRotations[i] || 0;
+
+      // Position off-screen above with correct rotation
+      apple.style.transform = `translateY(-120vh) rotate(${baseRotation}deg)`;
       apple.style.opacity = '1';
-      const delay = 200 + i * 300;
-      const duration = 1800 + Math.random() * 800;
-      const endY = 200 + Math.random() * 300;
-      const rotation = (Math.random() - 0.5) * 40;
+
+      const delay = 100 + i * 200;
+      const duration = 1400 + i * 150;
+      const endTime = delay + duration;
+      if (endTime > maxEndTime) maxEndTime = endTime;
 
       setTimeout(() => {
-        apple.style.transition = `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
-        apple.style.transform = `translateY(${endY}px) rotate(${rotation}deg)`;
+        // Fall down to resting position
+        apple.style.transition = `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease`;
+        apple.style.transform = `translateY(0) rotate(${baseRotation}deg)`;
 
+        // Start float after fall completes
         setTimeout(() => {
-          appleFloat(apple);
-        }, duration);
+          apple.style.transition = 'none';
+          appleFloat(apple, baseRotation);
+        }, duration + 50);
       }, delay);
     });
+
+    // Clip overflow after all apples have landed + buffer
+    setTimeout(() => {
+      heroApplesContainer.style.overflow = 'hidden';
+    }, maxEndTime + 200);
   }
 
-  function appleFloat(el) {
-    let y = 0;
-    let vy = 0;
-    const amplitude = 8 + Math.random() * 6;
-    const speed = 0.008 + Math.random() * 0.005;
-    let t = Math.random() * Math.PI * 2;
-    const baseTransform = el.style.transform.replace(/translateY\([^)]+\)/, '').trim();
-    const match = el.style.transform.match(/translateY\(([^)]+)\)/);
-    const baseY = match ? parseFloat(match[1]) : 0;
+  function appleFloat(el, baseRotation) {
+    const amplitude = 9.66;
+    const speed = 0.00966;
+    let t = 0;
+    let rampUp = 0;
 
     function animate() {
       t += speed;
-      y = Math.sin(t) * amplitude;
-      el.style.transition = 'none';
-      el.style.transform = `translateY(${baseY + y}px) rotate(${Math.sin(t * 0.7) * 3}deg)`;
+      rampUp = Math.min(rampUp + 0.01, 1);
+      const y = Math.sin(t) * amplitude * rampUp;
+      const r = baseRotation + Math.sin(t * 0.7) * 2 * rampUp;
+      el.style.transform = `translateY(${y}px) rotate(${r}deg)`;
       requestAnimationFrame(animate);
     }
     requestAnimationFrame(animate);
