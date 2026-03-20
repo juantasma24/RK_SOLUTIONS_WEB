@@ -134,33 +134,33 @@
     </div>
 
     <div class="container text-center">
-      <h2 class="section-title anim-reveal">¿Por qué elegir <span class="highlight">La Manzana</span>?</h2>
+      <h2 class="section-title section-title--italic anim-reveal">¿Por qué elegir <span class="highlight">La Manzana</span><span class="highlight">?</span></h2>
 
       <div class="pilares__grid">
         <div class="pilar-card anim-reveal">
           <div class="pilar-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+            <img src="assets/img/laptop.svg" alt="Fácil de usar" width="32" height="32">
           </div>
           <h3 class="pilar-card__title">Fácil de usar</h3>
         </div>
 
         <div class="pilar-card anim-reveal">
           <div class="pilar-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <img src="assets/img/call.svg" alt="Soporte humano" width="32" height="32">
           </div>
           <h3 class="pilar-card__title">Soporte humano 24/7</h3>
         </div>
 
         <div class="pilar-card anim-reveal">
           <div class="pilar-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            <img src="assets/img/house.svg" alt="Se adapta" width="32" height="32">
           </div>
           <h3 class="pilar-card__title">Se adapta a tu negocio</h3>
         </div>
 
         <div class="pilar-card anim-reveal">
           <div class="pilar-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <img src="assets/img/check_verde.svg" alt="Cumple" width="32" height="32">
           </div>
           <h3 class="pilar-card__title">Cumple la normativa</h3>
         </div>
