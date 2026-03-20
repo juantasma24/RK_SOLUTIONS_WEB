@@ -697,8 +697,8 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 .que-hace__deco--left {
   left: -100px;
-  top: 50%;
-  transform: translateY(-50%) rotate(-15deg);
+  top: -10%;
+  transform: rotate(-15deg);
 }
 .que-hace__deco--right {
   right: -100px;
@@ -853,6 +853,7 @@ input, select, textarea { font: inherit; color: inherit; }
   left: 2%;
   top: auto;
   line-height: 1.1;
+  animation: badgeFloat 3s ease-in-out infinite;
 }
 
 .que-hace__badge-dispositivo {
@@ -861,6 +862,16 @@ input, select, textarea { font: inherit; color: inherit; }
   transform: translateY(-50%) scale(0.85);
   transform-origin: top right;
   line-height: 1.1;
+  animation: badgeFloat2 3.5s ease-in-out infinite;
+}
+
+@keyframes badgeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes badgeFloat2 {
+  0%, 100% { transform: translateY(-50%) scale(0.85); }
+  50% { transform: translateY(calc(-50% - 8px)) scale(0.85); }
 }
 
 .que-hace__badge-247 span,
@@ -928,6 +939,9 @@ input, select, textarea { font: inherit; color: inherit; }
   position: relative;
   z-index: 1;
   line-height: 1.2;
+}
+.dot-green {
+  color: var(--color-primary);
 }
 
 /* ============================================

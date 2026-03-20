@@ -117,7 +117,7 @@
     </div>
     <div class="container">
       <h2 class="autonomos__title anim-reveal">
-        Para autónomos, hostelería<br>y comercio.
+        Para autónomos, hostelería<br>y comercio<span class="dot-green">.</span>
       </h2>
     </div>
   </section>
