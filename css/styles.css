@@ -562,11 +562,11 @@ input, select, textarea { font: inherit; color: inherit; }
   opacity: 0;
 }
 
-/* Posiciones finales de reposo — matching captura */
-.hero__apple--1 { width: 320px; left: -8%;  top: 15%; transform: rotate(15deg); }
-.hero__apple--2 { width: 180px; left: 18%;  top: 55%; transform: rotate(-10deg); }
-.hero__apple--3 { width: 320px; right: 15%; bottom: -15%; top: auto; transform: rotate(15deg); }
-.hero__apple--4 { width: 320px; right: -8%; top: 15%; transform: rotate(-15deg); }
+/* Posiciones finales de reposo — mobile first */
+.hero__apple--1 { width: 42vw;  left: -16%; top: 15%;  transform: rotate(15deg); }
+.hero__apple--2 { width: 38vw;  left: 0%;   top: auto; bottom: 2%; transform: rotate(-10deg); }
+.hero__apple--3 { width: 38vw;  right: 0%;  top: auto; bottom: -6%; transform: rotate(15deg); }
+.hero__apple--4 { width: 42vw;  right: -16%; top: 18%; transform: rotate(-15deg); }
 
 /* T�tulo Hero */
 .hero__title {
@@ -612,6 +612,7 @@ input, select, textarea { font: inherit; color: inherit; }
   color: var(--color-primary);
   letter-spacing: -0.02em;
   text-transform: uppercase;
+  white-space: nowrap;
   animation-delay: 0.65s;
 }
 
@@ -1593,6 +1594,11 @@ input, select, textarea { font: inherit; color: inherit; }
   .hero__title-line--4 { font-size: 5.04rem; }
   .hero__title-line--5 { font-size: 4.88rem; }
 
+  .hero__apple--1 { width: 30vw; left: -8%;  top: 8%; }
+  .hero__apple--2 { width: 20vw; left: 10%;  bottom: -2%; }
+  .hero__apple--3 { width: 28vw; right: 8%;  bottom: -10%; }
+  .hero__apple--4 { width: 30vw; right: -8%; top: 8%; }
+
   .que-hace__inner { grid-template-columns: 1fr 1fr; gap: 60px; }
   .que-hace__title { font-size: var(--text-5xl); }
 
@@ -1631,10 +1637,10 @@ input, select, textarea { font: inherit; color: inherit; }
   .hero__title-line--4 { font-size: 5.78rem; }
   .hero__title-line--5 { font-size: 5.85rem; }
 
-  .hero__apple--1 { width: 380px; }
-  .hero__apple--2 { width: 240px; }
-  .hero__apple--3 { width: 300px; }
-  .hero__apple--4 { width: 380px; }
+  .hero__apple--1 { width: 280px; left: -8%;  top: 18%; }
+  .hero__apple--2 { width: 180px; left: 12%;  top: auto; bottom: -2%; }
+  .hero__apple--3 { width: 250px; right: 10%; bottom: -12%; }
+  .hero__apple--4 { width: 280px; right: -8%; top: 18%; }
 
   .que-hace__title { font-size: var(--text-6xl); }
 
@@ -1654,6 +1660,11 @@ input, select, textarea { font: inherit; color: inherit; }
    ============================================ */
 @media (min-width: 1280px) {
   .container { padding: 0 40px; }
+
+  .hero__apple--1 { width: 380px; left: -8%;  top: 15%; }
+  .hero__apple--2 { width: 240px; left: 18%;  top: 55%; bottom: auto; }
+  .hero__apple--3 { width: 300px; right: 15%; bottom: -15%; }
+  .hero__apple--4 { width: 380px; right: -8%; top: 15%; }
 
   .que-hace__badge-gestion { right: -40px; }
 }
