@@ -89,6 +89,15 @@
               <div class="que-hace__laptop-screen">
                 <iframe src="https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
               </div>
+              <!-- Badge sobre la laptop -->
+              <div class="que-hace__badge-dispositivo">
+                <span>Desde cualquier</span>
+                <strong>DISPOSITIVO</strong>
+              </div>
+              <div class="que-hace__badge-247">
+                <span>SOPORTE</span>
+                <strong>24/7</strong>
+              </div>
             </div>
           </div>
         </div>

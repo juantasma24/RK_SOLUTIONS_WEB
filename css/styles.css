@@ -835,22 +835,32 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 /* Badges superiores — 24/7 + Dispositivo */
-.que-hace__badges-top {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
-  margin-bottom: 16px;
-}
-
 .que-hace__badge-247,
 .que-hace__badge-dispositivo {
-  padding: 12px 20px;
+  position: absolute;
+  z-index: 10;
+  padding: 14px 24px;
   border-radius: var(--radius-lg);
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   text-align: center;
+}
+
+.que-hace__badge-247 {
+  bottom: 15%;
+  left: 2%;
+  top: auto;
+  line-height: 1.1;
+}
+
+.que-hace__badge-dispositivo {
+  top: 0;
+  right: 0;
+  transform: translateY(-50%) scale(0.85);
+  transform-origin: top right;
+  line-height: 1.1;
 }
 
 .que-hace__badge-247 span,
@@ -872,9 +882,10 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .que-hace__badge-dispositivo strong {
   display: block;
-  font-size: var(--text-base);
-  font-weight: 700;
-  color: var(--color-white);
+  font-size: var(--text-lg);
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
 }
 
 /* ============================================

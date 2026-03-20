@@ -355,4 +355,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
+  /* --- Video loop fallback --- */
+  const bgVideo = document.querySelector('.autonomos__video-bg video');
+  if (bgVideo) {
+    bgVideo.addEventListener('ended', () => {
+      bgVideo.currentTime = 0;
+      bgVideo.play();
+    });
+  }
+
 });
