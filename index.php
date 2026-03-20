@@ -6,10 +6,10 @@
   <meta name="description" content="RK Solutions — La Manzana: facturación, fichajes y cumplimiento normativo en una sola plataforma. Solicita tu demo gratis.">
   <title>La Manzana - RK Solutions</title>
 
-  <!-- Google Fonts: Poppins + Manrope -->
+  <!-- Google Fonts: Poppins + Manrope + DM Serif Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
@@ -22,625 +22,480 @@
        SECCIÓN 1: HERO
        ============================================ -->
   <section class="hero" id="inicio">
-    <!-- Gradient animado interactivo -->
-    <div class="hero__gradient">
-      <div class="hero__gradient-blob hero__gradient-blob--1"></div>
-      <div class="hero__gradient-blob hero__gradient-blob--2"></div>
-      <div class="hero__gradient-blob hero__gradient-blob--3"></div>
+    <!-- Manzanas 3D cayendo -->
+    <div class="hero__apples" id="heroApples">
+      <img src="assets/img/manzana-3d-1.png" alt="" class="hero__apple hero__apple--1" aria-hidden="true">
+      <img src="assets/img/manzana-3d-2.png" alt="" class="hero__apple hero__apple--2" aria-hidden="true">
+      <img src="assets/img/manzana-3d-3.png" alt="" class="hero__apple hero__apple--3" aria-hidden="true">
+      <img src="assets/img/manzana-3d-4.png" alt="" class="hero__apple hero__apple--4" aria-hidden="true">
+      <img src="assets/img/manzana-3d-5.png" alt="" class="hero__apple hero__apple--5" aria-hidden="true">
+    </div>
+
+    <div class="container hero__container">
+      <!-- Isotipo grande central -->
+      <div class="hero__isotipo">
+        <img src="assets/img/isotipo-manzana.svg" alt="La Manzana" class="hero__isotipo-img">
+      </div>
+
+      <!-- Título con tipografías mixtas -->
+      <h1 class="hero__title">
+        <span class="hero__title-line hero__title-line--1">La</span>
+        <span class="hero__title-line hero__title-line--2">MANZANA</span>
+        <span class="hero__title-line hero__title-line--3">el software</span>
+        <span class="hero__title-line hero__title-line--4">que entiende</span>
+        <span class="hero__title-line hero__title-line--5">tu negocio.</span>
+      </h1>
+
+      <!-- Botón Descubre más -->
+      <a href="#que-hace" class="hero__cta" id="heroCtaBtn">
+        <span>Descubre más</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN 2: ¿QUÉ HACE LA MANZANA POR TI?
+       ============================================ -->
+  <section class="que-hace section" id="que-hace">
+    <div class="container">
+      <div class="que-hace__inner">
+        <!-- Lado izquierdo: texto -->
+        <div class="que-hace__content">
+          <h2 class="que-hace__title anim-reveal">
+            <span>¿Qué hace</span>
+            <span>La Manzana</span>
+            <span class="highlight">por ti?</span>
+          </h2>
+
+          <ul class="que-hace__features anim-reveal">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Gestiona</strong> tus ventas</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Controla</strong> fichajes y horarios</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Cumple</strong> con TicketBAI (País Vasco) y VERI*FACTU (España)</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Lado derecho: laptop con video -->
+        <div class="que-hace__visual">
+          <div class="que-hace__laptop anim-slide-up">
+            <div class="que-hace__laptop-frame">
+              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img">
+              <div class="que-hace__laptop-screen">
+                <iframe src="https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+              </div>
+            </div>
+            <!-- Badge dispositivo -->
+            <div class="que-hace__badge glass-card">
+              <span>Desde cualquier</span>
+              <strong>DISPOSITIVO</strong>
+            </div>
+            <!-- Badge 24/7 -->
+            <div class="que-hace__badge-247 glass-card">
+              <strong>24/7</strong>
+            </div>
+            <!-- Badge gestión -->
+            <div class="que-hace__badge-gestion glass-card">
+              <strong>Gestiona<br>tu negocio</strong>
+              <span>Control de stock,<br>gastos y compras</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN 3: PARA AUTÓNOMOS, HOSTELERÍA Y COMERCIO
+       ============================================ -->
+  <section class="autonomos section" id="autonomos">
+    <div class="autonomos__video-bg">
+      <video autoplay muted loop playsinline>
+        <source src="assets/img/video-autonomos.mp4" type="video/mp4">
+      </video>
+      <div class="autonomos__overlay"></div>
     </div>
     <div class="container">
-      <div class="hero__inner">
-        <!-- Contenido -->
-        <div class="hero__content">
-          <div class="hero__badge reveal">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            Preparado para VERI*FACTU y TicketBAI
+      <h2 class="autonomos__title anim-reveal">
+        Para autónomos, hostelería<br>y comercio.
+      </h2>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN 4: ¿POR QUÉ ELEGIR LA MANZANA?
+       ============================================ -->
+  <section class="pilares section" id="la-manzana">
+    <!-- Manzanas 3D flotando -->
+    <div class="pilares__apples">
+      <img src="assets/img/manzana-3d-1.png" alt="" class="pilares__apple pilares__apple--1" aria-hidden="true">
+      <img src="assets/img/manzana-3d-3.png" alt="" class="pilares__apple pilares__apple--2" aria-hidden="true">
+      <img src="assets/img/manzana-3d-5.png" alt="" class="pilares__apple pilares__apple--3" aria-hidden="true">
+    </div>
+
+    <div class="container text-center">
+      <h2 class="section-title anim-reveal">¿Por qué elegir <span class="highlight">La Manzana</span>?</h2>
+
+      <div class="pilares__grid">
+        <div class="pilar-card anim-reveal">
+          <div class="pilar-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
           </div>
-
-          <h1 class="hero__title reveal delay-1">
-            <span class="highlight">La Manzana,</span><br>
-            el software<br>
-            que entiende<br>
-            tu negocio.
-          </h1>
-
-          <p class="hero__subtitle reveal delay-2">
-            Gestiona TicketBAI, TPV, facturación y fichajes en un solo lugar. Cumple la normativa y olvídate del papeleo.
-          </p>
-
-          <div class="hero__actions reveal delay-3">
-            <a href="#contacto" class="btn btn--primary btn--lg">Solicitar demo gratis</a>
-
-          </div>
-
-          <div class="hero__proof reveal delay-4">
-            <div class="hero__proof-avatars">
-              <span>A</span>
-              <span>M</span>
-              <span>R</span>
-              <span>J</span>
-              <span class="more">+</span>
-            </div>
-            <div class="hero__proof-text">
-              <strong>+500 empresas</strong> ya simplifican su gestión
-            </div>
-          </div>
+          <h3 class="pilar-card__title">Fácil de usar</h3>
         </div>
 
-        <!-- Visual -->
-        <div class="hero__visual reveal-right delay-2">
-          <div class="hero__mockup">
-            <iframe src="https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0" class="hero__mockup-video" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="eager"></iframe>
-
-            <!-- Floating cards (desktop) -->
-            <div class="hero__float-card hero__float-card--top">
-              <div class="stat-value">24h</div>
-              <div class="stat-label">Implantación</div>
-            </div>
-            <div class="hero__float-card hero__float-card--bottom">
-              <div class="stat-value">95%</div>
-              <div class="stat-label">Ahorro en tiempo</div>
-            </div>
+        <div class="pilar-card anim-reveal">
+          <div class="pilar-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
+          <h3 class="pilar-card__title">Soporte humano 24/7</h3>
+        </div>
+
+        <div class="pilar-card anim-reveal">
+          <div class="pilar-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3 class="pilar-card__title">Se adapta a tu negocio</h3>
+        </div>
+
+        <div class="pilar-card anim-reveal">
+          <div class="pilar-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="pilar-card__title">Cumple la normativa</h3>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================
-       SECCIÓN 2: BARRA DE CONFIANZA
+       SECCIÓN 5: CONTADORES
        ============================================ -->
-  <section class="trust-bar" id="confianza">
+  <section class="contadores section" id="contadores">
     <div class="container">
-      <p class="trust-bar__label reveal">Empresas que confían en La Manzana</p>
-
-      <div class="trust-bar__logos-wrapper reveal delay-1">
-        <div class="trust-bar__logos">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+1" alt="Cliente 1" class="trust-bar__logo-img">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+2" alt="Cliente 2" class="trust-bar__logo-img">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+3" alt="Cliente 3" class="trust-bar__logo-img">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+4" alt="Cliente 4" class="trust-bar__logo-img">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+5" alt="Cliente 5" class="trust-bar__logo-img">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+6" alt="Cliente 6" class="trust-bar__logo-img">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+7" alt="Cliente 7" class="trust-bar__logo-img">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+8" alt="Cliente 8" class="trust-bar__logo-img">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+9" alt="Cliente 9" class="trust-bar__logo-img">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+10" alt="Cliente 10" class="trust-bar__logo-img">
-          <!-- Duplicados para loop infinito -->
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+1" alt="Cliente 1" class="trust-bar__logo-img" aria-hidden="true">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+2" alt="Cliente 2" class="trust-bar__logo-img" aria-hidden="true">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+3" alt="Cliente 3" class="trust-bar__logo-img" aria-hidden="true">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+4" alt="Cliente 4" class="trust-bar__logo-img" aria-hidden="true">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+5" alt="Cliente 5" class="trust-bar__logo-img" aria-hidden="true">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+6" alt="Cliente 6" class="trust-bar__logo-img" aria-hidden="true">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+7" alt="Cliente 7" class="trust-bar__logo-img" aria-hidden="true">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+8" alt="Cliente 8" class="trust-bar__logo-img" aria-hidden="true">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+9" alt="Cliente 9" class="trust-bar__logo-img" aria-hidden="true">
-          <img src="https://placehold.co/160x60/f0f0f0/999999?text=Cliente+10" alt="Cliente 10" class="trust-bar__logo-img" aria-hidden="true">
+      <div class="contadores__grid">
+        <div class="contador-card glass-card anim-reveal">
+          <div class="contador-card__number">+<span class="counter-animated" data-target="3">0</span>K</div>
+          <div class="contador-card__label">Manzanas</div>
         </div>
-      </div>
-
-      <div class="trust-bar__stats">
-        <div class="trust-bar__stat reveal delay-1">
-          <div class="trust-bar__stat-number"><span class="counter-animated" data-target="500">0</span>+</div>
-          <div class="trust-bar__stat-label">Empresas activas</div>
+        <div class="contador-card glass-card anim-reveal">
+          <div class="contador-card__number">+<span class="counter-animated" data-target="11">0</span>K</div>
+          <div class="contador-card__label">Clientes</div>
         </div>
-        <div class="trust-bar__stat reveal delay-2">
-          <div class="trust-bar__stat-number"><span class="counter-animated" data-target="95">0</span>%</div>
-          <div class="trust-bar__stat-label">Ahorro en tiempo</div>
+        <div class="contador-card glass-card anim-reveal">
+          <div class="contador-card__number">+<span class="counter-animated" data-target="7">0</span></div>
+          <div class="contador-card__label">Oficinas</div>
         </div>
-        <div class="trust-bar__stat reveal delay-3">
-          <div class="trust-bar__stat-number"><span class="counter-animated" data-target="50">0</span>K+</div>
-          <div class="trust-bar__stat-label">Usuarios en la app</div>
-        </div>
-        <div class="trust-bar__stat reveal delay-4">
-          <div class="trust-bar__stat-number"><span class="counter-animated" data-target="100">0</span>%</div>
-          <div class="trust-bar__stat-label">Normativa cubierta</div>
+        <div class="contador-card glass-card anim-reveal">
+          <div class="contador-card__number">+<span class="counter-animated" data-target="20">0</span></div>
+          <div class="contador-card__label">Años</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================
-       SECCIÓN: CAMPAÑA / OFERTA ESPECIAL
+       SECCIÓN 6: TESTIMONIOS (Carrusel)
        ============================================ -->
-  <section class="campaign section" id="campana">
+  <section class="testimonios section" id="testimonios">
+    <div class="container text-center">
+      <div class="testimonios__carousel" id="testimoniosCarousel">
+        <div class="testimonios__track">
+          <!-- Testimonio 1 -->
+          <div class="testimonio-card glass-card">
+            <div class="testimonio-card__stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+            <div class="testimonio-card__author">
+              <div class="testimonio-card__avatar">
+                <img src="assets/img/isotipo-manzana.svg" alt="Eukeni Sánchez">
+              </div>
+              <div>
+                <div class="testimonio-card__name">Eukeni Sánchez</div>
+                <div class="testimonio-card__role">Dueña de 150 Comercios</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonio 2 -->
+          <div class="testimonio-card glass-card">
+            <div class="testimonio-card__stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <div class="testimonio-card__author">
+              <div class="testimonio-card__avatar">
+                <img src="assets/img/isotipo-manzana.svg" alt="Pilar Mosar">
+              </div>
+              <div>
+                <div class="testimonio-card__name">Pilar Mosar</div>
+                <div class="testimonio-card__role">Dueña de 80 Comercios</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonio 3 -->
+          <div class="testimonio-card glass-card">
+            <div class="testimonio-card__stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <div class="testimonio-card__author">
+              <div class="testimonio-card__avatar">
+                <img src="assets/img/isotipo-manzana.svg" alt="Beatriz Cabrera">
+              </div>
+              <div>
+                <div class="testimonio-card__name">Beatriz Cabrera</div>
+                <div class="testimonio-card__role">Dueña de 120 Comercios</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicadores -->
+        <div class="testimonios__dots" id="testimoniosDots">
+          <button class="testimonios__dot active" data-index="0" aria-label="Testimonio 1"></button>
+          <button class="testimonios__dot" data-index="1" aria-label="Testimonio 2"></button>
+          <button class="testimonios__dot" data-index="2" aria-label="Testimonio 3"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN 7: PLANES
+       ============================================ -->
+  <section class="planes section" id="planes">
+    <div class="container text-center">
+      <h2 class="section-title anim-reveal">Elige el plan<br><span class="highlight">que se adapte<br>a tu negocio</span></h2>
+
+      <div class="planes__grid">
+        <!-- Plan Premium -->
+        <div class="plan-card glass-card anim-reveal">
+          <h3 class="plan-card__name">Premium</h3>
+          <ul class="plan-card__features">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              TPV
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Fichero de clientes
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Creación y emisión de facturas
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Economato: gastos, presupuestos...
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Personalización de pantallas
+            </li>
+          </ul>
+          <a href="#contacto" class="btn btn--primary">Quiero este plan</a>
+        </div>
+
+        <!-- Plan Standard -->
+        <div class="plan-card glass-card anim-reveal">
+          <h3 class="plan-card__name">Standard</h3>
+          <ul class="plan-card__features">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Fichero de clientes
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Creación y emisión de facturas
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Economato: gastos, presupuestos, empleados, etc.
+            </li>
+          </ul>
+          <a href="#contacto" class="btn btn--outline">Quiero este plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN 8: CTA INTERMEDIO
+       ============================================ -->
+  <section class="cta-mid section" id="cta-mid">
+    <div class="container text-center">
+      <h2 class="cta-mid__title anim-reveal">
+        Prepárate hoy. <span class="highlight"><em>Gana tranquilidad mañana.</em></span>
+      </h2>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECCIÓN 9: CONTACTO (Trabaja con La Manzana)
+       =============== ============================= -->
+  <section class="contacto section" id="contacto">
     <div class="container">
-      <div class="campaign__inner reveal">
-        <div class="campaign__content">
-          <span class="campaign__badge">Oferta limitada</span>
-          <h2 class="campaign__title">Cambia a La Manzana y recibe <span class="highlight">2 años sin renovación</span></h2>
-          <p class="campaign__text">Es momento de cambiar. Disfruta de todos los beneficios de La Manzana y empieza a mejorar tu negocio desde hoy. Oferta disponible por tiempo limitado.</p>
-          <div class="campaign__actions">
-            <a href="#contacto" class="btn btn--primary btn--lg">Aprovecha la oferta</a>
-          </div>
+      <div class="contacto__inner">
+        <!-- Lado izquierdo -->
+        <div class="contacto__info anim-reveal">
+          <h2 class="contacto__title">Trabaja con<br><span class="highlight">La Manzana</span>,<br>sin costes<br>por 12 meses</h2>
+          <p class="contacto__subtitle">INCLUYE:</p>
+          <ul class="contacto__list">
+            <li>Software La Manzana</li>
+            <li>Soporte técnico 24/7</li>
+            <li>Acompañamiento y formación</li>
+            <li>Fichaje horario integrado</li>
+          </ul>
         </div>
-        <div class="campaign__visual reveal-right delay-2">
-          <img src="https://placehold.co/600x400/5ea84a/ffffff?text=Campa%C3%B1a%0AOferta+Especial" alt="Campaña oferta especial La Manzana" class="campaign__img" loading="lazy">
+
+        <!-- Lado derecho: formulario -->
+        <div class="contacto__form-wrapper anim-slide-up">
+          <form class="contacto__form glass-card" id="contactForm" action="#" method="POST">
+            <p class="contacto__form-intro">Déjanos tus datos y te contamos cómo empezar con La Manzana <strong>sin costes el primer año.</strong></p>
+
+            <div class="contacto__form-group">
+              <input type="text" name="name" class="contacto__input" placeholder="Nombre y apellido" required>
+            </div>
+
+            <div class="contacto__form-row">
+              <div class="contacto__form-group">
+                <input type="email" name="email" class="contacto__input" placeholder="Correo electrónico" required>
+              </div>
+              <div class="contacto__form-group">
+                <input type="tel" name="phone" class="contacto__input" placeholder="Móvil">
+              </div>
+            </div>
+
+            <div class="contacto__form-group">
+              <select name="comunidad" class="contacto__input contacto__select" required>
+                <option value="" disabled selected>Comunidad autónoma</option>
+                <option value="andalucia">Andalucía</option>
+                <option value="aragon">Aragón</option>
+                <option value="asturias">Asturias</option>
+                <option value="baleares">Islas Baleares</option>
+                <option value="canarias">Canarias</option>
+                <option value="cantabria">Cantabria</option>
+                <option value="castilla-leon">Castilla y León</option>
+                <option value="castilla-mancha">Castilla-La Mancha</option>
+                <option value="cataluna">Cataluña</option>
+                <option value="ceuta">Ceuta</option>
+                <option value="extremadura">Extremadura</option>
+                <option value="galicia">Galicia</option>
+                <option value="madrid">Madrid</option>
+                <option value="melilla">Melilla</option>
+                <option value="murcia">Murcia</option>
+                <option value="navarra">Navarra</option>
+                <option value="pais-vasco">País Vasco</option>
+                <option value="rioja">La Rioja</option>
+                <option value="valencia">Comunidad Valenciana</option>
+              </select>
+            </div>
+
+            <div class="contacto__form-group contacto__form-check">
+              <input type="checkbox" id="privacy" name="privacy" required>
+              <label for="privacy">He Leído y Acepto la <a href="#">Política de Privacidad</a>.</label>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg contacto__submit">Quiero saber más</button>
+          </form>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================
-       SECCIÓN 3: 4 PILARES DE VALOR
-       ============================================ -->
-  <section class="pillars section section--gray" id="la-manzana">
-    <div class="container text-center">
-      <span class="section-label reveal">¿Por qué La Manzana?</span>
-      <h2 class="section-title reveal delay-1">Todo lo que necesitas.<br>Nada que sobre.</h2>
-      <p class="section-subtitle reveal delay-2">Diseñado para autónomos, pymes y comercios que necesitan soluciones claras y soporte humano.</p>
-
-      <div class="pillars__grid">
-        <!-- Pilar 1 -->
-        <div class="pillar-card reveal delay-1">
-          <div class="pillar-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-          </div>
-          <h3 class="pillar-card__title">Fácil de usar</h3>
-          <p class="pillar-card__text">Sin formación. Si sabes enviar un correo, sabes usar La Manzana. Tus empleados la aprenden en minutos.</p>
-        </div>
-
-        <!-- Pilar 2 -->
-        <div class="pillar-card reveal delay-2">
-          <div class="pillar-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h3 class="pillar-card__title">Cumplimiento garantizado</h3>
-          <p class="pillar-card__text">Normativa laboral, fiscal y TicketBAI/VERI*FACTU siempre actualizada. Sin complicaciones técnicas.</p>
-        </div>
-
-        <!-- Pilar 3 -->
-        <div class="pillar-card reveal delay-3">
-          <div class="pillar-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <h3 class="pillar-card__title">Soporte cercano</h3>
-          <p class="pillar-card__text">Equipo español que entiende tu negocio. Disponible por WhatsApp, email o llamada cuando lo necesites.</p>
-        </div>
-
-        <!-- Pilar 4 -->
-        <div class="pillar-card reveal delay-4">
-          <div class="pillar-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-          </div>
-          <h3 class="pillar-card__title">Plataforma unificada</h3>
-          <p class="pillar-card__text">Facturación, fichajes, reportes y gestión de clientes en un solo lugar. Sin saltar entre herramientas.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       SECCIÓN 4: CÓMO FUNCIONA (3 PASOS)
-       ============================================ -->
-  <section class="how-it-works section" id="como-funciona">
-    <div class="container text-center">
-      <span class="section-label reveal">Así de simple</span>
-      <h2 class="section-title reveal delay-1">Tres pasos para simplificar<br>tu gestión</h2>
-      <p class="section-subtitle reveal delay-2">De la configuración al cumplimiento automático. Sin curvas de aprendizaje.</p>
-
-      <div class="how-it-works__grid">
-        <!-- Paso 1 -->
-        <div class="step-card reveal delay-1">
-          <div class="step-card__number">1</div>
-          <div class="step-card__visual">
-            <img src="https://placehold.co/400x250/e8f5e3/4a8c3a?text=Paso+1%0AConfiguraci%C3%B3n" alt="Configuración La Manzana" class="step-card__img" loading="lazy">
-          </div>
-          <h3 class="step-card__title">Configura en 5 minutos</h3>
-          <p class="step-card__text">Datos de empresa, empleados y clientes. La Manzana sugiere valores por defecto para que arranques rápido.</p>
-        </div>
-
-        <!-- Paso 2 -->
-        <div class="step-card reveal delay-2">
-          <div class="step-card__number">2</div>
-          <div class="step-card__visual">
-            <img src="https://placehold.co/400x250/e8f5e3/4a8c3a?text=Paso+2%0AUso+Diario" alt="Uso diario La Manzana" class="step-card__img" loading="lazy">
-          </div>
-          <h3 class="step-card__title">Tu equipo factura y ficha</h3>
-          <p class="step-card__text">Desde web o móvil. Tan simple como hacer clic. Los datos se sincronizan automáticamente en tiempo real.</p>
-        </div>
-
-        <!-- Paso 3 -->
-        <div class="step-card reveal delay-3">
-          <div class="step-card__number">3</div>
-          <div class="step-card__visual">
-            <img src="https://placehold.co/400x250/e8f5e3/4a8c3a?text=Paso+3%0ACumplimiento" alt="Cumplimiento automático" class="step-card__img" loading="lazy">
-          </div>
-          <h3 class="step-card__title">Cumplimiento automático</h3>
-          <p class="step-card__text">Impuestos, nóminas y reportes generados. Exporta lo que necesites o lo integramos con tu asesor.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       SECCIÓN 5: MÓDULOS DE LA MANZANA
-       ============================================ -->
-  <section class="modules section section--dark" id="soluciones">
-    <div class="container text-center">
-      <span class="section-label reveal">Módulos</span>
-      <h2 class="section-title reveal delay-1">Todo integrado.<br>Nada que sobre.</h2>
-      <p class="section-subtitle reveal delay-2 modules__subtitle">Cada módulo resuelve una necesidad real. Activa solo lo que necesitas.</p>
-
-      <div class="modules__grid">
-        <!-- Facturación -->
-        <div class="module-card reveal delay-1">
-          <div class="module-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          </div>
-          <h3 class="module-card__title">Facturación</h3>
-          <p class="module-card__text">Emite facturas en segundos. Automáticas, fiscales, con vencimientos recordados. Compatible con TicketBAI y VERI*FACTU.</p>
-        </div>
-
-        <!-- Fichajes -->
-        <div class="module-card reveal delay-2">
-          <div class="module-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3 class="module-card__title">Fichajes de Horario</h3>
-          <p class="module-card__text">Entrada y salida instantánea desde la app. Reportes de horas, ausencias y nóminas automáticas.</p>
-        </div>
-
-        <!-- Clientes -->
-        <div class="module-card reveal delay-3">
-          <div class="module-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <h3 class="module-card__title">Gestión de Clientes</h3>
-          <p class="module-card__text">Histórico de operaciones, contactos y documentos. Todo centralizado en fichas claras.</p>
-        </div>
-
-        <!-- Reportes -->
-        <div class="module-card reveal delay-4">
-          <div class="module-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          </div>
-          <h3 class="module-card__title">Reportes</h3>
-          <p class="module-card__text">Datos reales en tiempo real. Rentabilidad, impagados, productividad... como los necesites.</p>
-        </div>
-
-        <!-- App Móvil -->
-        <div class="module-card reveal delay-5">
-          <div class="module-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-          </div>
-          <h3 class="module-card__title">App Móvil</h3>
-          <p class="module-card__text">Tus empleados fichan, consultan nóminas y descargan documentos desde cualquier lugar, en cualquier momento.</p>
-        </div>
-
-        <!-- TPV / Punto de Venta -->
-        <div class="module-card reveal delay-5">
-          <div class="module-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
-          <h3 class="module-card__title">TPV / Punto de Venta</h3>
-          <p class="module-card__text">Cobra, gestiona tickets y controla tu caja desde cualquier dispositivo. Integrado con facturación y TicketBAI.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       SECCIÓN 7: TESTIMONIOS / CASOS
-       ============================================ -->
-  <section class="testimonials section" id="casos">
-    <div class="container text-center">
-      <span class="section-label reveal">Casos de éxito</span>
-      <h2 class="section-title reveal delay-1">Así transforman su gestión</h2>
-      <p class="section-subtitle reveal delay-2">Colaborar con nuestros clientes va más allá de cumplir objetivos: se trata de crear relaciones y resultados que perduran.</p>
-
-      <div class="testimonials__grid">
-        <!-- Testimonio 1 -->
-        <div class="testimonial-card reveal delay-1">
-          <div class="testimonial-card__stars">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="testimonial-card__quote">Pasamos de 8 horas semanales de gestión administrativa a 30 minutos. La facturación automática nos cambió la vida.</p>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar">
-              <img src="https://placehold.co/96x96/e8f5e3/4a8c3a?text=MG" alt="María García" class="testimonial-card__avatar-img" loading="lazy">
-            </div>
-            <div>
-              <div class="testimonial-card__name">María García</div>
-              <div class="testimonial-card__role">Responsable Administrativa — Sector Retail</div>
-            </div>
-          </div>
-          <div class="testimonial-card__result">
-            <span class="testimonial-card__result-text">↓ 95% menos tiempo en administración</span>
-          </div>
-        </div>
-
-        <!-- Testimonio 2 -->
-        <div class="testimonial-card reveal delay-2">
-          <div class="testimonial-card__stars">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="testimonial-card__quote">Los fichajes automáticos desde la app eliminaron discrepancias con el equipo. El soporte es excelente, siempre responden rápido.</p>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar">
-              <img src="https://placehold.co/96x96/e8f5e3/4a8c3a?text=CR" alt="Carlos Ruiz" class="testimonial-card__avatar-img" loading="lazy">
-            </div>
-            <div>
-              <div class="testimonial-card__name">Carlos Ruiz</div>
-              <div class="testimonial-card__role">Director — Sector Construcción</div>
-            </div>
-          </div>
-          <div class="testimonial-card__result">
-            <span class="testimonial-card__result-text">✓ Cero incidencias en fichajes</span>
-          </div>
-        </div>
-
-        <!-- Testimonio 3 -->
-        <div class="testimonial-card reveal delay-3">
-          <div class="testimonial-card__stars">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="testimonial-card__quote">Con VERI*FACTU encima, necesitábamos una solución rápida. La Manzana lo resolvió en 24 horas. Increíble.</p>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar">
-              <img src="https://placehold.co/96x96/e8f5e3/4a8c3a?text=AL" alt="Ana López" class="testimonial-card__avatar-img" loading="lazy">
-            </div>
-            <div>
-              <div class="testimonial-card__name">Ana López</div>
-              <div class="testimonial-card__role">Autónoma — Sector Servicios</div>
-            </div>
-          </div>
-          <div class="testimonial-card__result">
-            <span class="testimonial-card__result-text">⚡ Implantación en 24 horas</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       SECCIÓN 8: FAQ
+       SECCIÓN 10: FAQ
        ============================================ -->
   <section class="faq section" id="faq">
-    <div class="container text-center">
-      <span class="section-label reveal">Preguntas frecuentes</span>
-      <h2 class="section-title reveal delay-1">¿Tienes dudas?<br>Nosotros, respuestas.</h2>
+    <div class="container">
+      <div class="faq__header text-center anim-reveal">
+        <div class="faq__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h2 class="section-title">Resolvemos tus dudas<br>antes de empezar.</h2>
+      </div>
 
       <div class="faq__grid">
-        <!-- FAQ 1 -->
-        <div class="faq-item reveal delay-1">
+        <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Cuánto tarda la implantación?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </div>
+            <span>¿Qué es La Manzana y para qué sirve?</span>
+            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">
-              Entre 2 y 3 horas. Nuestro equipo configura tu empresa, forma a los responsables y listo. En un día estáis operativos.
-            </div>
+            <div class="faq-item__answer-inner">La Manzana es un software de gestión integral que unifica facturación, fichajes, TPV y cumplimiento normativo (TicketBAI y VERI*FACTU) en una sola plataforma. Diseñado para autónomos, hostelería y comercio.</div>
           </div>
         </div>
 
-        <!-- FAQ 2 -->
-        <div class="faq-item reveal delay-2">
+        <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Tenéis soporte en español?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </div>
+            <span>¿Tengo un comercio, es para mí?</span>
+            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">
-              Sí, desde España. WhatsApp, email o llamada. Horario laboral completo y urgencias disponibles fuera de horario.
-            </div>
+            <div class="faq-item__answer-inner">Sí. La Manzana se adapta a cualquier tipo de comercio: retail, hostelería, servicios profesionales y más. Si necesitas gestionar ventas, fichajes o cumplir la normativa fiscal, es para ti.</div>
           </div>
         </div>
 
-        <!-- FAQ 3 -->
-        <div class="faq-item reveal delay-3">
+        <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Se adapta a mi sector o normativa especial?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </div>
+            <span>¿Puedo usar La Manzana desde cualquier dispositivo?</span>
+            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">
-              La Manzana es flexible. Si no encaja al 100%, ajustamos. Ya lo hacemos para construcción, retail, hostelería, servicios profesionales y más.
-            </div>
+            <div class="faq-item__answer-inner">Sí. Funciona desde ordenador, tablet y móvil. Accede a todos tus datos en tiempo real desde cualquier lugar con conexión a internet.</div>
           </div>
         </div>
 
-        <!-- FAQ 4 -->
-        <div class="faq-item reveal delay-4">
+        <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Mis datos están seguros?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </div>
+            <span>¿Cumple con TicketBAI y VERI*FACTU?</span>
+            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">
-              Servidores en Europa, cifrado de datos, backups diarios y cumplimiento RGPD completo. Tus datos son tuyos y puedes exportarlos en cualquier momento.
-            </div>
+            <div class="faq-item__answer-inner">Sí, al 100%. La Manzana está homologada y actualizada para cumplir con TicketBAI (País Vasco) y VERI*FACTU (resto de España). Nos encargamos de las actualizaciones normativas.</div>
           </div>
         </div>
 
-        <!-- FAQ 5 -->
-        <div class="faq-item reveal delay-5">
+        <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Qué incluye la demo gratuita?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </div>
+            <span>¿Es fácil de usar para alguien que no es técnico?</span>
+            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">
-              15 minutos personalizados con tu caso específico. Te mostramos cómo La Manzana resuelve tus necesidades concretas. Sin compromiso.
-            </div>
+            <div class="faq-item__answer-inner">Totalmente. Si sabes enviar un correo electrónico, sabes usar La Manzana. Además, incluimos formación completa y soporte humano 24/7 para cualquier duda.</div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ============================================
-       SECCIÓN: PLANES Y PRECIOS
-       ============================================ -->
-  <section class="pricing section" id="precios">
-    <div class="container text-center">
-      <span class="section-label reveal">Planes</span>
-      <h2 class="section-title reveal delay-1">Elige el plan que mejor<br>se adapta a ti</h2>
-      <p class="section-subtitle reveal delay-2">Sin letra pequeña. Sin sorpresas. Todos los planes incluyen soporte humano real.</p>
-
-      <div class="pricing__grid">
-        <!-- Plan Básico -->
-        <div class="pricing-card reveal delay-1">
-          <div class="pricing-card__header">
-            <h3 class="pricing-card__name">Básico</h3>
-            <p class="pricing-card__desc">Para autónomos y pequeños comercios</p>
+        <div class="faq-item anim-reveal">
+          <button class="faq-item__question" aria-expanded="false">
+            <span>¿Puedo probar La Manzana antes de contratarla?</span>
+            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </button>
+          <div class="faq-item__answer">
+            <div class="faq-item__answer-inner">Sí. Ofrecemos 12 meses sin costes para que pruebes todas las funcionalidades sin compromiso. Déjanos tus datos y te contactamos para empezar.</div>
           </div>
-          <div class="pricing-card__price">
-            <span class="pricing-card__amount">29</span>
-            <span class="pricing-card__currency">€/mes</span>
-          </div>
-          <ul class="pricing-card__features">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Facturación básica
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Fichajes (hasta 5 empleados)
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              App móvil
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Soporte por email
-            </li>
-          </ul>
-          <a href="#contacto" class="btn btn--secondary">Solicitar demo</a>
-        </div>
-
-        <!-- Plan Profesional -->
-        <div class="pricing-card pricing-card--featured reveal delay-2">
-          <div class="pricing-card__badge">Más popular</div>
-          <div class="pricing-card__header">
-            <h3 class="pricing-card__name">Profesional</h3>
-            <p class="pricing-card__desc">Para pymes en crecimiento</p>
-          </div>
-          <div class="pricing-card__price">
-            <span class="pricing-card__amount">59</span>
-            <span class="pricing-card__currency">€/mes</span>
-          </div>
-          <ul class="pricing-card__features">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Todo del plan Básico
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Empleados ilimitados
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              TicketBAI + VERI*FACTU
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Reportes avanzados
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Soporte prioritario
-            </li>
-          </ul>
-          <a href="#contacto" class="btn btn--primary">Solicitar demo</a>
-        </div>
-
-        <!-- Plan Empresa -->
-        <div class="pricing-card reveal delay-3">
-          <div class="pricing-card__header">
-            <h3 class="pricing-card__name">Empresa</h3>
-            <p class="pricing-card__desc">Para empresas con necesidades avanzadas</p>
-          </div>
-          <div class="pricing-card__price">
-            <span class="pricing-card__amount pricing-card__amount--text">A medida</span>
-          </div>
-          <ul class="pricing-card__features">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Todo del plan Profesional
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Integraciones personalizadas
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Multi-sede / Multi-empresa
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Account manager dedicado
-            </li>
-          </ul>
-          <a href="#contacto" class="btn btn--secondary">Contactar</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       SECCIÓN 9: CTA FINAL DE CIERRE
-       ============================================ -->
-  <section class="cta-final" id="cta-final">
-    <div class="container">
-      <div class="cta-final__inner">
-        <div class="cta-final__content reveal">
-          <h2 class="cta-final__title">
-            ¿Listo para dejar de<br>
-            <span class="highlight">perder tiempo?</span>
-          </h2>
-          <p class="cta-final__subtitle">
-            Solicita una demo gratuita, sin compromiso. En 15 minutos te mostramos cómo La Manzana resuelve tu caso específico.
-          </p>
-          <p class="cta-final__note">Sin tarjeta de crédito · Sin compromiso · Configuración en 5 minutos</p>
-        </div>
-        <div class="cta-final__form reveal-right delay-2" id="contacto-form">
-          <form class="contact-form" id="contactForm" action="#" method="POST">
-            <h3 class="contact-form__title">Solicita tu demo gratis</h3>
-            <div class="contact-form__group">
-              <label for="contact-name" class="contact-form__label">Nombre</label>
-              <input type="text" id="contact-name" name="name" class="contact-form__input" placeholder="Tu nombre" required>
-            </div>
-            <div class="contact-form__group">
-              <label for="contact-email" class="contact-form__label">Email</label>
-              <input type="email" id="contact-email" name="email" class="contact-form__input" placeholder="tu@empresa.com" required>
-            </div>
-            <div class="contact-form__group">
-              <label for="contact-phone" class="contact-form__label">Teléfono</label>
-              <input type="tel" id="contact-phone" name="phone" class="contact-form__input" placeholder="+34 600 000 000">
-            </div>
-            <div class="contact-form__group">
-              <label for="contact-message" class="contact-form__label">Mensaje</label>
-              <textarea id="contact-message" name="message" class="contact-form__input contact-form__textarea" placeholder="Cuéntanos tu caso..." rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn--primary btn--lg contact-form__submit">Enviar solicitud</button>
-            <p class="contact-form__privacy">Al enviar, aceptas nuestra <a href="#">política de privacidad</a>.</p>
-          </form>
         </div>
       </div>
     </div>
