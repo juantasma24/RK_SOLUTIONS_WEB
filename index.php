@@ -9,7 +9,7 @@
   <!-- Google Fonts: Poppins + Manrope + DM Serif Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,600;0,700;0,800;1,300;1,800&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
@@ -34,7 +34,7 @@
       <!-- Título con tipografías mixtas -->
       <h1 class="hero__title">
         <span class="hero__title-line hero__title-line--1">La</span>
-        <span class="hero__title-line hero__title-line--2">MANZANA</span>
+        <span class="hero__title-line hero__title-line--2">MANZANA,</span>
         <span class="hero__title-line hero__title-line--3">el software</span>
         <span class="hero__title-line hero__title-line--4">que entiende</span>
         <span class="hero__title-line hero__title-line--5">tu negocio.</span>
@@ -51,6 +51,10 @@
        SECCIÓN 2: ¿QUÉ HACE LA MANZANA POR TI?
        ============================================ -->
   <section class="que-hace section" id="que-hace">
+    <!-- Manzanas decorativas outline -->
+    <img src="assets/img/isotipo-manzana-outline.svg" alt="" class="que-hace__deco que-hace__deco--left" aria-hidden="true">
+    <img src="assets/img/isotipo-manzana-outline.svg" alt="" class="que-hace__deco que-hace__deco--right" aria-hidden="true">
+
     <div class="container">
       <div class="que-hace__inner">
         <!-- Lado izquierdo: texto -->
@@ -63,15 +67,15 @@
 
           <ul class="que-hace__features anim-reveal">
             <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓"></span>
               <span><strong>Gestiona</strong> tus ventas</span>
             </li>
             <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓"></span>
               <span><strong>Controla</strong> fichajes y horarios</span>
             </li>
             <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓"></span>
               <span><strong>Cumple</strong> con TicketBAI (País Vasco) y VERI*FACTU (España)</span>
             </li>
           </ul>
@@ -85,20 +89,6 @@
               <div class="que-hace__laptop-screen">
                 <iframe src="https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
               </div>
-            </div>
-            <!-- Badge dispositivo -->
-            <div class="que-hace__badge glass-card">
-              <span>Desde cualquier</span>
-              <strong>DISPOSITIVO</strong>
-            </div>
-            <!-- Badge 24/7 -->
-            <div class="que-hace__badge-247 glass-card">
-              <strong>24/7</strong>
-            </div>
-            <!-- Badge gestión -->
-            <div class="que-hace__badge-gestion glass-card">
-              <strong>Gestiona<br>tu negocio</strong>
-              <span>Control de stock,<br>gastos y compras</span>
             </div>
           </div>
         </div>

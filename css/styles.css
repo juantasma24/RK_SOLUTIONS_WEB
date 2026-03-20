@@ -682,6 +682,28 @@ input, select, textarea { font: inherit; color: inherit; }
 .que-hace {
   background: var(--color-primary);
   overflow: hidden;
+  position: relative;
+  scroll-margin-top: var(--header-height);
+}
+
+/* Manzanas outline decorativas */
+.que-hace__deco {
+  position: absolute;
+  width: 350px;
+  opacity: 0.18;
+  z-index: 0;
+  pointer-events: none;
+  filter: brightness(0) invert(1);
+}
+.que-hace__deco--left {
+  left: -100px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-15deg);
+}
+.que-hace__deco--right {
+  right: -100px;
+  bottom: -60px;
+  transform: rotate(20deg);
 }
 
 .que-hace__inner {
@@ -695,7 +717,7 @@ input, select, textarea { font: inherit; color: inherit; }
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: var(--text-4xl);
-  line-height: 1.15;
+  line-height: 1.05;
   color: var(--color-white-pure);
 }
 
@@ -704,7 +726,21 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 .que-hace__title .highlight {
-  color: var(--color-black);
+  color: var(--color-white-pure);
+  font-weight: 800;
+  font-style: italic;
+}
+
+/* Checkmark icons */
+.que-hace__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+}
+.que-hace__check img {
+  width: 20px;
+  height: 20px;
 }
 
 .que-hace__features {
@@ -716,7 +752,7 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .que-hace__features li {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
   font-size: var(--text-base);
   color: var(--color-white-pure);
@@ -724,13 +760,14 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .que-hace__features svg {
   flex-shrink: 0;
-  margin-top: 3px;
-  color: var(--color-black);
 }
 
 /* Laptop */
 .que-hace__visual {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .que-hace__laptop {
@@ -739,6 +776,8 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .que-hace__laptop-frame {
   position: relative;
+  transform: scale(1.3);
+  transform-origin: center center;
 }
 
 .que-hace__laptop-img {
@@ -749,10 +788,10 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .que-hace__laptop-screen {
   position: absolute;
-  top: 6%;
-  left: 12%;
-  width: 76%;
-  height: 70%;
+  top: 1.5%;
+  left: 10%;
+  width: 80%;
+  height: 90%;
   overflow: hidden;
   border-radius: 4px;
   z-index: 1;
@@ -764,70 +803,78 @@ input, select, textarea { font: inherit; color: inherit; }
   border: none;
 }
 
-/* Badges glassmorphism */
-.que-hace__badge {
+/* Badge gestión — junto al laptop */
+.que-hace__badge-gestion {
   position: absolute;
-  top: 10px;
-  right: -10px;
-  padding: 12px 16px;
-  font-size: var(--text-sm);
+  top: 25%;
+  right: -20px;
+  padding: 20px 24px;
   z-index: 3;
-  text-align: center;
   border-radius: var(--radius-lg);
+  max-width: 240px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.que-hace__badge span {
+.que-hace__badge-gestion strong {
+  display: block;
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.que-hace__badge-gestion span {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-white);
+  line-height: 1.5;
+}
+
+/* Badges superiores — 24/7 + Dispositivo */
+.que-hace__badges-top {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.que-hace__badge-247,
+.que-hace__badge-dispositivo {
+  padding: 12px 20px;
+  border-radius: var(--radius-lg);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+}
+
+.que-hace__badge-247 span,
+.que-hace__badge-dispositivo span {
   display: block;
   font-size: var(--text-xs);
   color: var(--color-white);
   opacity: 0.8;
-}
-
-.que-hace__badge strong {
-  display: block;
-  font-size: var(--text-base);
-  font-weight: 700;
-  color: var(--color-white);
-}
-
-.que-hace__badge-247 {
-  position: absolute;
-  bottom: 30%;
-  left: -10px;
-  padding: 16px 20px;
-  z-index: 3;
-  border-radius: var(--radius-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .que-hace__badge-247 strong {
+  display: block;
   font-size: var(--text-2xl);
   font-weight: 800;
   color: var(--color-primary);
 }
 
-.que-hace__badge-gestion {
-  position: absolute;
-  top: 20%;
-  right: -20px;
-  padding: 16px 20px;
-  z-index: 3;
-  border-radius: var(--radius-lg);
-  max-width: 180px;
-}
-
-.que-hace__badge-gestion strong {
+.que-hace__badge-dispositivo strong {
   display: block;
   font-size: var(--text-base);
   font-weight: 700;
   color: var(--color-white);
-  margin-bottom: 4px;
-}
-
-.que-hace__badge-gestion span {
-  display: block;
-  font-size: var(--text-xs);
-  color: var(--color-gray-400);
-  line-height: 1.4;
 }
 
 /* ============================================
