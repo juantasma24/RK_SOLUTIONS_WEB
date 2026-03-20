@@ -131,28 +131,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const appleRotations = [15, -10, 15, -15]; // matching CSS: apple 1-4
 
   if (heroApples.length && heroApplesContainer) {
-    heroApplesContainer.style.overflow = 'visible';
-
     let maxEndTime = 0;
 
+    // 1. Position ALL apples off-screen while still invisible (CSS opacity:0)
     heroApples.forEach((apple, i) => {
       const baseRotation = appleRotations[i] || 0;
-
-      // Position off-screen above with correct rotation
       apple.style.transform = `translateY(-120vh) rotate(${baseRotation}deg)`;
-      apple.style.opacity = '1';
+    });
 
+    // 2. Force reflow so transforms are committed before revealing
+    heroApplesContainer.offsetHeight;
+
+    // 3. Now make visible and set overflow
+    heroApplesContainer.style.overflow = 'visible';
+    heroApples.forEach(apple => { apple.style.opacity = '1'; });
+
+    // 4. Start the fall animation
+    heroApples.forEach((apple, i) => {
+      const baseRotation = appleRotations[i] || 0;
       const delay = 100 + i * 200;
       const duration = 1400 + i * 150;
       const endTime = delay + duration;
       if (endTime > maxEndTime) maxEndTime = endTime;
 
       setTimeout(() => {
-        // Fall down to resting position
-        apple.style.transition = `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease`;
+        apple.style.transition = `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
         apple.style.transform = `translateY(0) rotate(${baseRotation}deg)`;
 
-        // Start float after fall completes
         setTimeout(() => {
           apple.style.transition = 'none';
           appleFloat(apple, baseRotation);
@@ -160,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, delay);
     });
 
-    // Clip overflow after all apples have landed + buffer
+    // Clip overflow after all apples have landed
     setTimeout(() => {
       heroApplesContainer.style.overflow = 'hidden';
     }, maxEndTime + 200);
@@ -324,22 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
       contactForm.reset();
     });
   }
-
-  /* --- Parallax apples on scroll (subtle) --- */
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        document.querySelectorAll('.pilares__apple').forEach((apple, i) => {
-          const speed = 0.02 + i * 0.01;
-          apple.style.transform = `translateY(${scrollY * speed}px)`;
-        });
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
 
   /* --- Video loop fallback --- */
   const bgVideo = document.querySelector('.autonomos__video-bg video');
