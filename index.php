@@ -173,22 +173,24 @@
        ============================================ -->
   <section class="contadores section" id="contadores">
     <div class="container">
-      <div class="contadores__grid">
-        <div class="contador-card glass-card anim-reveal">
-          <div class="contador-card__number">+<span class="counter-animated" data-target="3">0</span>K</div>
-          <div class="contador-card__label">Manzanas</div>
-        </div>
-        <div class="contador-card glass-card anim-reveal">
-          <div class="contador-card__number">+<span class="counter-animated" data-target="11">0</span>K</div>
-          <div class="contador-card__label">Clientes</div>
-        </div>
-        <div class="contador-card glass-card anim-reveal">
-          <div class="contador-card__number">+<span class="counter-animated" data-target="7">0</span></div>
-          <div class="contador-card__label">Oficinas</div>
-        </div>
-        <div class="contador-card glass-card anim-reveal">
-          <div class="contador-card__number">+<span class="counter-animated" data-target="20">0</span></div>
-          <div class="contador-card__label">Años</div>
+      <div class="contadores__wrapper">
+        <div class="contadores__grid">
+          <div class="contador-card glass-card anim-reveal">
+            <div class="contador-card__number">+<span class="counter-animated" data-target="3">0</span>K</div>
+            <div class="contador-card__label">Manzanas</div>
+          </div>
+          <div class="contador-card glass-card anim-reveal">
+            <div class="contador-card__number">+<span class="counter-animated" data-target="11">0</span>K</div>
+            <div class="contador-card__label">Clientes</div>
+          </div>
+          <div class="contador-card glass-card anim-reveal">
+            <div class="contador-card__number">+<span class="counter-animated" data-target="7">0</span></div>
+            <div class="contador-card__label">Oficinas</div>
+          </div>
+          <div class="contador-card glass-card anim-reveal">
+            <div class="contador-card__number">+<span class="counter-animated" data-target="20">0</span></div>
+            <div class="contador-card__label">Años</div>
+          </div>
         </div>
       </div>
     </div>

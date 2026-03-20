@@ -184,8 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* --- Counter animation --- */
-  const counterCards = document.querySelectorAll('.contador-card__number');
-  if (counterCards.length) {
+  const counterSpans = document.querySelectorAll('.counter-animated');
+  if (counterSpans.length) {
     const counterObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -194,40 +194,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, { threshold: 0.5 });
-    counterCards.forEach(el => counterObserver.observe(el));
+    counterSpans.forEach(el => counterObserver.observe(el));
   }
 
-  function animateCounter(el) {
-    const text = el.textContent.trim();
-    const prefix = text.startsWith('+') ? '+' : '';
-    const suffix = text.replace(/[0-9+.]/g, '').trim();
-    const numStr = text.replace(/[^0-9.]/g, '');
-    const target = parseFloat(numStr);
+  function animateCounter(span) {
+    const target = parseInt(span.dataset.target, 10);
+    if (isNaN(target) || target === 0) return;
 
-    if (isNaN(target)) return;
-
-    const isFloat = numStr.includes('.');
-    const duration = 2000;
+    const duration = 1200;
     const start = performance.now();
 
     function update(now) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      const current = target * eased;
+      const current = Math.round(target * eased);
 
-      if (isFloat) {
-        el.textContent = prefix + current.toFixed(0) + suffix;
-      } else if (target >= 1000) {
-        el.textContent = prefix + (current / 1000).toFixed(current >= target ? 0 : 0) + 'K' + suffix;
-        if (progress >= 1) {
-          el.textContent = prefix + (target / 1000) + 'K' + suffix;
-        }
-      } else {
-        el.textContent = prefix + Math.floor(current) + suffix;
-      }
+      span.textContent = current;
 
       if (progress < 1) requestAnimationFrame(update);
+      else span.textContent = target;
     }
     requestAnimationFrame(update);
   }
