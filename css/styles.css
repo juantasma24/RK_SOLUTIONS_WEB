@@ -1104,67 +1104,66 @@ section.contadores {
    ============================================ */
 .testimonios {
   background: var(--color-black);
-  overflow: hidden;
 }
 
-.testimonios__carousel {
-  position: relative;
-  overflow: hidden;
-}
-
-.testimonios__track {
-  display: flex;
-  transition: transform 0.5s ease;
+.testimonios__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
 }
 
 .testimonio-card {
-  min-width: 100%;
-  padding: 40px 32px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  border-radius: var(--radius-2xl);
-  max-width: 700px;
-  margin: 0 auto;
+  gap: 24px;
 }
 
-.testimonio-card__stars {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 24px;
+.testimonio-card__bubble {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 40px 32px;
+  position: relative;
 }
 
-.testimonio-card__stars svg {
-  width: 20px;
-  height: 20px;
-  fill: #FFD700;
-  stroke: none;
+.testimonio-card__bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 40px;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #ffffff;
+}
+
+.testimonio-card__comillas {
+  width: 60px;
+  height: auto;
+  margin-bottom: 16px;
 }
 
 .testimonio-card__quote {
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   line-height: 1.7;
-  color: var(--color-white);
-  margin-bottom: 24px;
-  max-width: 500px;
+  color: #1a1a1a;
 }
 
 .testimonio-card__author {
   display: flex;
   align-items: center;
   gap: 16px;
+  padding-top: 8px;
 }
 
 .testimonio-card__avatar {
-  width: 56px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  flex-shrink: 0;
 }
 
 .testimonio-card__avatar img {
@@ -1175,37 +1174,15 @@ section.contadores {
 
 .testimonio-card__name {
   font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: var(--text-base);
+  font-weight: 700;
+  font-size: var(--text-lg);
   color: var(--color-white);
 }
 
 .testimonio-card__role {
   font-size: var(--text-sm);
-  color: var(--color-gray-400);
-}
-
-/* Dots */
-.testimonios__dots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 32px;
-}
-
-.testimonios__dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--color-gray-700);
-  border: none;
-  cursor: pointer;
-  transition: all var(--transition-base);
-}
-
-.testimonios__dot.active {
-  background: var(--color-primary);
-  transform: scale(1.2);
+  color: var(--color-primary);
+  font-weight: 600;
 }
 
 /* ============================================
@@ -1711,6 +1688,8 @@ section.contadores {
   .autonomos__title { font-size: var(--text-5xl); }
 
   .contadores__grid { grid-template-columns: repeat(4, 1fr); }
+
+  .testimonios__grid { grid-template-columns: repeat(3, 1fr); }
 
   .planes__grid { grid-template-columns: 1fr 1fr; }
 

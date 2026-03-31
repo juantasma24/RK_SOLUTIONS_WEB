@@ -223,49 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(update);
   }
 
-  /* --- Testimonials carousel --- */
-  const track = document.querySelector('.testimonios__track');
-  const dots = document.querySelectorAll('.testimonios__dot');
-  if (track && dots.length) {
-    let currentSlide = 0;
-    const totalSlides = dots.length;
-    let autoInterval;
-
-    function goToSlide(index) {
-      currentSlide = index;
-      track.style.transform = `translateX(-${currentSlide * 100}%)`;
-      dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-    }
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        goToSlide(i);
-        resetAuto();
-      });
-    });
-
-    function nextSlide() {
-      goToSlide((currentSlide + 1) % totalSlides);
-    }
-
-    function startAuto() {
-      autoInterval = setInterval(nextSlide, 5000);
-    }
-
-    function resetAuto() {
-      clearInterval(autoInterval);
-      startAuto();
-    }
-
-    startAuto();
-
-    const carousel = document.querySelector('.testimonios__carousel');
-    if (carousel) {
-      carousel.addEventListener('mouseenter', () => clearInterval(autoInterval));
-      carousel.addEventListener('mouseleave', startAuto);
-    }
-  }
-
   /* --- FAQ accordion --- */
   const faqQuestions = document.querySelectorAll('.faq-item__question');
   faqQuestions.forEach(btn => {

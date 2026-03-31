@@ -197,81 +197,60 @@
   </section>
 
   <!-- ============================================
-       SECCIÓN 6: TESTIMONIOS (Carrusel)
+       SECCIÓN 6: TESTIMONIOS
        ============================================ -->
   <section class="testimonios section" id="testimonios">
-    <div class="container text-center">
-      <div class="testimonios__carousel" id="testimoniosCarousel">
-        <div class="testimonios__track">
-          <!-- Testimonio 1 -->
-          <div class="testimonio-card glass-card">
-            <div class="testimonio-card__stars">
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-            <div class="testimonio-card__author">
-              <div class="testimonio-card__avatar">
-                <img src="assets/img/isotipo-manzana.svg" alt="Eukeni Sánchez">
-              </div>
-              <div>
-                <div class="testimonio-card__name">Eukeni Sánchez</div>
-                <div class="testimonio-card__role">Dueña de 150 Comercios</div>
-              </div>
-            </div>
+    <div class="container">
+      <div class="testimonios__grid">
+        <!-- Testimonio 1 -->
+        <div class="testimonio-card anim-reveal">
+          <div class="testimonio-card__bubble">
+            <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
           </div>
-
-          <!-- Testimonio 2 -->
-          <div class="testimonio-card glass-card">
-            <div class="testimonio-card__stars">
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <div class="testimonio-card__author">
+            <div class="testimonio-card__avatar">
+              <img src="assets/img/isotipo-manzana.svg" alt="Eukene Sanchez">
             </div>
-            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <div class="testimonio-card__author">
-              <div class="testimonio-card__avatar">
-                <img src="assets/img/isotipo-manzana.svg" alt="Pilar Mosar">
-              </div>
-              <div>
-                <div class="testimonio-card__name">Pilar Mosar</div>
-                <div class="testimonio-card__role">Dueña de 80 Comercios</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Testimonio 3 -->
-          <div class="testimonio-card glass-card">
-            <div class="testimonio-card__stars">
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <div class="testimonio-card__author">
-              <div class="testimonio-card__avatar">
-                <img src="assets/img/isotipo-manzana.svg" alt="Beatriz Cabrera">
-              </div>
-              <div>
-                <div class="testimonio-card__name">Beatriz Cabrera</div>
-                <div class="testimonio-card__role">Dueña de 120 Comercios</div>
-              </div>
+            <div>
+              <div class="testimonio-card__name">Eukene Sanchez</div>
+              <div class="testimonio-card__role">Cliente de La Manzana</div>
             </div>
           </div>
         </div>
 
-        <!-- Indicadores -->
-        <div class="testimonios__dots" id="testimoniosDots">
-          <button class="testimonios__dot active" data-index="0" aria-label="Testimonio 1"></button>
-          <button class="testimonios__dot" data-index="1" aria-label="Testimonio 2"></button>
-          <button class="testimonios__dot" data-index="2" aria-label="Testimonio 3"></button>
+        <!-- Testimonio 2 -->
+        <div class="testimonio-card anim-reveal">
+          <div class="testimonio-card__bubble">
+            <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+          </div>
+          <div class="testimonio-card__author">
+            <div class="testimonio-card__avatar">
+              <img src="assets/img/isotipo-manzana.svg" alt="Pilar Marar">
+            </div>
+            <div>
+              <div class="testimonio-card__name">Pilar Marar</div>
+              <div class="testimonio-card__role">Cliente de La Manzana</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 3 -->
+        <div class="testimonio-card anim-reveal">
+          <div class="testimonio-card__bubble">
+            <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+          </div>
+          <div class="testimonio-card__author">
+            <div class="testimonio-card__avatar">
+              <img src="assets/img/isotipo-manzana.svg" alt="Sarahí Cabrera">
+            </div>
+            <div>
+              <div class="testimonio-card__name">Sarahí Cabrera</div>
+              <div class="testimonio-card__role">Cliente de La Manzana</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
