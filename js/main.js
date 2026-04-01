@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (topbar) {
         topbar.classList.toggle('hidden', scrolled);
         header.classList.toggle('header--top-hidden', scrolled);
+        // Cerrar el dropdown de idioma si el topbar se oculta
+        if (scrolled) {
+          const langDropdown = document.getElementById('langDropdown');
+          if (langDropdown) langDropdown.classList.remove('open');
+        }
       }
     }, { passive: true });
   }
