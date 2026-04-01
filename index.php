@@ -489,6 +489,7 @@
         <!-- Lado derecho: formulario -->
         <div class="contacto__form-wrapper anim-slide-up">
           <form class="contacto__form" id="contactForm" action="#" method="POST">
+            <div class="contacto__form-shine" aria-hidden="true"></div>
             <p class="contacto__form-intro">Déjanos tus datos y te contamos cómo empezar con La Manzana <strong>sin costes el primer año.</strong></p>
 
             <div class="contacto__form-group">

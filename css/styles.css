@@ -1093,6 +1093,8 @@ input, select, textarea { font: inherit; color: inherit; }
   100% { transform: translateX(220%) skewX(-20deg); opacity: 0; }
 }
 
+/* Shine del formulario de contacto — mismo keyframe que glass-shine */
+
 /* Dots del carrusel: siempre 3, el activo se pinta verde */
 
 section.contadores {
@@ -1678,9 +1680,11 @@ section.contadores {
   justify-content: center;
 }
 
-/* Wrapper que contiene el shine sin clipar los dropdowns */
-.contacto__form::before {
-  content: '';
+.contacto__form::before,
+.contacto__form::after { content: none; }
+
+/* Contenedor del shine: overflow:hidden sin afectar al dropdown */
+.contacto__form-shine {
   position: absolute;
   inset: 0;
   border-radius: 24px;
@@ -1689,11 +1693,11 @@ section.contadores {
   z-index: 0;
 }
 
-.contacto__form::after {
+.contacto__form-shine::after {
   content: '';
   position: absolute;
   top: -10%;
-  left: -50%;
+  left: 0;
   width: 50%;
   height: 120%;
   background: linear-gradient(
@@ -1705,9 +1709,6 @@ section.contadores {
     transparent 100%
   );
   pointer-events: none;
-  z-index: 0;
-  border-radius: 24px;
-  clip-path: inset(0 round 24px);
   animation: glass-shine 6s ease-in-out infinite;
   animation-delay: 3s;
   animation-fill-mode: backwards;
