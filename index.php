@@ -505,28 +505,34 @@
             </div>
 
             <div class="contacto__form-group">
-              <select name="comunidad" class="contacto__input contacto__select" required>
-                <option value="" disabled selected>Comunidad autónoma</option>
-                <option value="andalucia">Andalucía</option>
-                <option value="aragon">Aragón</option>
-                <option value="asturias">Asturias</option>
-                <option value="baleares">Islas Baleares</option>
-                <option value="canarias">Canarias</option>
-                <option value="cantabria">Cantabria</option>
-                <option value="castilla-leon">Castilla y León</option>
-                <option value="castilla-mancha">Castilla-La Mancha</option>
-                <option value="cataluna">Cataluña</option>
-                <option value="ceuta">Ceuta</option>
-                <option value="extremadura">Extremadura</option>
-                <option value="galicia">Galicia</option>
-                <option value="madrid">Madrid</option>
-                <option value="melilla">Melilla</option>
-                <option value="murcia">Murcia</option>
-                <option value="navarra">Navarra</option>
-                <option value="pais-vasco">País Vasco</option>
-                <option value="rioja">La Rioja</option>
-                <option value="valencia">Comunidad Valenciana</option>
-              </select>
+              <div class="contacto__dropdown" id="comunidadDropdown">
+                <button type="button" class="contacto__dropdown-btn" id="comunidadToggle" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="contacto__dropdown-label" id="comunidadLabel">Comunidad autónoma</span>
+                  <svg class="contacto__dropdown-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="contacto__dropdown-menu" id="comunidadMenu" role="listbox">
+                  <button type="button" class="contacto__dropdown-option" data-value="andalucia">Andalucía</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="aragon">Aragón</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="asturias">Asturias</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="baleares">Islas Baleares</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="canarias">Canarias</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="cantabria">Cantabria</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="castilla-leon">Castilla y León</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="castilla-mancha">Castilla-La Mancha</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="cataluna">Cataluña</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="ceuta">Ceuta</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="extremadura">Extremadura</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="galicia">Galicia</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="madrid">Madrid</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="melilla">Melilla</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="murcia">Murcia</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="navarra">Navarra</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="pais-vasco">País Vasco</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="rioja">La Rioja</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="valencia">Comunidad Valenciana</button>
+                </div>
+                <input type="hidden" name="comunidad" id="comunidadInput">
+              </div>
             </div>
 
             <div class="contacto__form-group contacto__form-check">

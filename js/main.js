@@ -256,15 +256,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* --- Contact form basic validation --- */
+  /* --- Custom dropdown: Comunidad autónoma --- */
+  const comunidadDropdown = document.getElementById('comunidadDropdown');
+  const comunidadToggle  = document.getElementById('comunidadToggle');
+  const comunidadMenu    = document.getElementById('comunidadMenu');
+  const comunidadLabel   = document.getElementById('comunidadLabel');
+  const comunidadInput   = document.getElementById('comunidadInput');
+
+  if (comunidadDropdown && comunidadToggle) {
+    comunidadToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = comunidadDropdown.classList.toggle('open');
+      comunidadToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    comunidadMenu.querySelectorAll('.contacto__dropdown-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const value = btn.dataset.value;
+        const text  = btn.textContent;
+
+        comunidadInput.value = value;
+        comunidadLabel.textContent = text;
+        comunidadToggle.classList.add('has-value');
+
+        comunidadMenu.querySelectorAll('.contacto__dropdown-option').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+
+        comunidadDropdown.classList.remove('open');
+        comunidadToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!comunidadDropdown.contains(e.target)) {
+        comunidadDropdown.classList.remove('open');
+        comunidadToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* --- Contact form validation --- */
   const contactForm = document.querySelector('.contacto__form');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const nombre = contactForm.querySelector('input[name="nombre"]');
-      const correo = contactForm.querySelector('input[name="correo"]');
-      const movil = contactForm.querySelector('input[name="movil"]');
-      const privacidad = contactForm.querySelector('input[name="privacidad"]');
+      const nombre    = contactForm.querySelector('input[name="name"]');
+      const correo    = contactForm.querySelector('input[name="email"]');
+      const comunidad = contactForm.querySelector('input[name="comunidad"]');
+      const privacidad = contactForm.querySelector('input[name="privacy"]');
 
       if (!nombre.value.trim() || !correo.value.trim()) {
         alert('Por favor, completa los campos obligatorios.');
@@ -273,17 +312,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(correo.value.trim())) {
-        alert('Por favor, introduce un correo electr�nico v�lido.');
+        alert('Por favor, introduce un correo electrónico válido.');
+        return;
+      }
+
+      if (!comunidad.value) {
+        alert('Por favor, selecciona tu comunidad autónoma.');
         return;
       }
 
       if (!privacidad.checked) {
-        alert('Debes aceptar la pol�tica de privacidad.');
+        alert('Debes aceptar la política de privacidad.');
         return;
       }
 
-      alert('�Gracias! Tu mensaje ha sido enviado correctamente.');
+      alert('¡Gracias! Tu mensaje ha sido enviado correctamente.');
       contactForm.reset();
+      if (comunidadLabel) {
+        comunidadLabel.textContent = 'Comunidad autónoma';
+        comunidadToggle.classList.remove('has-value');
+        comunidadMenu.querySelectorAll('.contacto__dropdown-option').forEach(b => b.classList.remove('selected'));
+      }
     });
   }
 
@@ -305,170 +354,152 @@ document.addEventListener('DOMContentLoaded', () => {
      - Swipe touch para móvil
      ============================================ */
   const testimoniosCarousel = document.getElementById('testimoniosCarousel');
-  const testimoniosTrack = document.getElementById('testimoniosTrack');
-  const testimoniosPrev = document.getElementById('testimoniosPrev');
-  const testimoniosNext = document.getElementById('testimoniosNext');
+  const testimoniosTrack   = document.getElementById('testimoniosTrack');
+  const testimoniosPrev    = document.getElementById('testimoniosPrev');
+  const testimoniosNext    = document.getElementById('testimoniosNext');
   const testimoniosIndicators = document.getElementById('testimoniosIndicators');
 
   if (testimoniosCarousel && testimoniosTrack && testimoniosPrev && testimoniosNext) {
-    let currentIndex = 0;
-    const slides = testimoniosTrack.querySelectorAll('.testimonio-slide');
-    const totalSlides = slides.length;
-    const autoAdvanceInterval = 5000; // 5 segundos
-    let autoAdvanceTimer = null;
-    let isPaused = false;
 
-    // Número de slides visibles según viewport
-    function getVisibleSlides() {
-      if (window.innerWidth >= 1024) return 3;  // Desktop: 3 slides
-      if (window.innerWidth >= 768) return 2;   // Tablet: 2 slides
-      return 1;                                  // Móvil: 1 slide
+    /* -------------------------------------------------
+       INFINITE LOOP con clon-buffer.
+       Track: [clonesInicio x N] [originales x N] [clonesFinales x N]
+       Arrancamos en currentIndex = N (primer original).
+       Cuando llegamos a un clon → salto silencioso al
+       original equivalente usando offsetWidth para forzar
+       reflow y que el browser no anime el salto.
+    ------------------------------------------------- */
+    const TRANSITION = 'transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
+    const originals     = Array.from(testimoniosTrack.querySelectorAll('.testimonio-slide'));
+    const N             = originals.length;
+    let   currentIndex  = N; // empieza en el primer original
+    let   autoTimer     = null;
+    let   isPaused      = false;
+    let   locked        = false; // bloquea clicks durante transición
+
+    // Clonar todos al final
+    originals.forEach(s => {
+      const c = s.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      testimoniosTrack.appendChild(c);
+    });
+    // Clonar todos al inicio (en orden)
+    originals.forEach(s => {
+      const c = s.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      testimoniosTrack.insertBefore(c, testimoniosTrack.firstChild);
+    });
+    // Ahora el track tiene 3N slides: [0..N-1 clones] [N..2N-1 orig] [2N..3N-1 clones]
+
+    function vis() {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 768)  return 2;
+      return 1;
     }
 
-    // Calcular número de "páginas" (grupos de slides)
-    function getTotalPages() {
-      const visible = getVisibleSlides();
-      return Math.ceil(totalSlides / visible);
+    function updateDots() {
+      if (!testimoniosIndicators) return;
+      const realIdx = ((currentIndex - N) % N + N) % N;
+      // Dividir los N slides en 3 zonas iguales → dot 0, 1 o 2
+      const zone = Math.floor((realIdx / N) * 3);
+      testimoniosIndicators.querySelectorAll('.testimonios__dot')
+        .forEach((d, i) => d.classList.toggle('active', i === zone));
     }
 
-    // Generar indicadores dinámicamente
-    function generateIndicators() {
+    // Salto silencioso: quita transición, mueve, fuerza reflow, restaura transición
+    function jumpTo(idx) {
+      currentIndex = idx;
+      testimoniosTrack.style.transition = 'none';
+      testimoniosTrack.style.transform  = `translateX(-${(currentIndex * 100) / vis()}%)`;
+      // offsetWidth fuerza al browser a aplicar los estilos ANTES de continuar
+      void testimoniosTrack.offsetWidth;
+      testimoniosTrack.style.transition = TRANSITION;
+    }
+
+    // Movimiento animado normal
+    function moveTo(idx) {
+      currentIndex = idx;
+      testimoniosTrack.style.transition = TRANSITION;
+      testimoniosTrack.style.transform  = `translateX(-${(currentIndex * 100) / vis()}%)`;
+      updateDots();
+    }
+
+    function next() {
+      if (locked) return;
+      locked = true;
+      moveTo(currentIndex + 1);
+    }
+
+    function prev() {
+      if (locked) return;
+      locked = true;
+      moveTo(currentIndex - 1);
+    }
+
+    // Al terminar la transición → comprobar si toca saltar a los originales
+    testimoniosTrack.addEventListener('transitionend', (e) => {
+      if (e.propertyName !== 'transform') return;
+      locked = false;
+
+      if (currentIndex >= N * 2) {
+        // Estamos en los clones del final → saltar al original equivalente
+        jumpTo(currentIndex - N);
+      } else if (currentIndex < N) {
+        // Estamos en los clones del inicio → saltar al original equivalente
+        jumpTo(currentIndex + N);
+      }
+
+      updateDots();
+    });
+
+    // Siempre 3 dots estáticos: el activo cambia según posición
+    function generateDots() {
       if (!testimoniosIndicators) return;
       testimoniosIndicators.innerHTML = '';
-      const totalPages = getTotalPages();
-      for (let i = 0; i < totalPages; i++) {
-        const dot = document.createElement('button');
-        dot.className = `testimonios__dot${i === 0 ? ' active' : ''}`;
-        dot.setAttribute('data-index', i);
-        dot.setAttribute('aria-label', `Ir a la página ${i + 1}`);
-        testimoniosIndicators.appendChild(dot);
+      for (let i = 0; i < 3; i++) {
+        const d = document.createElement('span');
+        d.className = `testimonios__dot${i === 0 ? ' active' : ''}`;
+        d.setAttribute('aria-hidden', 'true');
+        testimoniosIndicators.appendChild(d);
       }
     }
 
-    // Actualizar posición del carrusel
-    function updateCarousel() {
-      const visibleSlides = getVisibleSlides();
-      const percentage = (currentIndex * 100) / visibleSlides;
-      testimoniosTrack.style.transform = `translateX(-${percentage}%)`;
+    // Eliminar click en dots (ya no son navegables)
 
-      // Actualizar indicadores
-      const indicators = testimoniosIndicators.querySelectorAll('.testimonios__dot');
-      indicators.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentIndex);
-      });
-    }
+    function startTimer() { autoTimer = setInterval(() => { if (!isPaused) next(); }, 5000); }
+    function resetTimer() { clearInterval(autoTimer); startTimer(); }
 
-    // Ir al slide siguiente (de 3 en 3)
-    function nextSlide() {
-      const visibleSlides = getVisibleSlides();
-      const maxIndex = Math.ceil(totalSlides / visibleSlides) - 1;
-      currentIndex = (currentIndex + 1) % (maxIndex + 1);
-      updateCarousel();
-    }
+    testimoniosNext.addEventListener('click', () => { next(); resetTimer(); });
+    testimoniosPrev.addEventListener('click', () => { prev(); resetTimer(); });
 
-    // Ir al slide anterior (de 3 en 3)
-    function prevSlide() {
-      const visibleSlides = getVisibleSlides();
-      const maxIndex = Math.ceil(totalSlides / visibleSlides) - 1;
-      currentIndex = (currentIndex - 1 + (maxIndex + 1)) % (maxIndex + 1);
-      updateCarousel();
-    }
+    testimoniosCarousel.addEventListener('mouseenter', () => { isPaused = true; });
+    testimoniosCarousel.addEventListener('mouseleave', () => { isPaused = false; });
 
-    // Ir a una página específica
-    function goToPage(index) {
-      const maxIndex = getTotalPages() - 1;
-      currentIndex = Math.min(index, maxIndex);
-      updateCarousel();
-      resetTimer();
-    }
-
-    // Iniciar auto-avance
-    function startAutoAdvance() {
-      autoAdvanceTimer = setInterval(() => {
-        if (!isPaused) {
-          nextSlide();
-        }
-      }, autoAdvanceInterval);
-    }
-
-    // Reiniciar timer
-    function resetTimer() {
-      if (autoAdvanceTimer) {
-        clearInterval(autoAdvanceTimer);
-      }
-      startAutoAdvance();
-    }
-
-    // Event listeners - flechas
-    testimoniosNext.addEventListener('click', () => {
-      nextSlide();
-      resetTimer();
-    });
-
-    testimoniosPrev.addEventListener('click', () => {
-      prevSlide();
-      resetTimer();
-    });
-
-    // Event listeners - indicadores (delegado)
-    testimoniosIndicators.addEventListener('click', (e) => {
-      if (e.target.classList.contains('testimonios__dot')) {
-        const index = parseInt(e.target.getAttribute('data-index'), 10);
-        goToPage(index);
-      }
-    });
-
-    // Pausa en hover
-    testimoniosCarousel.addEventListener('mouseenter', () => {
-      isPaused = true;
-    });
-
-    testimoniosCarousel.addEventListener('mouseleave', () => {
-      isPaused = false;
-    });
-
-    // Soporte touch/swipe para móvil
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    testimoniosCarousel.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
+    let touchX = 0;
+    testimoniosCarousel.addEventListener('touchstart', (e) => { touchX = e.changedTouches[0].screenX; }, { passive: true });
+    testimoniosCarousel.addEventListener('touchend',   (e) => {
+      const diff = touchX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); resetTimer(); }
     }, { passive: true });
 
-    testimoniosCarousel.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
-      const swipeThreshold = 50;
-      const diff = touchStartX - touchEndX;
-
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-          nextSlide(); // Swipe izquierda -> siguiente
-        } else {
-          prevSlide(); // Swipe derecha -> anterior
-        }
-        resetTimer();
-      }
-    }
-
-    // Recalcular en resize
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        generateIndicators();
-        currentIndex = 0;
-        updateCarousel();
+        // Recalcular posición sin animación en resize
+        testimoniosTrack.style.transition = 'none';
+        testimoniosTrack.style.transform  = `translateX(-${(currentIndex * 100) / vis()}%)`;
+        void testimoniosTrack.offsetWidth;
+        testimoniosTrack.style.transition = TRANSITION;
       }, 250);
     });
 
-    // Inicializar
-    generateIndicators();
-    updateCarousel();
-    startAutoAdvance();
+    // Init
+    generateDots();
+    jumpTo(N); // posición inicial sin animación
+    updateDots(); // dot 0 activo al arrancar
+    startTimer();
   }
 
 });

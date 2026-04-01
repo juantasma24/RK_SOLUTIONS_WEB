@@ -1093,6 +1093,8 @@ input, select, textarea { font: inherit; color: inherit; }
   100% { transform: translateX(220%) skewX(-20deg); opacity: 0; }
 }
 
+/* Dots del carrusel: siempre 3, el activo se pinta verde */
+
 section.contadores {
   background: var(--color-black);
   padding: 0 0 30px;
@@ -1192,17 +1194,31 @@ section.contadores {
   gap: 16px;
 }
 
-/* Track wrapper - limita lo visible */
+/* Track wrapper - limita lo visible + difuminado en bordes */
 .testimonios__track-wrapper {
   flex: 1;
   overflow: hidden;
   position: relative;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 3%,
+    black 97%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 3%,
+    black 97%,
+    transparent 100%
+  );
 }
 
 /* Track - se mueve horizontalmente */
 .testimonios__track {
   display: flex;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* La transición la gestiona JS para el infinite loop */
   width: 100%;
 }
 
@@ -1249,16 +1265,15 @@ section.contadores {
 .testimonios__dot {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-gray-600);
   border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s var(--ease-out);
+  cursor: default;
+  pointer-events: none;
   padding: 0;
+  display: inline-block;
+  transition: width 0.4s var(--ease-out), background-color 0.4s ease;
 }
-
-.testimonios__dot:hover { background: var(--color-primary-light); }
-.testimonios__dot:active { transform: scale(0.8); }
 
 .testimonios__dot.active {
   background: var(--color-primary);
@@ -1337,12 +1352,12 @@ section.contadores {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  background: var(--color-gray-800);
+  background: transparent;
 }
 
 .testimonio-card__avatar img {
-  width: 32px;
-  height: 32px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
 }
 
@@ -1656,18 +1671,29 @@ section.contadores {
   padding: 36px 32px;
   border-radius: 24px;
   position: relative;
-  overflow: hidden;
+  /* overflow: visible — necesario para que el dropdown no quede cortado */
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+/* Wrapper que contiene el shine sin clipar los dropdowns */
+.contacto__form::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .contacto__form::after {
   content: '';
   position: absolute;
   top: -10%;
-  left: 0;
+  left: -50%;
   width: 50%;
   height: 120%;
   background: linear-gradient(
@@ -1680,6 +1706,8 @@ section.contadores {
   );
   pointer-events: none;
   z-index: 0;
+  border-radius: 24px;
+  clip-path: inset(0 round 24px);
   animation: glass-shine 6s ease-in-out infinite;
   animation-delay: 3s;
   animation-fill-mode: backwards;
@@ -1698,7 +1726,7 @@ section.contadores {
 .contacto__form-group {
   margin-bottom: 16px;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .contacto__form-row {
@@ -1731,12 +1759,100 @@ section.contadores {
   box-shadow: 0 0 0 3px rgba(94, 168, 74, 0.3);
 }
 
-.contacto__select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  padding-right: 40px;
+/* --- Custom dropdown (Comunidad autónoma) --- */
+.contacto__dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.contacto__dropdown-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  background: var(--color-white-pure);
+  color: var(--color-gray-600);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 14px 20px;
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow var(--transition-base), color var(--transition-fast);
+}
+
+.contacto__dropdown-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(94, 168, 74, 0.3);
+}
+
+.contacto__dropdown-btn.has-value {
+  color: var(--color-black);
+}
+
+.contacto__dropdown-arrow {
+  flex-shrink: 0;
+  stroke: var(--color-gray-600);
+  transition: transform 0.18s var(--ease-out);
+}
+
+.contacto__dropdown.open .contacto__dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.contacto__dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-md);
+  padding: 6px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.96) translateY(-6px);
+  filter: blur(4px);
+  transform-origin: top center;
+  transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out), filter 0.18s var(--ease-out), visibility 0.18s;
+  z-index: 500;
+  max-height: 240px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-600) transparent;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.contacto__dropdown.open .contacto__dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+}
+
+.contacto__dropdown-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 9px 16px;
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  color: var(--color-white);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.contacto__dropdown-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.contacto__dropdown-option.selected {
+  color: var(--color-primary);
+  font-weight: 600;
 }
 
 .contacto__form-check {
@@ -2262,6 +2378,24 @@ section.contadores {
    RESPONSIVE: MÓVIL (<768px)
    ============================================ */
 @media (max-width: 767px) {
+
+  /* Difuminado más suave en móvil (1 card visible) */
+  .testimonios__track-wrapper {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 2%,
+      black 98%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 2%,
+      black 98%,
+      transparent 100%
+    );
+  }
 
   /* --- TOPBAR --- */
   .topbar__inner {
