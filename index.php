@@ -197,61 +197,202 @@
   </section>
 
   <!-- ============================================
-       SECCIÓN 6: TESTIMONIOS
+       SECCIÓN 6: TESTIMONIOS (Carrusel 3 en 3)
        ============================================ -->
   <section class="testimonios section" id="testimonios">
     <div class="container">
-      <div class="testimonios__grid">
-        <!-- Testimonio 1 -->
-        <div class="testimonio-card anim-reveal">
-          <div class="testimonio-card__bubble">
-            <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div class="testimonio-card__author">
-            <div class="testimonio-card__avatar">
-              <img src="assets/img/isotipo-manzana.svg" alt="Eukene Sanchez">
+      <!-- Carrusel de testimonios -->
+      <div class="testimonios__carousel anim-reveal" id="testimoniosCarousel">
+        <!-- Botón anterior -->
+        <button class="testimonios__nav testimonios__nav--prev" id="testimoniosPrev" aria-label="Testimonio anterior">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+
+        <!-- Track de slides -->
+        <div class="testimonios__track-wrapper">
+          <div class="testimonios__track" id="testimoniosTrack">
+            <!-- Testimonio 1 -->
+            <div class="testimonio-slide">
+              <div class="testimonio-card">
+                <div class="testimonio-card__bubble">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <p class="testimonio-card__quote">"Desde que uso La Manzana, mi negocio funciona como un reloj. La facturación es automática y el fichaje de empleados es súper sencillo. El soporte 24/7 me ha salvado varias veces."</p>
+                </div>
+                <div class="testimonio-card__author">
+                  <div class="testimonio-card__avatar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Eukene Sanchez">
+                  </div>
+                  <div>
+                    <div class="testimonio-card__name">Eukene Sanchez</div>
+                    <div class="testimonio-card__role">Cliente</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <div class="testimonio-card__name">Eukene Sanchez</div>
-              <div class="testimonio-card__role">Cliente de La Manzana</div>
+
+            <!-- Testimonio 2 -->
+            <div class="testimonio-slide">
+              <div class="testimonio-card">
+                <div class="testimonio-card__bubble">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <p class="testimonio-card__quote">"Autónoma desde hace 15 años, he probado muchos programas. La Manzana es el único que entiendo sin necesitar un máster. Cumple con TicketBAI y me quita un peso de encima."</p>
+                </div>
+                <div class="testimonio-card__author">
+                  <div class="testimonio-card__avatar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Pilar Marar">
+                  </div>
+                  <div>
+                    <div class="testimonio-card__name">Pilar Marar</div>
+                    <div class="testimonio-card__role">Cliente</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonio 3 -->
+            <div class="testimonio-slide">
+              <div class="testimonio-card">
+                <div class="testimonio-card__bubble">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <p class="testimonio-card__quote">"Tenía 3 tiendas y cada una con su sistema. Ahora con La Manzana lo veo todo desde el móvil. Los reportes son claros y la formación que me dieron fue excelente."</p>
+                </div>
+                <div class="testimonio-card__author">
+                  <div class="testimonio-card__avatar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Sarahí Cabrera">
+                  </div>
+                  <div>
+                    <div class="testimonio-card__name">Sarahí Cabrera</div>
+                    <div class="testimonio-card__role">Cliente</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonio 4 -->
+            <div class="testimonio-slide">
+              <div class="testimonio-card">
+                <div class="testimonio-card__bubble">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <p class="testimonio-card__quote">"El mejor software que he usado en mis 10 años gestionando hoteles. La integración con los canales de reserva es perfecta y el soporte técnico responde en minutos."</p>
+                </div>
+                <div class="testimonio-card__author">
+                  <div class="testimonio-card__avatar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Carlos Mendoza">
+                  </div>
+                  <div>
+                    <div class="testimonio-card__name">Carlos Mendoza</div>
+                    <div class="testimonio-card__role">Cliente</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonio 5 -->
+            <div class="testimonio-slide">
+              <div class="testimonio-card">
+                <div class="testimonio-card__bubble">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <p class="testimonio-card__quote">"Como gestoría, necesitamos control total. La Manzana nos da reportes detallados de cada cliente y nos ahorra horas de trabajo administrativo."</p>
+                </div>
+                <div class="testimonio-card__author">
+                  <div class="testimonio-card__avatar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Laura Giménez">
+                  </div>
+                  <div>
+                    <div class="testimonio-card__name">Laura Giménez</div>
+                    <div class="testimonio-card__role">Cliente</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonio 6 -->
+            <div class="testimonio-slide">
+              <div class="testimonio-card">
+                <div class="testimonio-card__bubble">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <p class="testimonio-card__quote">"La migración desde mi antiguo software fue gratuita y sin dolor. El equipo de La Manzana se encargó de todo. Llevo 2 años sin incidencias."</p>
+                </div>
+                <div class="testimonio-card__author">
+                  <div class="testimonio-card__avatar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Roberto Díaz">
+                  </div>
+                  <div>
+                    <div class="testimonio-card__name">Roberto Díaz</div>
+                    <div class="testimonio-card__role">Cliente</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonio 7 -->
+            <div class="testimonio-slide">
+              <div class="testimonio-card">
+                <div class="testimonio-card__bubble">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <p class="testimonio-card__quote">"Tengo una academia y el módulo de facturación me permite generar recibos automáticos para 200 alumnos. Un cambio radical en mi productividad."</p>
+                </div>
+                <div class="testimonio-card__author">
+                  <div class="testimonio-card__avatar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Mónica Torres">
+                  </div>
+                  <div>
+                    <div class="testimonio-card__name">Mónica Torres</div>
+                    <div class="testimonio-card__role">Cliente</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonio 8 -->
+            <div class="testimonio-slide">
+              <div class="testimonio-card">
+                <div class="testimonio-card__bubble">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <p class="testimonio-card__quote">"Lo que más valoro es la tranquilidad de estar cumpliendo la normativa sin tener que preocuparme. La Manzana se actualiza sola y eso no tiene precio."</p>
+                </div>
+                <div class="testimonio-card__author">
+                  <div class="testimonio-card__avatar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Javier Ruiz">
+                  </div>
+                  <div>
+                    <div class="testimonio-card__name">Javier Ruiz</div>
+                    <div class="testimonio-card__role">Cliente</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonio 9 -->
+            <div class="testimonio-slide">
+              <div class="testimonio-card">
+                <div class="testimonio-card__bubble">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <p class="testimonio-card__quote">"Mis camareros aprendieron a usar el TPV en una tarde. La interfaz es intuitiva y los clientes agradecen la rapidez en las cuentas."</p>
+                </div>
+                <div class="testimonio-card__author">
+                  <div class="testimonio-card__avatar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Ana Belén López">
+                  </div>
+                  <div>
+                    <div class="testimonio-card__name">Ana Belén López</div>
+                    <div class="testimonio-card__role">Cliente</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Testimonio 2 -->
-        <div class="testimonio-card anim-reveal">
-          <div class="testimonio-card__bubble">
-            <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div class="testimonio-card__author">
-            <div class="testimonio-card__avatar">
-              <img src="assets/img/isotipo-manzana.svg" alt="Pilar Marar">
-            </div>
-            <div>
-              <div class="testimonio-card__name">Pilar Marar</div>
-              <div class="testimonio-card__role">Cliente de La Manzana</div>
-            </div>
-          </div>
-        </div>
+        <!-- Botón siguiente -->
+        <button class="testimonios__nav testimonios__nav--next" id="testimoniosNext" aria-label="Testimonio siguiente">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
 
-        <!-- Testimonio 3 -->
-        <div class="testimonio-card anim-reveal">
-          <div class="testimonio-card__bubble">
-            <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-            <p class="testimonio-card__quote">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-          </div>
-          <div class="testimonio-card__author">
-            <div class="testimonio-card__avatar">
-              <img src="assets/img/isotipo-manzana.svg" alt="Sarahí Cabrera">
-            </div>
-            <div>
-              <div class="testimonio-card__name">Sarahí Cabrera</div>
-              <div class="testimonio-card__role">Cliente de La Manzana</div>
-            </div>
-          </div>
-        </div>
+      <!-- Indicadores (dots) -->
+      <div class="testimonios__indicators" id="testimoniosIndicators">
+        <!-- Se generan dinámicamente según número de slides -->
       </div>
     </div>
   </section>
