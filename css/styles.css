@@ -1870,6 +1870,7 @@ section.contadores {
 
   .testimonio-card__quote {
     -webkit-line-clamp: 5; /* 5 líneas en móvil */
+    line-clamp: 5;
   }
 }
 
