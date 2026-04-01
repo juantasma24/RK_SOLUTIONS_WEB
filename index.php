@@ -469,19 +469,8 @@
   </section>
 
   <!-- ============================================
-       SECCIÓN 8: CTA INTERMEDIO
+       SECCIÓN 8+9: CONTACTO (Trabaja con La Manzana)
        ============================================ -->
-  <section class="cta-mid section" id="cta-mid">
-    <div class="container text-center">
-      <h2 class="cta-mid__title anim-reveal">
-        Prepárate hoy. <span class="highlight"><em>Gana tranquilidad mañana.</em></span>
-      </h2>
-    </div>
-  </section>
-
-  <!-- ============================================
-       SECCIÓN 9: CONTACTO (Trabaja con La Manzana)
-       =============== ============================= -->
   <section class="contacto section" id="contacto">
     <div class="container">
       <div class="contacto__inner">
@@ -490,16 +479,16 @@
           <h2 class="contacto__title">Trabaja con<br><span class="highlight">La Manzana</span>,<br>sin costes<br>por 12 meses</h2>
           <p class="contacto__subtitle">INCLUYE:</p>
           <ul class="contacto__list">
-            <li>Software La Manzana</li>
-            <li>Soporte técnico 24/7</li>
-            <li>Acompañamiento y formación</li>
-            <li>Fichaje horario integrado</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Software La Manzana</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Soporte técnico 24/7</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Acompañamiento y formación</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Fichaje horario integrado</li>
           </ul>
         </div>
 
         <!-- Lado derecho: formulario -->
         <div class="contacto__form-wrapper anim-slide-up">
-          <form class="contacto__form glass-card" id="contactForm" action="#" method="POST">
+          <form class="contacto__form" id="contactForm" action="#" method="POST">
             <p class="contacto__form-intro">Déjanos tus datos y te contamos cómo empezar con La Manzana <strong>sin costes el primer año.</strong></p>
 
             <div class="contacto__form-group">

@@ -1553,27 +1553,8 @@ section.contadores {
 /* ============================================
    SECCI�N: CTA MID
    ============================================ */
-.cta-mid {
-  background: var(--color-black);
-  padding: 100px 0;
-}
-
-.cta-mid__title {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: var(--text-4xl);
-  line-height: 1.2;
-  color: var(--color-white);
-}
-
-.cta-mid__title em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-
 /* ============================================
-   SECCI�N: CONTACTO
+   SECCIÓN: CONTACTO
    ============================================ */
 .contacto {
   background: var(--color-black);
@@ -1583,7 +1564,7 @@ section.contadores {
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .contacto__title {
@@ -1599,54 +1580,96 @@ section.contadores {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: var(--text-sm);
-  color: var(--color-gray-400);
-  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  letter-spacing: 0.12em;
   margin-bottom: 16px;
 }
 
 .contacto__list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .contacto__list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: var(--text-base);
   color: var(--color-white);
-  padding-left: 20px;
-  position: relative;
+  font-weight: 500;
 }
 
-.contacto__list li::before {
-  content: '�';
-  position: absolute;
-  left: 0;
-  color: var(--color-primary);
-  font-weight: 700;
+.contacto__list li img {
+  flex-shrink: 0;
 }
 
-/* Form */
+/* Form-wrapper estira al alto de la columna izquierda y crece hacia la izquierda */
+.contacto__form-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-left: -48px;
+}
+
+/* Form — bloque de vidrio con brillo */
 .contacto__form {
-  padding: 32px 28px;
-  border-radius: var(--radius-2xl);
+  background: url('../assets/img/bloque_vidrio_cuadrado.png') no-repeat center center;
+  background-size: 100% 100%;
+  padding: 36px 32px;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contacto__form::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 50%;
+  height: 120%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255,255,255,0.10) 50%,
+    transparent 65%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: glass-shine 6s ease-in-out infinite;
+  animation-delay: 3s;
+  animation-fill-mode: backwards;
+  will-change: transform;
 }
 
 .contacto__form-intro {
   font-size: var(--text-base);
   color: var(--color-white);
   margin-bottom: 24px;
-  font-style: italic;
   line-height: 1.6;
+  position: relative;
+  z-index: 1;
 }
 
 .contacto__form-group {
   margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
 }
 
 .contacto__form-row {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
+  position: relative;
+  z-index: 1;
 }
 
 .contacto__input {
@@ -1659,6 +1682,8 @@ section.contadores {
   font-size: var(--text-base);
   outline: none;
   transition: box-shadow var(--transition-base);
+  position: relative;
+  z-index: 1;
 }
 
 .contacto__input::placeholder {
@@ -1682,6 +1707,8 @@ section.contadores {
   align-items: flex-start;
   gap: 10px;
   margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .contacto__form-check input[type="checkbox"] {
@@ -1705,6 +1732,14 @@ section.contadores {
 
 .contacto__submit {
   width: 100%;
+  position: relative;
+  z-index: 1;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.contacto__submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(94, 168, 74, 0.45);
 }
 
 /* ============================================
@@ -2024,8 +2059,6 @@ section.contadores {
   .contacto__inner { grid-template-columns: 1fr 1fr; gap: 60px; }
   .contacto__form-row { grid-template-columns: 1fr 1fr; }
 
-  .cta-mid__title { font-size: var(--text-5xl); }
-
   .footer__grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
 }
 
@@ -2064,9 +2097,8 @@ section.contadores {
   .contadores .contador-card__number { font-size: var(--text-6xl); }
 
   .cta-mid { padding: 140px 0; }
-  .cta-mid__title { font-size: var(--text-6xl); }
 
-  .contacto__title { font-size: var(--text-5xl); }
+  .contacto__title { font-size: var(--text-6xl); }
 
   .testimonio-slide {
     min-width: 33.333%;
@@ -2081,6 +2113,14 @@ section.contadores {
    RESPONSIVE: MÓVIL (<768px)
    ============================================ */
 @media (max-width: 767px) {
+  .contacto__form-wrapper {
+    margin-left: 0;
+  }
+
+  .contacto__form {
+    padding: 36px 32px;
+  }
+
   .testimonio-card {
     height: 360px; /* Alto reducido en móvil */
   }
