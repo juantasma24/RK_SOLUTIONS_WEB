@@ -1233,7 +1233,7 @@ section.contadores {
 
 /* Slide - contenedor flexible */
 .testimonio-slide {
-  min-width: 33.333%;
+  min-width: 100%; /* mobile: 1 slide visible — sobreescrito en tablet/desktop */
   display: flex;
   align-items: stretch; /* Estira todas las cards al mismo alto */
   padding: 0 10px;
@@ -1389,7 +1389,7 @@ section.contadores {
 /* Grid de cards */
 .planes__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr; /* mobile: 1 columna — sobreescrito en tablet */
   gap: 24px;
   align-items: start;
 }
@@ -2077,6 +2077,11 @@ section.contadores {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
+.anim-reveal.visible.plan-card:hover {
+  transform: translateY(-6px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 .anim-slide-up {
   opacity: 0;
   transform: translateY(80px);
@@ -2134,7 +2139,7 @@ section.contadores {
     height: 380px; /* Alto reducido en tablet */
   }
 
-  .planes__grid { grid-template-columns: 1fr 1fr; }
+  .planes__grid { grid-template-columns: 1fr 1fr; } /* 2 columnas en tablet+ */
   .planes__layout { grid-template-columns: 1fr 1.4fr; }
   .planes__texto { text-align: left; }
 
@@ -2195,16 +2200,69 @@ section.contadores {
    RESPONSIVE: MÓVIL (<768px)
    ============================================ */
 @media (max-width: 767px) {
-  .contacto__form-wrapper {
-    margin-left: 0;
+
+  /* --- TOPBAR --- */
+  .topbar__inner {
+    padding: 0 16px;
   }
 
-  .contacto__form {
-    padding: 36px 32px;
+  /* --- HEADER --- */
+  .header__inner {
+    padding: 0 16px;
   }
 
+  /* --- HERO: escalar títulos para que quepan --- */
+  .hero__title-line--1 { font-size: 3.2rem; }
+  .hero__title-line--2 { font-size: 3.2rem; }
+  .hero__title-line--3 { font-size: 1.9rem; }
+  .hero__title-line--4 { font-size: 2.2rem; }
+  .hero__title-line--5 { font-size: 2.4rem; }
+
+  /* --- QUE-HACE: centrar contenido en 1 columna --- */
+  .que-hace__content {
+    text-align: center;
+  }
+
+  .que-hace__features {
+    align-items: center; /* centra cada li como bloque */
+  }
+
+  .que-hace__features li {
+    align-items: flex-start; /* icono anclado al top cuando el texto rompe línea */
+    max-width: 300px;        /* limita el ancho para que el centrado se vea limpio */
+    width: 100%;
+    text-align: left;        /* texto alineado a la izquierda dentro del bloque centrado */
+  }
+
+  /* Ocultar manzanas decorativas de fondo en mobile */
+  .que-hace__deco {
+    display: none;
+  }
+
+  /* Ocultar manzanas outline de la sección Planes en mobile */
+  .planes__deco {
+    display: none;
+  }
+
+  /* Neutralizar scale del laptop */
+  .que-hace__laptop-frame {
+    transform: scale(1);
+  }
+
+  /* Los badges sobre el laptop en mobile se esconden para no desbordarse */
+  .que-hace__badge-dispositivo,
+  .que-hace__badge-247 {
+    display: none;
+  }
+
+  /* --- CONTADORES: reducir padding del wrapper --- */
+  .contadores__wrapper {
+    padding: 24px 16px;
+  }
+
+  /* --- TESTIMONIOS --- */
   .testimonio-card {
-    height: 360px; /* Alto reducido en móvil */
+    height: 360px;
   }
 
   .testimonio-card__bubble {
@@ -2212,8 +2270,108 @@ section.contadores {
   }
 
   .testimonio-card__quote {
-    -webkit-line-clamp: 5; /* 5 líneas en móvil */
+    -webkit-line-clamp: 5;
     line-clamp: 5;
+  }
+
+  /* --- PLANES: reducir padding de cards en 1 columna --- */
+  .plan-card {
+    padding: 48px 20px 28px;
+  }
+
+  /* El premium usa padding 0 en el wrapper (lo gestiona el .plan-card__inner) */
+  .plan-card--premium {
+    padding: 0;
+  }
+
+  .plan-card__inner {
+    padding: 48px 20px 28px;
+  }
+
+  /* --- CONTACTO: centrar texto en 1 columna --- */
+  .contacto__info {
+    text-align: center;
+  }
+
+  .contacto__list li {
+    justify-content: center;
+  }
+
+  .contacto__form-wrapper {
+    margin-left: 0;
+  }
+
+  .contacto__form {
+    padding: 32px 20px;
+  }
+
+  /* --- FAQ: reducir padding izquierdo de respuestas --- */
+  .faq__title {
+    font-size: var(--text-3xl);
+  }
+
+  .faq-item__answer-inner {
+    padding: 16px 16px 8px 20px;
+  }
+
+  /* --- FOOTER: evitar overflow en tagline y newsletter --- */
+  .footer__tagline {
+    white-space: normal;
+  }
+
+  .footer__newsletter {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: var(--radius-lg);
+    max-width: 100%;
+  }
+
+  .footer__newsletter-input {
+    min-width: 0;
+    flex: 1 1 140px;
+  }
+
+  .footer__newsletter-btn {
+    flex: 0 0 auto;
+  }
+}
+
+/* ============================================
+   RESPONSIVE: MÓVIL PEQUEÑO (<480px)
+   ============================================ */
+@media (max-width: 479px) {
+
+  /* Hero: ajuste extra para iPhone SE (375px) */
+  .hero__title-line--1 { font-size: 2.6rem; }
+  .hero__title-line--2 { font-size: 2.6rem; }
+  .hero__title-line--3 { font-size: 1.6rem; }
+  .hero__title-line--4 { font-size: 1.85rem; }
+  .hero__title-line--5 { font-size: 2rem; }
+
+  /* Pilares: 1 columna en pantallas muy pequeñas */
+  .pilares__grid {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+  }
+
+  .pilar-card {
+    padding: 24px 20px;
+  }
+
+  /* Contadores: reducir número font en mobile small */
+  .contador-card__number {
+    font-size: var(--text-4xl);
+  }
+
+  /* FAQ: título más compacto */
+  .faq__title {
+    font-size: var(--text-2xl);
+  }
+
+  /* Section title general */
+  .section-title {
+    font-size: var(--text-3xl);
   }
 }
 
