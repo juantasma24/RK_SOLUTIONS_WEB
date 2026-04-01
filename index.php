@@ -401,58 +401,70 @@
        SECCIÓN 7: PLANES
        ============================================ -->
   <section class="planes section" id="planes">
-    <div class="container text-center">
-      <h2 class="section-title anim-reveal">Elige el plan<br><span class="highlight">que se adapte<br>a tu negocio</span></h2>
+    <!-- Decoración lateral izquierda -->
+    <div class="planes__deco planes__deco--left" aria-hidden="true">
+      <img src="assets/img/isotipo-manzana-outline.svg" alt="">
+    </div>
 
-      <div class="planes__grid">
-        <!-- Plan Premium -->
-        <div class="plan-card glass-card anim-reveal">
-          <h3 class="plan-card__name">Premium</h3>
-          <ul class="plan-card__features">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              TPV
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Fichero de clientes
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Creación y emisión de facturas
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Economato: gastos, presupuestos...
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Personalización de pantallas
-            </li>
-          </ul>
-          <a href="#contacto" class="btn btn--primary">Quiero este plan</a>
+    <div class="container">
+      <div class="planes__layout">
+
+        <!-- Columna izquierda: texto -->
+        <div class="planes__texto anim-reveal">
+          <h2 class="planes__titulo">Elige el plan<br><strong>que se adapte<br>a tu negocio</strong></h2>
+          <p class="planes__subtitulo"><strong>VERI*FACTU</strong> llega y adaptarse a tiempo <strong>marca la diferencia.</strong></p>
         </div>
 
-        <!-- Plan Standard -->
-        <div class="plan-card glass-card anim-reveal">
-          <h3 class="plan-card__name">Standard</h3>
-          <ul class="plan-card__features">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Fichero de clientes
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Creación y emisión de facturas
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Economato: gastos, presupuestos, empleados, etc.
-            </li>
-          </ul>
-          <a href="#contacto" class="btn btn--outline">Quiero este plan</a>
+        <!-- Columna derecha: cards -->
+        <div class="planes__grid">
+
+          <!-- Plan Premium -->
+          <div class="plan-card plan-card--premium anim-reveal">
+            <div class="plan-card__badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+              </svg>
+            </div>
+            <div class="plan-card__inner">
+              <h3 class="plan-card__name">Premium</h3>
+              <hr class="plan-card__divider">
+              <ul class="plan-card__features">
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">TPV</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Fichas de cliente</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos, empleados, etc.</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Personalización de pestañas</li>
+              </ul>
+              <a href="#contacto" class="btn btn--primary plan-card__btn">Quiero este plan</a>
+            </div>
+          </div>
+
+          <!-- Plan Standard -->
+          <div class="plan-card plan-card--standard anim-reveal">
+            <div class="plan-card__badge plan-card__badge--standard">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            </div>
+            <h3 class="plan-card__name">Standard</h3>
+            <hr class="plan-card__divider">
+            <ul class="plan-card__features">
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">TPV</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Fichas de cliente</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos, empleados, etc.</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Personalización de pestañas</li>
+            </ul>
+            <a href="#contacto" class="btn plan-card__btn plan-card__btn--standard">Quiero este plan</a>
+          </div>
+
         </div>
       </div>
+    </div>
+
+    <!-- Decoración lateral derecha -->
+    <div class="planes__deco planes__deco--right" aria-hidden="true">
+      <img src="assets/img/isotipo-manzana-outline.svg" alt="">
     </div>
   </section>
 
