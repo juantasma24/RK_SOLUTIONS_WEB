@@ -2143,7 +2143,7 @@ section.contadores {
   width: 56px;
   height: 56px;
   background: var(--color-gray-800);
-  border: 1px solid var(--glass-border);
+  border: 2px solid rgba(255, 255, 255, 0.6);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2152,7 +2152,7 @@ section.contadores {
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
-  transition: opacity 0.2s var(--ease-out), visibility 0.2s, transform 0.2s var(--ease-out), background-color 0.2s ease;
+  transition: opacity 0.2s var(--ease-out), visibility 0.2s, transform 0.2s var(--ease-out), background-color 0.2s ease, border-color 0.2s ease;
   z-index: 90;
 }
 
@@ -2162,7 +2162,10 @@ section.contadores {
   transform: translateY(0);
 }
 
-.back-to-top:hover { background: var(--color-primary); }
+.back-to-top:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
 .back-to-top:active { transform: scale(0.9); }
 
 .whatsapp-float {
