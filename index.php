@@ -546,18 +546,18 @@
        ============================================ -->
   <section class="faq section" id="faq">
     <div class="container">
-      <div class="faq__header text-center anim-reveal">
-        <div class="faq__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        </div>
-        <h2 class="section-title">Resolvemos tus dudas<br>antes de empezar.</h2>
+      <div class="faq__header anim-reveal">
+        <h2 class="faq__title">Resolvemos tus dudas antes de empezar.</h2>
       </div>
 
       <div class="faq__grid">
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Qué es La Manzana y para qué sirve?</span>
-            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <span class="faq-item__plus">+</span>
+            <span class="faq-item__text">¿Qué es La Manzana y para qué sirve?</span>
+            <div class="faq-item__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">La Manzana es un software de gestión integral que unifica facturación, fichajes, TPV y cumplimiento normativo (TicketBAI y VERI*FACTU) en una sola plataforma. Diseñado para autónomos, hostelería y comercio.</div>
@@ -566,8 +566,11 @@
 
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Tengo un comercio, es para mí?</span>
-            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <span class="faq-item__plus">+</span>
+            <span class="faq-item__text">¿Tengo un comercio, es para mí?</span>
+            <div class="faq-item__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">Sí. La Manzana se adapta a cualquier tipo de comercio: retail, hostelería, servicios profesionales y más. Si necesitas gestionar ventas, fichajes o cumplir la normativa fiscal, es para ti.</div>
@@ -576,8 +579,11 @@
 
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Puedo usar La Manzana desde cualquier dispositivo?</span>
-            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <span class="faq-item__plus">+</span>
+            <span class="faq-item__text">¿Puedo usar La Manzana desde cualquier dispositivo?</span>
+            <div class="faq-item__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">Sí. Funciona desde ordenador, tablet y móvil. Accede a todos tus datos en tiempo real desde cualquier lugar con conexión a internet.</div>
@@ -586,8 +592,11 @@
 
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Cumple con TicketBAI y VERI*FACTU?</span>
-            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <span class="faq-item__plus">+</span>
+            <span class="faq-item__text">¿Cumple con TicketBAI y VERI*FACTU?</span>
+            <div class="faq-item__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">Sí, al 100%. La Manzana está homologada y actualizada para cumplir con TicketBAI (País Vasco) y VERI*FACTU (resto de España). Nos encargamos de las actualizaciones normativas.</div>
@@ -596,8 +605,11 @@
 
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Es fácil de usar para alguien que no es técnico?</span>
-            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <span class="faq-item__plus">+</span>
+            <span class="faq-item__text">¿Es fácil de usar para alguien que no es técnico?</span>
+            <div class="faq-item__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">Totalmente. Si sabes enviar un correo electrónico, sabes usar La Manzana. Además, incluimos formación completa y soporte humano 24/7 para cualquier duda.</div>
@@ -606,8 +618,11 @@
 
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span>¿Puedo probar La Manzana antes de contratarla?</span>
-            <div class="faq-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <span class="faq-item__plus">+</span>
+            <span class="faq-item__text">¿Puedo probar La Manzana antes de contratarla?</span>
+            <div class="faq-item__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">Sí. Ofrecemos 12 meses sin costes para que pruebes todas las funcionalidades sin compromiso. Déjanos tus datos y te contactamos para empezar.</div>

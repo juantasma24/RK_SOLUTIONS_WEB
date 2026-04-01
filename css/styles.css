@@ -1746,48 +1746,84 @@ section.contadores {
    SECCI�N: FAQ
    ============================================ */
 .faq {
-  background: var(--color-black);
-}
-
-.faq__icon {
-  color: var(--color-white);
-  margin-bottom: 16px;
+  background: #4a4a4a;
 }
 
 .faq__header {
-  margin-bottom: 48px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.faq__title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--text-4xl);
+  color: var(--color-white);
+  line-height: 1.2;
 }
 
 .faq__grid {
-  max-width: 800px;
+  max-width: 780px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .faq-item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none;
 }
 
 .faq-item__question {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px 0;
+  padding: 18px 20px 18px 24px;
   font-family: var(--font-primary);
-  font-weight: 500;
+  font-weight: 700;
   font-size: var(--text-base);
   color: var(--color-white);
   text-align: left;
-  gap: 16px;
+  gap: 14px;
+  background: var(--color-primary);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.faq-item__plus {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1;
+  flex-shrink: 0;
+  color: var(--color-white);
+  transition: transform var(--transition-base);
+}
+
+.faq-item__question[aria-expanded="true"] .faq-item__plus {
+  transform: rotate(45deg);
+}
+
+.faq-item__text {
+  flex: 1;
 }
 
 .faq-item__icon {
   flex-shrink: 0;
-  color: var(--color-primary);
+  width: 36px;
+  height: 36px;
+  background: #3d8a2e;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
   transition: transform var(--transition-base);
+}
+
+.faq-item__icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .faq-item__question[aria-expanded="true"] .faq-item__icon {
@@ -1801,9 +1837,9 @@ section.contadores {
 }
 
 .faq-item__answer-inner {
-  padding: 0 0 20px;
+  padding: 16px 24px 8px 62px;
   font-size: var(--text-base);
-  color: var(--color-gray-400);
+  color: rgba(255,255,255,0.9);
   line-height: 1.7;
 }
 
