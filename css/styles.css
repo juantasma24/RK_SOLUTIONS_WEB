@@ -749,16 +749,18 @@ input, select, textarea { font: inherit; color: inherit; }
   z-index: 0;
   pointer-events: none;
   filter: brightness(0) invert(1);
+  will-change: transform;
+  --parallax-y: 0px;
 }
 .que-hace__deco--left {
   left: -100px;
   top: -10%;
-  transform: rotate(-15deg);
+  transform: rotate(-15deg) translateY(var(--parallax-y));
 }
 .que-hace__deco--right {
   right: -100px;
   bottom: -60px;
-  transform: rotate(20deg);
+  transform: rotate(20deg) translateY(var(--parallax-y));
 }
 
 .que-hace__inner {
@@ -972,18 +974,25 @@ input, select, textarea { font: inherit; color: inherit; }
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
 .autonomos__video-bg video {
   width: 100%;
-  height: 100%;
+  height: 130%; /* sobredimensionado para tener margen de movimiento */
   object-fit: cover;
+  position: absolute;
+  top: -15%;
+  left: 0;
+  will-change: transform;
 }
 
 .autonomos__overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
+  will-change: opacity;
+  transition: opacity 0.1s linear;
 }
 
 .autonomos__title {
@@ -1415,17 +1424,19 @@ section.contadores {
 .planes__deco {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  --parallax-y: 0px;
+  transform: translateY(calc(-50% + var(--parallax-y)));
   width: 364px;
   opacity: 0.5;
   pointer-events: none;
+  will-change: transform;
 }
 .planes__deco img {
   width: 100%;
   height: auto;
 }
 .planes__deco--left  { left: -156px; }
-.planes__deco--right { right: -156px; transform: translateY(-50%); }
+.planes__deco--right { right: -156px; }
 
 /* Layout 2 columnas: texto | cards */
 .planes__layout {
@@ -1462,7 +1473,7 @@ section.contadores {
   display: grid;
   grid-template-columns: 1fr; /* mobile: 1 columna — sobreescrito en tablet */
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
 }
 
 /* Card base */
@@ -1472,6 +1483,8 @@ section.contadores {
   position: relative;
   margin-top: 36px;
   transition: transform 0.25s var(--ease-out), box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 /* La card Premium no tiene padding propio, lo gestiona el inner */
@@ -1503,6 +1516,10 @@ section.contadores {
   color: var(--color-black);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   z-index: 10;
+}
+
+.plan-card--premium .plan-card__badge img {
+  margin-top: 4px;
 }
 
 .plan-card__badge--standard {
@@ -1583,6 +1600,7 @@ section.contadores {
   margin-bottom: 28px;
   position: relative;
   z-index: 1;
+  flex: 1; /* empuja el botón al fondo igualando altura entre cards */
 }
 
 .plan-card__features li {
