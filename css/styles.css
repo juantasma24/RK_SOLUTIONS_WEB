@@ -1054,6 +1054,14 @@ input, select, textarea { font: inherit; color: inherit; }
 /* ============================================
    SECCI�N: CONTADORES
    ============================================ */
+/* Animación de brillo en el bloque de vidrio */
+@keyframes glass-shine {
+  0%   { transform: translateX(-120%) skewX(-20deg); opacity: 0; }
+  5%   { opacity: 1; }
+  30%  { transform: translateX(220%) skewX(-20deg); opacity: 0; }
+  100% { transform: translateX(220%) skewX(-20deg); opacity: 0; }
+}
+
 section.contadores {
   background: var(--color-black);
   padding: 0 0 30px;
@@ -1062,14 +1070,43 @@ section.contadores {
 .contadores__wrapper {
   background: url('../assets/img/bloque_vidrio.png') no-repeat center center;
   background-size: 100% 100%;
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 40px;
   border-radius: var(--radius-xl);
   transform: translateY(-5%);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Brillo que pasa por el bloque de vidrio — no afecta a las cards */
+.contadores__wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 30%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.08) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: glass-shine 6s ease-in-out infinite;
+  animation-delay: 1.5s;
+  animation-fill-mode: backwards;
+  will-change: transform;
+}
+
+/* Las cards quedan por encima del brillo */
 .contadores__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
