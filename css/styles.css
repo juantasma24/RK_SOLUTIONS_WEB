@@ -653,6 +653,7 @@ input, select, textarea { font: inherit; color: inherit; }
   font-size: 2.93rem;
   color: var(--color-white);
   animation-delay: 0.8s;
+  margin-top: calc(0.18em - 3px);
 }
 
 .hero__title-line--4 {
@@ -665,10 +666,10 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 .hero__title-line--5 {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   font-style: italic;
-  font-weight: 400;
-  font-size: 3.9rem;
+  font-weight: 300;
+  font-size: 2.8rem;
   color: var(--color-primary);
   animation-delay: 1.1s;
 }
@@ -2294,7 +2295,7 @@ section.contadores {
   .hero__title-line--2 { font-size: 7rem; }
   .hero__title-line--3 { font-size: 3.9rem; }
   .hero__title-line--4 { font-size: 5.04rem; }
-  .hero__title-line--5 { font-size: 4.88rem; }
+  .hero__title-line--5 { font-size: 3.9rem; }
 
   .hero__apple--1 { width: 30vw; left: -8%;  top: 8%; }
   .hero__apple--2 { width: 20vw; left: 10%;  bottom: -2%; }
@@ -2349,7 +2350,7 @@ section.contadores {
   .hero__title-line--2 { font-size: 8rem; }
   .hero__title-line--3 { font-size: 4.88rem; }
   .hero__title-line--4 { font-size: 5.78rem; }
-  .hero__title-line--5 { font-size: 5.85rem; }
+  .hero__title-line--5 { font-size: 4.88rem; }
 
   .hero__apple--1 { width: 280px; left: -8%;  top: 18%; }
   .hero__apple--2 { width: 180px; left: 12%;  top: auto; bottom: -2%; }
