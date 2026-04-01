@@ -1,4 +1,44 @@
-# Sesión - Agregación de UI/UX Pro Max Skill
+# Session Notes - RK Solutions Project
+
+## 📌 Convención
+Cada vez que el usuario diga **"guarda el checkpoint"**, se actualizará este archivo con el estado actual del proyecto.
+
+---
+
+## ✅ CHECKPOINT #1 — 2026-04-01
+**Estado**: Skills creados y documentados
+
+### Lo que se hizo esta sesión
+- ✅ Retomado el proyecto tras ajuste en sección de reseñas
+- ✅ Verificado `.gitignore` con `errores/` excluido
+- ✅ Commit y push de los cambios (ejecutado manualmente por el usuario)
+- ✅ Creado **frontend-design-SKILL.md** en `.claude/`
+- ✅ Creado **backend-design-SKILL.md** en `.claude/`
+- ✅ Creado **ui-ux-pro-max-SKILL.md** en `.claude/` (basado en nextlevelbuilder/ui-ux-pro-max-skill)
+- ✅ Creada documentación: `README_SKILLS.md`, `SKILLS_GUIDE.md`, `QUICK_REFERENCE.md`
+- ✅ **Pendiente**: commit y push de los skills (el usuario los ejecutará manualmente)
+
+### Estado del proyecto
+- **Stack**: HTML/CSS/JS (prototipo) → WordPress+Elementor (migración)
+- **Objetivo**: Captar solicitudes de demo para "La Manzana"
+- **Skills activos**: frontend-design, backend-design, ui-ux-pro-max
+
+### Archivos clave
+| Archivo | Estado |
+|---------|--------|
+| `RK_WEB_BRIEF.md` | ✅ Completo |
+| `.claude/frontend-design-SKILL.md` | ✅ Creado |
+| `.claude/backend-design-SKILL.md` | ✅ Creado |
+| `.claude/ui-ux-pro-max-SKILL.md` | ✅ Creado |
+| `QUICK_REFERENCE.md` | ✅ Creado |
+
+### Próximos pasos
+- [ ] Hacer commit y push de los skills
+- [ ] Iniciar construcción de componentes con los skills
+
+---
+
+
 
 ## Resumen Ejecutivo
 Se han creado **3 skills profesionales** para el proyecto RK Solutions, incluyendo el nuevo **UI/UX Pro Max skill** basado en el repositorio de NextLevelBuilder.
