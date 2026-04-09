@@ -6,6 +6,7 @@
 
 /* --- CSS Custom Properties --- */
 :root {
+  --header-opacity: 0.9;
   --color-primary: #5ea84a;
   --color-primary-dark: #4a8c3a;
   --color-primary-light: #7bc268;
@@ -35,8 +36,6 @@
   --text-5xl: 3rem;
   --text-6xl: 3.75rem;
   --text-7xl: 4.5rem;
-  --text-8xl: 6rem;
-
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -76,7 +75,7 @@ body {
   background-color: var(--color-black);
   color: var(--color-white);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -243,24 +242,6 @@ input, select, textarea { font: inherit; color: inherit; }
   gap: 14px;
 }
 
-.topbar__theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--color-black);
-  color: var(--color-white);
-  transition: background-color 0.2s ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .topbar__theme-toggle:hover {
-    background: var(--color-gray-800);
-  }
-}
-
 /* Language dropdown */
 .topbar__lang {
   position: relative;
@@ -343,7 +324,7 @@ input, select, textarea { font: inherit; color: inherit; }
   right: 0;
   z-index: 1000;
   height: var(--header-height);
-  background: rgba(8, 8, 8, 0.97);
+  background: rgba(8, 8, 8, var(--header-opacity));
   border-bottom: none;
   border-radius: 0 0 24px 24px;
   transition: background var(--transition-base), box-shadow var(--transition-base), top var(--transition-base);
@@ -367,7 +348,7 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 .header--scrolled {
-  background: rgba(5, 5, 5, 0.97);
+  background: rgba(5, 5, 5, var(--header-opacity));
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -599,9 +580,13 @@ input, select, textarea { font: inherit; color: inherit; }
 .hero__pattern-track {
   display: flex;
   height: 250%;
-  margin-top: -15%;
   width: max-content;
+  will-change: transform;
   animation: patternScroll 50s linear infinite;
+}
+
+.hero__pattern {
+  contain: paint;
 }
 
 .hero__pattern-track img {
@@ -857,35 +842,6 @@ input, select, textarea { font: inherit; color: inherit; }
   border: none;
 }
 
-/* Badge gestión — junto al laptop */
-.que-hace__badge-gestion {
-  position: absolute;
-  top: 25%;
-  right: -20px;
-  padding: 20px 24px;
-  z-index: 3;
-  border-radius: var(--radius-lg);
-  max-width: 240px;
-  background: rgba(0, 0, 0, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.que-hace__badge-gestion strong {
-  display: block;
-  font-size: var(--text-xl);
-  font-weight: 800;
-  color: var(--color-primary);
-  margin-bottom: 8px;
-  line-height: 1.2;
-}
-
-.que-hace__badge-gestion span {
-  display: block;
-  font-size: var(--text-sm);
-  color: var(--color-white);
-  line-height: 1.5;
-}
-
 /* Badges superiores — 24/7 + Dispositivo */
 .que-hace__badge-247,
 .que-hace__badge-dispositivo {
@@ -1114,7 +1070,6 @@ section.contadores {
   animation: glass-shine 6s ease-in-out infinite;
   animation-delay: 1.5s;
   animation-fill-mode: backwards;
-  will-change: transform;
 }
 
 /* Las cards quedan por encima del brillo */
@@ -1424,6 +1379,7 @@ section.contadores {
 .plan-card--premium {
   padding: 0;
   margin-top: 36px;
+  background: transparent; /* el inner lleva el fondo */
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -1460,12 +1416,6 @@ section.contadores {
   color: var(--color-white-pure);
 }
 
-/* Card Premium — fondo negro */
-.plan-card--premium {
-  background: transparent; /* el inner lleva el fondo */
-  padding: 0;
-}
-
 /* Inner: lleva fondo, overflow y el brillo */
 .plan-card__inner {
   background: var(--color-black);
@@ -1496,7 +1446,6 @@ section.contadores {
   animation: glass-shine 6s ease-in-out infinite;
   animation-delay: 2s;
   animation-fill-mode: backwards;
-  will-change: transform;
 }
 
 /* Card Standard — fondo blanco */
@@ -1683,7 +1632,6 @@ section.contadores {
   animation: glass-shine 6s ease-in-out infinite;
   animation-delay: 3s;
   animation-fill-mode: backwards;
-  will-change: transform;
 }
 
 .contacto__form-intro {
@@ -2234,6 +2182,22 @@ section.contadores {
   }
 }
 
+/* ============================================
+   CONTENT VISIBILITY — salta render de secciones fuera de pantalla
+   ============================================ */
+.que-hace,
+.autonomos,
+.pilares,
+.contadores,
+.testimonios,
+.planes,
+.contacto,
+.faq,
+.footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
 .anim-slide-up {
   opacity: 0;
   transform: translateY(60px);
@@ -2543,8 +2507,6 @@ section.contadores {
    ============================================ */
 @media (min-width: 1280px) {
   .container { padding: 0 40px; }
-
-  .que-hace__badge-gestion { right: -40px; }
 }
 
 /* ============================================
@@ -2615,7 +2577,6 @@ section.contadores {
 }
 
 .topbar__lang-btn:focus-visible,
-.topbar__theme-toggle:focus-visible,
 .header__mobile-toggle:focus-visible,
 .back-to-top:focus-visible {
   outline: 2px solid var(--color-primary);

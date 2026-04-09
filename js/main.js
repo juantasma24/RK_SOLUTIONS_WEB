@@ -9,31 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('.header');
   const topbar = document.querySelector('.topbar');
 
-  /* --- Theme toggle (dark/light) --- */
-  const themeToggle = document.getElementById('themeToggle');
-  if (themeToggle) {
-    const iconMoon = themeToggle.querySelector('.topbar__icon-moon');
-    const iconSun = themeToggle.querySelector('.topbar__icon-sun');
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      if (iconMoon && iconSun) {
-        iconMoon.style.display = theme === 'dark' ? '' : 'none';
-        iconSun.style.display = theme === 'light' ? '' : 'none';
-      }
-    }
-
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      localStorage.setItem('rk-theme', next);
-    });
-
-    const saved = localStorage.getItem('rk-theme');
-    if (saved) applyTheme(saved);
-  }
-
   /* --- Language dropdown --- */
   const langDropdown = document.getElementById('langDropdown');
   const langToggle = document.getElementById('langToggle');
@@ -104,13 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- Back to top --- */
   const backToTop = document.querySelector('.back-to-top');
 
-  /* --- Parallax: sección Autónomos --- */
-  const autonomosSection = document.getElementById('autonomos');
-  const parallaxVideo    = document.querySelector('.autonomos__video-bg video');
-  const parallaxOverlay  = document.querySelector('.autonomos__overlay');
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isMobile = () => window.innerWidth < 768;
-
   /* --- Listener único de scroll con rAF --- */
   let scrollRafId = null;
 
@@ -125,9 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (topbar) {
         topbar.classList.toggle('hidden', scrolled);
         header.classList.toggle('header--top-hidden', scrolled);
-        if (scrolled) {
-          const langDropdown = document.getElementById('langDropdown');
-          if (langDropdown) langDropdown.classList.remove('open');
+        if (scrolled && langDropdown) {
+          langDropdown.classList.remove('open');
         }
       }
     }
@@ -137,18 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
       backToTop.classList.toggle('visible', scrollY > 400);
     }
 
-    // Parallax vídeo autónomos
-    if (autonomosSection && parallaxVideo && !prefersReducedMotion && !isMobile()) {
-      const rect  = autonomosSection.getBoundingClientRect();
-      const viewH = window.innerHeight;
-      if (rect.bottom >= 0 && rect.top <= viewH) {
-        const progress  = 1 - (rect.bottom / (viewH + rect.height));
-        const translateY = (progress - 0.5) * 30;
-        parallaxVideo.style.transform = `translateY(${translateY}%)`;
-        const opacity = 0.45 + Math.abs(progress - 0.5) * 0.4;
-        if (parallaxOverlay) parallaxOverlay.style.background = `rgba(0,0,0,${opacity.toFixed(2)})`;
-      }
-    }
   }
 
   window.addEventListener('scroll', () => {
@@ -313,13 +268,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* --- Video loop fallback --- */
+  /* --- Pausar pattern cuando el hero no es visible --- */
+  const heroPattern = document.querySelector('.hero__pattern-track');
+  if (heroPattern) {
+    const heroSection = document.querySelector('.hero');
+    new IntersectionObserver((entries) => {
+      heroPattern.style.animationPlayState = entries[0].isIntersecting ? 'running' : 'paused';
+    }, { threshold: 0 }).observe(heroSection);
+  }
+
+  /* --- Lazy load iframe YouTube --- */
+  const lazyIframe = document.querySelector('iframe[data-src]');
+  if (lazyIframe) {
+    new IntersectionObserver((entries, obs) => {
+      if (entries[0].isIntersecting) {
+        lazyIframe.src = lazyIframe.dataset.src;
+        obs.disconnect();
+      }
+    }, { rootMargin: '200px' }).observe(lazyIframe);
+  }
+
+  /* --- Pausar vídeo de autónomos cuando no es visible --- */
   const bgVideo = document.querySelector('.autonomos__video-bg video');
   if (bgVideo) {
     bgVideo.addEventListener('ended', () => {
       bgVideo.currentTime = 0;
       bgVideo.play();
     });
+    new IntersectionObserver((entries) => {
+      entries[0].isIntersecting ? bgVideo.play() : bgVideo.pause();
+    }, { threshold: 0 }).observe(bgVideo.closest('section'));
   }
 
   /* ============================================
@@ -441,8 +419,6 @@ document.addEventListener('DOMContentLoaded', () => {
         testimoniosIndicators.appendChild(d);
       }
     }
-
-    // Eliminar click en dots (ya no son navegables)
 
     function startTimer() { autoTimer = setInterval(() => { if (!isPaused) next(); }, 5000); }
     function resetTimer() { clearInterval(autoTimer); startTimer(); }

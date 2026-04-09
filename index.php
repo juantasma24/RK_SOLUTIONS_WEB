@@ -24,8 +24,8 @@
   <section class="hero" id="inicio">
     <div class="hero__pattern" aria-hidden="true">
       <div class="hero__pattern-track">
-        <img src="assets/img/pattern_manzanas_outline.svg" alt="">
-        <img src="assets/img/pattern_manzanas_outline.svg" alt="">
+        <img src="assets/img/pattern_manzanas_outline.png" alt="">
+        <img src="assets/img/pattern_manzanas_outline.png" alt="">
       </div>
     </div>
     <div class="container hero__container">
@@ -81,7 +81,7 @@
             <div class="que-hace__laptop-frame">
               <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img">
               <div class="que-hace__laptop-screen">
-                <iframe src="https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+                <iframe data-src="https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
               </div>
               <!-- Badge sobre la laptop -->
               <div class="que-hace__badge-dispositivo">
