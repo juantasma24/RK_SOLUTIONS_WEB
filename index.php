@@ -22,6 +22,12 @@
        SECCIÓN 1: HERO
        ============================================ -->
   <section class="hero" id="inicio">
+    <div class="hero__pattern" aria-hidden="true">
+      <div class="hero__pattern-track">
+        <img src="assets/img/pattern_manzanas_outline.svg" alt="">
+        <img src="assets/img/pattern_manzanas_outline.svg" alt="">
+      </div>
+    </div>
     <div class="container hero__container">
       <!-- Título con tipografías mixtas -->
       <h1 class="hero__title">

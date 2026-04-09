@@ -586,6 +586,37 @@ input, select, textarea { font: inherit; color: inherit; }
   padding: calc(var(--header-height) + var(--topbar-height) + 20px) 0 40px;
 }
 
+/* Pattern background — manzanas outline en movimiento */
+.hero__pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+.hero__pattern-track {
+  display: flex;
+  height: 250%;
+  margin-top: -15%;
+  width: max-content;
+  animation: patternScroll 50s linear infinite;
+}
+
+.hero__pattern-track img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  flex-shrink: 0;
+}
+
+@keyframes patternScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 .hero__container {
   display: flex;
   flex-direction: column;
