@@ -5,24 +5,9 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* --- Header scroll effect + topbar hide --- */
+  /* --- Scroll unificado: header + back-to-top + parallax vídeo --- */
   const header = document.querySelector('.header');
   const topbar = document.querySelector('.topbar');
-  if (header) {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY > 60;
-      header.classList.toggle('header--scrolled', scrolled);
-      if (topbar) {
-        topbar.classList.toggle('hidden', scrolled);
-        header.classList.toggle('header--top-hidden', scrolled);
-        // Cerrar el dropdown de idioma si el topbar se oculta
-        if (scrolled) {
-          const langDropdown = document.getElementById('langDropdown');
-          if (langDropdown) langDropdown.classList.remove('open');
-        }
-      }
-    }, { passive: true });
-  }
 
   /* --- Theme toggle (dark/light) --- */
   const themeToggle = document.getElementById('themeToggle');
@@ -116,6 +101,63 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => revealObserver.observe(el));
   }
 
+  /* --- Back to top --- */
+  const backToTop = document.querySelector('.back-to-top');
+
+  /* --- Parallax: sección Autónomos --- */
+  const autonomosSection = document.getElementById('autonomos');
+  const parallaxVideo    = document.querySelector('.autonomos__video-bg video');
+  const parallaxOverlay  = document.querySelector('.autonomos__overlay');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = () => window.innerWidth < 768;
+
+  /* --- Listener único de scroll con rAF --- */
+  let scrollRafId = null;
+
+  function onScrollFrame() {
+    scrollRafId = null;
+    const scrollY = window.scrollY;
+
+    // Header + topbar
+    if (header) {
+      const scrolled = scrollY > 60;
+      header.classList.toggle('header--scrolled', scrolled);
+      if (topbar) {
+        topbar.classList.toggle('hidden', scrolled);
+        header.classList.toggle('header--top-hidden', scrolled);
+        if (scrolled) {
+          const langDropdown = document.getElementById('langDropdown');
+          if (langDropdown) langDropdown.classList.remove('open');
+        }
+      }
+    }
+
+    // Back to top
+    if (backToTop) {
+      backToTop.classList.toggle('visible', scrollY > 400);
+    }
+
+    // Parallax vídeo autónomos
+    if (autonomosSection && parallaxVideo && !prefersReducedMotion && !isMobile()) {
+      const rect  = autonomosSection.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      if (rect.bottom >= 0 && rect.top <= viewH) {
+        const progress  = 1 - (rect.bottom / (viewH + rect.height));
+        const translateY = (progress - 0.5) * 30;
+        parallaxVideo.style.transform = `translateY(${translateY}%)`;
+        const opacity = 0.45 + Math.abs(progress - 0.5) * 0.4;
+        if (parallaxOverlay) parallaxOverlay.style.background = `rgba(0,0,0,${opacity.toFixed(2)})`;
+      }
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!scrollRafId) scrollRafId = requestAnimationFrame(onScrollFrame);
+  }, { passive: true });
+
+  // Posición inicial
+  onScrollFrame();
+
   /* --- Hero title letter-by-letter hover --- */
   document.querySelectorAll('.hero__title-line').forEach(line => {
     const text = line.textContent;
@@ -127,71 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
       line.appendChild(span);
     });
   });
-
-  /* --- Falling 3D apples in hero --- */
-  const heroApplesContainer = document.querySelector('.hero__apples');
-  const heroApples = document.querySelectorAll('.hero__apple');
-
-  // Store each apple's CSS-defined rotation before JS touches them
-  const appleRotations = [15, -10, 15, -15]; // matching CSS: apple 1-4
-
-  if (heroApples.length && heroApplesContainer) {
-    let maxEndTime = 0;
-
-    // 1. Position ALL apples off-screen while still invisible (CSS opacity:0)
-    heroApples.forEach((apple, i) => {
-      const baseRotation = appleRotations[i] || 0;
-      apple.style.transform = `translateY(-120vh) rotate(${baseRotation}deg)`;
-    });
-
-    // 2. Force reflow so transforms are committed before revealing
-    heroApplesContainer.offsetHeight;
-
-    // 3. Now make visible and set overflow
-    heroApplesContainer.style.overflow = 'visible';
-    heroApples.forEach(apple => { apple.style.opacity = '1'; });
-
-    // 4. Start the fall animation
-    heroApples.forEach((apple, i) => {
-      const baseRotation = appleRotations[i] || 0;
-      const delay = 100 + i * 200;
-      const duration = 1400 + i * 150;
-      const endTime = delay + duration;
-      if (endTime > maxEndTime) maxEndTime = endTime;
-
-      setTimeout(() => {
-        apple.style.transition = `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
-        apple.style.transform = `translateY(0) rotate(${baseRotation}deg)`;
-
-        setTimeout(() => {
-          apple.style.transition = 'none';
-          appleFloat(apple, baseRotation);
-        }, duration + 50);
-      }, delay);
-    });
-
-    // Clip overflow after all apples have landed
-    setTimeout(() => {
-      heroApplesContainer.style.overflow = 'hidden';
-    }, maxEndTime + 200);
-  }
-
-  function appleFloat(el, baseRotation) {
-    const amplitude = 9.66;
-    const speed = 0.00966;
-    let t = 0;
-    let rampUp = 0;
-
-    function animate() {
-      t += speed;
-      rampUp = Math.min(rampUp + 0.01, 1);
-      const y = Math.sin(t) * amplitude * rampUp;
-      const r = baseRotation + Math.sin(t * 0.7) * 2 * rampUp;
-      el.style.transform = `translateY(${y}px) rotate(${r}deg)`;
-      requestAnimationFrame(animate);
-    }
-    requestAnimationFrame(animate);
-  }
 
   /* --- Counter animation --- */
   const counterSpans = document.querySelectorAll('.counter-animated');
@@ -250,12 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* --- Back to top --- */
-  const backToTop = document.querySelector('.back-to-top');
   if (backToTop) {
-    window.addEventListener('scroll', () => {
-      backToTop.classList.toggle('visible', window.scrollY > 400);
-    }, { passive: true });
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -349,93 +321,6 @@ document.addEventListener('DOMContentLoaded', () => {
       bgVideo.play();
     });
   }
-
-  /* --- Parallax: sección Autónomos --- */
-  const autonomosSection  = document.getElementById('autonomos');
-  const parallaxVideo     = document.querySelector('.autonomos__video-bg video');
-  const parallaxOverlay   = document.querySelector('.autonomos__overlay');
-
-  if (autonomosSection && parallaxVideo) {
-    // Saltamos parallax en móvil (reducimos trabajo y evitamos jank)
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = () => window.innerWidth < 768;
-
-    let rafId = null;
-
-    function updateParallax() {
-      rafId = null;
-      if (prefersReducedMotion || isMobile()) return;
-
-      const rect     = autonomosSection.getBoundingClientRect();
-      const viewH    = window.innerHeight;
-
-      // Solo animar cuando la sección está visible
-      if (rect.bottom < 0 || rect.top > viewH) return;
-
-      // Progreso: 0 cuando entra por abajo, 1 cuando sale por arriba
-      const progress = 1 - (rect.bottom / (viewH + rect.height));
-
-      // Video se mueve a 0.4x → rango de -15% a +15% (dentro del margen sobredimensionado)
-      const translateY = (progress - 0.5) * 30; // -15 a +15
-      parallaxVideo.style.transform = `translateY(${translateY}%)`;
-
-      // Overlay se oscurece ligeramente al entrar y salir (0.45 → 0.65)
-      const opacity = 0.45 + Math.abs(progress - 0.5) * 0.4;
-      parallaxOverlay.style.background = `rgba(0,0,0,${opacity.toFixed(2)})`;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!rafId) rafId = requestAnimationFrame(updateParallax);
-    }, { passive: true });
-
-    // Posición inicial
-    updateParallax();
-  }
-
-  /* --- Parallax: manzanas deco de Que-hace y Planes --- */
-  (function initDecorativeParallax() {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = () => window.innerWidth < 768;
-
-    // Config: [selector, velocidad-Y]
-    const targets = [
-      { el: document.querySelector('.que-hace__deco--left'),  speedY:  0.6  },
-      { el: document.querySelector('.que-hace__deco--right'), speedY: -0.6  },
-      { el: document.querySelector('.planes__deco--left'),    speedY:  0.4  },
-      { el: document.querySelector('.planes__deco--right'),   speedY: -0.4  },
-    ].filter(t => t.el);
-
-    if (!targets.length) return;
-
-    let rafId = null;
-
-    function updateDecoParallax() {
-      rafId = null;
-      if (prefersReducedMotion || isMobile()) return;
-
-      const viewH = window.innerHeight;
-
-      targets.forEach(({ el, speedY }) => {
-        const section = el.closest('section');
-        if (!section) return;
-        const rect = section.getBoundingClientRect();
-
-        if (rect.bottom < 0 || rect.top > viewH) return;
-
-        const progress = (viewH / 2 - (rect.top + rect.height / 2)) / (viewH / 2);
-        const ty = progress * speedY * 40; // max ±16px
-
-        // Usamos CSS custom property para no romper transform existente
-        el.style.setProperty('--parallax-y', `${ty}px`);
-      });
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!rafId) rafId = requestAnimationFrame(updateDecoParallax);
-    }, { passive: true });
-
-    updateDecoParallax();
-  })();
 
   /* ============================================
      TESTIMONIOS CARRUSEL

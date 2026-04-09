@@ -22,19 +22,11 @@
        SECCIÓN 1: HERO
        ============================================ -->
   <section class="hero" id="inicio">
-    <!-- Manzanas 3D cayendo -->
-    <div class="hero__apples" id="heroApples">
-      <img src="assets/img/manzana-3d-1.png" alt="" class="hero__apple hero__apple--1" aria-hidden="true">
-      <img src="assets/img/manzana-3d-2.png" alt="" class="hero__apple hero__apple--2" aria-hidden="true">
-      <img src="assets/img/manzana-3d-4.png" alt="" class="hero__apple hero__apple--3" aria-hidden="true">
-      <img src="assets/img/manzana-3d-1.png" alt="" class="hero__apple hero__apple--4" aria-hidden="true">
-    </div>
-
     <div class="container hero__container">
       <!-- Título con tipografías mixtas -->
       <h1 class="hero__title">
         <span class="hero__title-line hero__title-line--1">La</span>
-        <span class="hero__title-line hero__title-line--2">MANZANA,</span>
+        <span class="hero__title-line hero__title-line--2">Manzana,</span>
         <span class="hero__title-line hero__title-line--3">el software</span>
         <span class="hero__title-line hero__title-line--4">que entiende</span>
         <span class="hero__title-line hero__title-line--5">tu negocio.</span>
@@ -51,10 +43,6 @@
        SECCIÓN 2: ¿QUÉ HACE LA MANZANA POR TI?
        ============================================ -->
   <section class="que-hace section" id="que-hace">
-    <!-- Manzanas decorativas outline -->
-    <img src="assets/img/isotipo-manzana-outline.svg" alt="" class="que-hace__deco que-hace__deco--left" aria-hidden="true">
-    <img src="assets/img/isotipo-manzana-outline.svg" alt="" class="que-hace__deco que-hace__deco--right" aria-hidden="true">
-
     <div class="container">
       <div class="que-hace__inner">
         <!-- Lado izquierdo: texto -->
@@ -79,7 +67,7 @@
               <span><strong>Cumple</strong> con TicketBAI (País Vasco) y VERI*FACTU (España)</span>
             </li>
           </ul>
-        </div>
+        </div><!-- /.que-hace__content -->
 
         <!-- Lado derecho: laptop con video -->
         <div class="que-hace__visual">
@@ -126,13 +114,6 @@
        SECCIÓN 4: ¿POR QUÉ ELEGIR LA MANZANA?
        ============================================ -->
   <section class="pilares section" id="la-manzana">
-    <!-- Manzanas 3D flotando -->
-    <div class="pilares__apples">
-      <img src="assets/img/manzana-3d-1.png" alt="" class="pilares__apple pilares__apple--1" aria-hidden="true">
-      <img src="assets/img/manzana-3d-3.png" alt="" class="pilares__apple pilares__apple--2" aria-hidden="true">
-      <img src="assets/img/manzana-3d-5.png" alt="" class="pilares__apple pilares__apple--3" aria-hidden="true">
-    </div>
-
     <div class="container text-center">
       <h2 class="section-title section-title--italic anim-reveal">¿Por qué elegir <span class="highlight">La Manzana</span><span class="highlight">?</span></h2>
 
@@ -401,11 +382,6 @@
        SECCIÓN 7: PLANES
        ============================================ -->
   <section class="planes section" id="planes">
-    <!-- Decoración lateral izquierda -->
-    <div class="planes__deco planes__deco--left" aria-hidden="true">
-      <img src="assets/img/isotipo-manzana-outline.svg" alt="">
-    </div>
-
     <div class="container">
       <div class="planes__layout">
 
@@ -457,10 +433,6 @@
       </div>
     </div>
 
-    <!-- Decoración lateral derecha -->
-    <div class="planes__deco planes__deco--right" aria-hidden="true">
-      <img src="assets/img/isotipo-manzana-outline.svg" alt="">
-    </div>
   </section>
 
   <!-- ============================================

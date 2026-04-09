@@ -120,9 +120,7 @@ input, select, textarea { font: inherit; color: inherit; }
 
 /* --- Glass Card --- */
 .glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background: rgba(255, 255, 255, 0.07);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
 }
@@ -345,9 +343,7 @@ input, select, textarea { font: inherit; color: inherit; }
   right: 0;
   z-index: 1000;
   height: var(--header-height);
-  background: rgba(10, 10, 10, 0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(8, 8, 8, 0.97);
   border-bottom: none;
   border-radius: 0 0 24px 24px;
   transition: background var(--transition-base), box-shadow var(--transition-base), top var(--transition-base);
@@ -599,27 +595,6 @@ input, select, textarea { font: inherit; color: inherit; }
   z-index: 2;
 }
 
-/* Manzanas 3D */
-.hero__apples {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.hero__apple {
-  position: absolute;
-  will-change: transform;
-  opacity: 0;
-}
-
-/* Posiciones finales de reposo — mobile first */
-.hero__apple--1 { width: 42vw;  left: -16%; top: 15%;  transform: rotate(15deg); }
-.hero__apple--2 { width: 38vw;  left: 0%;   top: auto; bottom: 2%; transform: rotate(-10deg); }
-.hero__apple--3 { width: 38vw;  right: 0%;  top: auto; bottom: -6%; transform: rotate(15deg); }
-.hero__apple--4 { width: 42vw;  right: -16%; top: 18%; transform: rotate(-15deg); }
-
 /* T�tulo Hero */
 .hero__title {
   display: flex;
@@ -665,7 +640,6 @@ input, select, textarea { font: inherit; color: inherit; }
   font-size: 5rem;
   color: var(--color-primary);
   letter-spacing: -0.02em;
-  text-transform: uppercase;
   white-space: nowrap;
   animation-delay: 0.65s;
 }
@@ -754,28 +728,6 @@ input, select, textarea { font: inherit; color: inherit; }
   scroll-margin-top: var(--header-height);
 }
 
-
-/* Manzanas outline decorativas */
-.que-hace__deco {
-  position: absolute;
-  width: 350px;
-  opacity: 0.18;
-  z-index: 0;
-  pointer-events: none;
-  filter: brightness(0) invert(1);
-  will-change: transform;
-  --parallax-y: 0px;
-}
-.que-hace__deco--left {
-  left: -100px;
-  top: -10%;
-  transform: rotate(-15deg) translateY(var(--parallax-y));
-}
-.que-hace__deco--right {
-  right: -100px;
-  bottom: -60px;
-  transform: rotate(20deg) translateY(var(--parallax-y));
-}
 
 .que-hace__inner {
   display: grid;
@@ -883,9 +835,7 @@ input, select, textarea { font: inherit; color: inherit; }
   z-index: 3;
   border-radius: var(--radius-lg);
   max-width: 240px;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -912,9 +862,7 @@ input, select, textarea { font: inherit; color: inherit; }
   z-index: 10;
   padding: 14px 24px;
   border-radius: var(--radius-lg);
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.15);
   text-align: center;
 }
@@ -1005,8 +953,6 @@ input, select, textarea { font: inherit; color: inherit; }
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  will-change: opacity;
-  transition: opacity 0.1s linear;
 }
 
 .autonomos__title {
@@ -1031,44 +977,6 @@ input, select, textarea { font: inherit; color: inherit; }
   overflow: hidden;
 }
 
-.pilares__apples {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.pilares__apple {
-  position: absolute;
-  opacity: 0.6;
-}
-
-.pilares__apple--1 {
-  width: 200px;
-  left: -60px;
-  top: 10%;
-  animation: pilarFloat 6s ease-in-out infinite;
-}
-
-.pilares__apple--2 {
-  width: 150px;
-  right: -40px;
-  top: 40%;
-  animation: pilarFloat 7s ease-in-out infinite 1s;
-}
-
-.pilares__apple--3 {
-  width: 120px;
-  left: 10%;
-  bottom: 10%;
-  animation: pilarFloat 5s ease-in-out infinite 2s;
-}
-
-@keyframes pilarFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
-}
-
 .pilares .container {
   position: relative;
   z-index: 1;
@@ -1083,9 +991,7 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 .pilar-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background: rgba(255, 255, 255, 0.07);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
   padding: 32px 24px;
@@ -1433,24 +1339,6 @@ section.contadores {
   position: relative;
   overflow: hidden;
 }
-
-/* Decoración lateral manzanas outline */
-.planes__deco {
-  position: absolute;
-  top: 50%;
-  --parallax-y: 0px;
-  transform: translateY(calc(-50% + var(--parallax-y)));
-  width: 364px;
-  opacity: 0.5;
-  pointer-events: none;
-  will-change: transform;
-}
-.planes__deco img {
-  width: 100%;
-  height: auto;
-}
-.planes__deco--left  { left: -156px; }
-.planes__deco--right { right: -156px; }
 
 /* Layout 2 columnas: texto | cards */
 .planes__layout {
@@ -2346,13 +2234,6 @@ section.contadores {
   .anim-reveal.visible:hover { transition-delay: 0ms !important; }
 }
 
-/* Apple float animation */
-@keyframes appleFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-15px) rotate(3deg); }
-  75% { transform: translateY(10px) rotate(-3deg); }
-}
-
 /* ============================================
    RESPONSIVE: TABLET (768px+)
    ============================================ */
@@ -2366,11 +2247,6 @@ section.contadores {
   .hero__title-line--3 { font-size: 3.9rem; }
   .hero__title-line--4 { font-size: 5.04rem; }
   .hero__title-line--5 { font-size: 3.9rem; }
-
-  .hero__apple--1 { width: 30vw; left: -8%;  top: 8%; }
-  .hero__apple--2 { width: 20vw; left: 10%;  bottom: -2%; }
-  .hero__apple--3 { width: 28vw; right: 8%;  bottom: -10%; }
-  .hero__apple--4 { width: 30vw; right: -8%; top: 8%; }
 
   .que-hace__inner { grid-template-columns: 1fr 1fr; gap: 60px; }
   .que-hace__title { font-size: var(--text-5xl); }
@@ -2421,11 +2297,6 @@ section.contadores {
   .hero__title-line--3 { font-size: 4.88rem; }
   .hero__title-line--4 { font-size: 5.78rem; }
   .hero__title-line--5 { font-size: 4.88rem; }
-
-  .hero__apple--1 { width: 280px; left: -8%;  top: 18%; }
-  .hero__apple--2 { width: 180px; left: 12%;  top: auto; bottom: -2%; }
-  .hero__apple--3 { width: 250px; right: 10%; bottom: -12%; }
-  .hero__apple--4 { width: 280px; right: -8%; top: 18%; }
 
   .que-hace__title { font-size: var(--text-6xl); }
   .planes__titulo  { font-size: var(--text-6xl); }
@@ -2503,16 +2374,6 @@ section.contadores {
     max-width: 300px;        /* limita el ancho para que el centrado se vea limpio */
     width: 100%;
     text-align: left;        /* texto alineado a la izquierda dentro del bloque centrado */
-  }
-
-  /* Ocultar manzanas decorativas de fondo en mobile */
-  .que-hace__deco {
-    display: none;
-  }
-
-  /* Ocultar manzanas outline de la sección Planes en mobile */
-  .planes__deco {
-    display: none;
   }
 
   /* Neutralizar scale del laptop */
@@ -2651,11 +2512,6 @@ section.contadores {
    ============================================ */
 @media (min-width: 1280px) {
   .container { padding: 0 40px; }
-
-  .hero__apple--1 { width: 380px; left: -8%;  top: 15%; }
-  .hero__apple--2 { width: 240px; left: 18%;  top: 55%; bottom: auto; }
-  .hero__apple--3 { width: 300px; right: 15%; bottom: -15%; }
-  .hero__apple--4 { width: 380px; right: -8%; top: 15%; }
 
   .que-hace__badge-gestion { right: -40px; }
 }
