@@ -141,9 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
           revealObserver.unobserve(entry.target);
+          // Liberar capa compositor cuando termina la transición
+          entry.target.addEventListener('transitionend', () => {
+            entry.target.style.willChange = 'auto';
+          }, { once: true });
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
 
     revealElements.forEach(el => {
       if (!el.classList.contains('visible')) revealObserver.observe(el);
@@ -187,16 +191,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Posición inicial
   onScrollFrame();
 
-  /* --- Hero title letter-by-letter hover --- */
-  document.querySelectorAll('.hero__title-line').forEach(line => {
-    const text = line.textContent;
-    line.innerHTML = '';
-    [...text].forEach(ch => {
-      const span = document.createElement('span');
-      span.className = 'char';
-      span.textContent = ch === ' ' ? '\u00A0' : ch;
-      line.appendChild(span);
-    });
+  /* --- Limpiar will-change del hero tras terminar sus animaciones CSS --- */
+  document.querySelectorAll('.hero__title-line').forEach(el => {
+    el.addEventListener('animationend', () => {
+      el.style.willChange = 'auto';
+    }, { once: true });
   });
 
   /* --- Counter animation --- */

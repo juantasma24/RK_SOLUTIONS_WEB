@@ -49,8 +49,11 @@
   --transition-spring: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   /* Curvas de easing de alta calidad */
-  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);       /* Quint — decelera rápido, settle suave */
+  --ease-in:     cubic-bezier(0.4, 0, 1, 1);           /* Exits — acelera hacia afuera            */
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --spring:      cubic-bezier(0.34, 1.56, 0.64, 1);    /* Spring overshoot — botones, cards hover */
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);           /* Material You — settle rápido y preciso  */
 
   --container-max: 1200px;
   --header-height: 80px;
@@ -624,22 +627,12 @@ input, select, textarea { font: inherit; color: inherit; }
 .hero__title-line {
   display: block;
   opacity: 0;
-  transform: translateY(30px);
-  animation: titleLineIn 0.7s var(--ease-out) forwards;
+  transform: translateY(18px);
+  animation: titleLineIn 0.65s var(--ease-out) forwards;
   cursor: default;
+  will-change: transform, opacity, filter;
 }
 
-.hero__title-line .char {
-  display: inline-block;
-  transform-origin: bottom center;
-  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .hero__title-line .char:hover {
-    transform: scaleY(1.15) scaleX(1.05);
-  }
-}
 
 .hero__title-line--1 {
   font-family: var(--font-heading);
@@ -688,9 +681,15 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 @keyframes titleLineIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(5px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0px);
   }
 }
 
@@ -858,7 +857,7 @@ input, select, textarea { font: inherit; color: inherit; }
   left: 2%;
   top: auto;
   line-height: 1.1;
-  animation: badgeFloat 3s ease-in-out infinite;
+  animation: badgeFloat 3.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 .que-hace__badge-dispositivo {
@@ -867,16 +866,18 @@ input, select, textarea { font: inherit; color: inherit; }
   transform: translateY(-50%) scale(0.85);
   transform-origin: top right;
   line-height: 1.1;
-  animation: badgeFloat2 3.5s ease-in-out infinite;
+  animation: badgeFloat2 3.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 @keyframes badgeFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%, 100% { transform: translateY(0)    rotate(-0.4deg); }
+  40%       { transform: translateY(-9px) rotate(0.3deg);  }
+  60%       { transform: translateY(-8px) rotate(0.5deg);  }
 }
 @keyframes badgeFloat2 {
-  0%, 100% { transform: translateY(-50%) scale(0.85); }
-  50% { transform: translateY(calc(-50% - 8px)) scale(0.85); }
+  0%, 100% { transform: translateY(-50%) scale(0.85) rotate(0.3deg);        }
+  45%       { transform: translateY(calc(-50% - 9px)) scale(0.85) rotate(-0.4deg); }
+  65%       { transform: translateY(calc(-50% - 7px)) scale(0.85) rotate(-0.3deg); }
 }
 
 .que-hace__badge-247 span,
@@ -1066,7 +1067,7 @@ section.contadores {
   );
   pointer-events: none;
   z-index: 0;
-  animation: glass-shine 6s ease-in-out infinite;
+  animation: glass-shine 6s linear infinite;
   animation-delay: 1.5s;
   animation-fill-mode: backwards;
   animation-play-state: paused;
@@ -1447,7 +1448,7 @@ section.contadores {
   );
   pointer-events: none;
   z-index: 0;
-  animation: glass-shine 6s ease-in-out infinite;
+  animation: glass-shine 6s linear infinite;
   animation-delay: 2s;
   animation-fill-mode: backwards;
   animation-play-state: paused;
@@ -1638,7 +1639,7 @@ section.contadores {
     transparent 100%
   );
   pointer-events: none;
-  animation: glass-shine 6s ease-in-out infinite;
+  animation: glass-shine 6s linear infinite;
   animation-delay: 3s;
   animation-fill-mode: backwards;
   animation-play-state: paused;
@@ -2167,38 +2168,51 @@ section.contadores {
 /* ============================================
    ANIMATIONS
    ============================================ */
+
+/* Base reveal — translateY suave, distancia reducida para sensación premium */
 .anim-reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  transform: translateY(22px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  will-change: transform, opacity;
 }
-
 .anim-reveal.visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
+/* Modificador escala — para tarjetas: sube + crece, easing spring */
+.anim-reveal.anim-reveal--scale {
+  transform: translateY(16px) scale(0.96);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--spring);
+}
+.anim-reveal.anim-reveal--scale.visible {
+  transform: translateY(0) scale(1);
+}
+
+/* Hover states unificados con spring para respuesta viva */
 @media (hover: hover) and (pointer: fine) {
   .anim-reveal.visible.pilar-card:hover {
-    transform: translateY(-4px);
-    transition: transform 0.25s var(--ease-out), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    transform: translateY(-5px);
+    transition: transform 0.28s var(--spring), background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.28s ease;
   }
   .anim-reveal.visible.contador-card:hover {
-    transform: scale(1.05);
-    transition: transform 250ms var(--ease-out), box-shadow 250ms ease;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transform: scale(1.04);
+    transition: transform 0.28s var(--spring), box-shadow 0.28s ease;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
   }
   .anim-reveal.visible.plan-card:hover {
-    transform: translateY(-6px);
-    transition: transform 0.25s var(--ease-out), box-shadow 0.25s ease;
+    transform: translateY(-7px);
+    transition: transform 0.28s var(--spring), box-shadow 0.28s ease;
+    box-shadow: 0 20px 40px rgba(94, 168, 74, 0.12);
   }
 }
 
 /* ============================================
    CONTENT VISIBILITY — salta render de secciones fuera de pantalla
    ============================================ */
-.que-hace,
-.autonomos,
+/* content-visibility solo en secciones suficientemente alejadas del fold */
 .pilares,
 .contadores,
 .testimonios,
@@ -2212,29 +2226,30 @@ section.contadores {
 
 .anim-slide-up {
   opacity: 0;
-  transform: translateY(60px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transform: translateY(36px);
+  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+  will-change: transform, opacity;
 }
-
 .anim-slide-up.visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
-/* ── Stagger de entrada por grids ── */
+/* ── Stagger de entrada por grids — 50ms: cascada fluida sin sentirse lenta ── */
 .pilares__grid   .anim-reveal:nth-child(1) { transition-delay:   0ms; }
-.pilares__grid   .anim-reveal:nth-child(2) { transition-delay:  80ms; }
-.pilares__grid   .anim-reveal:nth-child(3) { transition-delay: 160ms; }
-.pilares__grid   .anim-reveal:nth-child(4) { transition-delay: 240ms; }
+.pilares__grid   .anim-reveal:nth-child(2) { transition-delay:  50ms; }
+.pilares__grid   .anim-reveal:nth-child(3) { transition-delay: 100ms; }
+.pilares__grid   .anim-reveal:nth-child(4) { transition-delay: 150ms; }
 
 .contadores__grid .anim-reveal:nth-child(1) { transition-delay:   0ms; }
-.contadores__grid .anim-reveal:nth-child(2) { transition-delay:  80ms; }
-.contadores__grid .anim-reveal:nth-child(3) { transition-delay: 160ms; }
-.contadores__grid .anim-reveal:nth-child(4) { transition-delay: 240ms; }
+.contadores__grid .anim-reveal:nth-child(2) { transition-delay:  50ms; }
+.contadores__grid .anim-reveal:nth-child(3) { transition-delay: 100ms; }
+.contadores__grid .anim-reveal:nth-child(4) { transition-delay: 150ms; }
 
 .planes__grid    .anim-reveal:nth-child(1) { transition-delay:   0ms; }
-.planes__grid    .anim-reveal:nth-child(2) { transition-delay:  80ms; }
-.planes__grid    .anim-reveal:nth-child(3) { transition-delay: 160ms; }
+.planes__grid    .anim-reveal:nth-child(2) { transition-delay:  50ms; }
+.planes__grid    .anim-reveal:nth-child(3) { transition-delay: 100ms; }
 
 /* Anular delay en hover para respuesta inmediata */
 @media (hover: hover) and (pointer: fine) {

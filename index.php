@@ -97,7 +97,7 @@
         <div class="que-hace__visual">
           <div class="que-hace__laptop anim-slide-up">
             <div class="que-hace__laptop-frame">
-              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="lazy">
+              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="eager">
               <div class="que-hace__laptop-screen">
                 <iframe data-src="https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
               </div>
@@ -142,28 +142,28 @@
       <h2 class="section-title section-title--italic anim-reveal">¿Por qué elegir <span class="highlight">La Manzana</span><span class="highlight">?</span></h2>
 
       <div class="pilares__grid">
-        <div class="pilar-card anim-reveal">
+        <div class="pilar-card anim-reveal anim-reveal--scale">
           <div class="pilar-card__icon">
             <img src="assets/img/laptop.svg" alt="Fácil de usar" width="32" height="32">
           </div>
           <h3 class="pilar-card__title">Fácil de usar</h3>
         </div>
 
-        <div class="pilar-card anim-reveal">
+        <div class="pilar-card anim-reveal anim-reveal--scale">
           <div class="pilar-card__icon">
             <img src="assets/img/call.svg" alt="Soporte humano" width="32" height="32">
           </div>
           <h3 class="pilar-card__title">Soporte humano 24/7</h3>
         </div>
 
-        <div class="pilar-card anim-reveal">
+        <div class="pilar-card anim-reveal anim-reveal--scale">
           <div class="pilar-card__icon">
             <img src="assets/img/house.svg" alt="Se adapta" width="32" height="32">
           </div>
           <h3 class="pilar-card__title">Se adapta a tu negocio</h3>
         </div>
 
-        <div class="pilar-card anim-reveal">
+        <div class="pilar-card anim-reveal anim-reveal--scale">
           <div class="pilar-card__icon">
             <img src="assets/img/check_verde.svg" alt="Cumple" width="32" height="32">
           </div>
@@ -180,19 +180,19 @@
     <div class="container">
       <div class="contadores__wrapper">
         <div class="contadores__grid">
-          <div class="contador-card glass-card anim-reveal">
+          <div class="contador-card glass-card anim-reveal anim-reveal--scale">
             <div class="contador-card__number">+<span class="counter-animated" data-target="3">0</span>K</div>
             <div class="contador-card__label">Manzanas</div>
           </div>
-          <div class="contador-card glass-card anim-reveal">
+          <div class="contador-card glass-card anim-reveal anim-reveal--scale">
             <div class="contador-card__number">+<span class="counter-animated" data-target="11">0</span>K</div>
             <div class="contador-card__label">Clientes</div>
           </div>
-          <div class="contador-card glass-card anim-reveal">
+          <div class="contador-card glass-card anim-reveal anim-reveal--scale">
             <div class="contador-card__number">+<span class="counter-animated" data-target="7">0</span></div>
             <div class="contador-card__label">Oficinas</div>
           </div>
-          <div class="contador-card glass-card anim-reveal">
+          <div class="contador-card glass-card anim-reveal anim-reveal--scale">
             <div class="contador-card__number">+<span class="counter-animated" data-target="20">0</span></div>
             <div class="contador-card__label">Años</div>
           </div>
@@ -419,7 +419,7 @@
         <div class="planes__grid">
 
           <!-- Plan Premium -->
-          <div class="plan-card plan-card--premium anim-reveal">
+          <div class="plan-card plan-card--premium anim-reveal anim-reveal--scale">
             <div class="plan-card__badge">
               <img src="assets/img/medal.svg" alt="" width="32" height="32" aria-hidden="true">
             </div>
@@ -438,7 +438,7 @@
           </div>
 
           <!-- Plan Standard -->
-          <div class="plan-card plan-card--standard anim-reveal">
+          <div class="plan-card plan-card--standard anim-reveal anim-reveal--scale">
             <div class="plan-card__badge plan-card__badge--standard">
               <img src="assets/img/laptop.svg" alt="" width="32" height="32" aria-hidden="true">
             </div>

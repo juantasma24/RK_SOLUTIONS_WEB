@@ -10,7 +10,11 @@
       "Bash(gh repo:*)",
       "Bash(grep -E \"\\\\.\\(html|htm\\)$\")",
       "Bash(git stash:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Read(//c/Users/usuario/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.5.0/**)",
+      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"SaaS ERP dark premium management software landing page\" --design-system -p \"La Manzana RK Solutions\" -f markdown)",
+      "Bash(py --version)",
+      "Bash(where python:*)"
     ]
   }
 }
