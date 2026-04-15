@@ -97,9 +97,14 @@
         <div class="que-hace__visual">
           <div class="que-hace__laptop anim-slide-up">
             <div class="que-hace__laptop-frame">
-              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="eager">
+              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="lazy" decoding="async">
               <div class="que-hace__laptop-screen">
-                <iframe data-src="https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <div class="youtube-facade" data-embed="ZVm05C_6VOs">
+                  <img src="https://img.youtube.com/vi/ZVm05C_6VOs/maxresdefault.jpg" alt="Demo La Manzana" class="youtube-facade__thumb" loading="lazy">
+                  <button class="youtube-facade__play" aria-label="Reproducir vídeo">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                  </button>
+                </div>
               </div>
               <!-- Badge sobre la laptop -->
               <div class="que-hace__badge-dispositivo">
@@ -122,7 +127,7 @@
        ============================================ -->
   <section class="autonomos section" id="autonomos">
     <div class="autonomos__video-bg">
-      <video autoplay muted loop playsinline>
+      <video muted loop playsinline preload="metadata">
         <source src="assets/img/video-autonomos.mp4" type="video/mp4">
       </video>
       <div class="autonomos__overlay"></div>

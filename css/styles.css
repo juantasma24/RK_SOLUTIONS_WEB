@@ -69,7 +69,6 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -330,12 +329,12 @@ input, select, textarea { font: inherit; color: inherit; }
   background: rgba(8, 8, 8, var(--header-opacity));
   border-bottom: none;
   border-radius: 0 0 24px 24px;
-  transition: background var(--transition-base), box-shadow var(--transition-base), top var(--transition-base);
+  transition: background var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
   overflow: visible;
 }
 
 .header.header--top-hidden {
-  top: 0;
+  transform: translateY(calc(var(--topbar-height) * -1));
 }
 
 /* Fills the gap between topbar and navbar during scroll transition */
@@ -449,6 +448,7 @@ input, select, textarea { font: inherit; color: inherit; }
   width: auto;
   transition: transform var(--transition-base);
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+  transform: translateZ(0);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -572,12 +572,14 @@ input, select, textarea { font: inherit; color: inherit; }
 
 /* Pattern background — manzanas outline en movimiento */
 .hero__pattern {
+  display: none; /* Ocultado temporalmente por petición */
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
   opacity: 0.3;
+  contain: layout paint;
 }
 
 .hero__pattern-track {
@@ -821,6 +823,7 @@ input, select, textarea { font: inherit; color: inherit; }
   width: 100%;
   position: relative;
   z-index: 2;
+  pointer-events: none; /* Permite hacer clic en el iframe a través del hueco transparente */
 }
 
 .que-hace__laptop-screen {
@@ -834,7 +837,75 @@ input, select, textarea { font: inherit; color: inherit; }
   z-index: 1;
 }
 
-.que-hace__laptop-screen iframe {
+/* YouTube Facade */
+.youtube-facade {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.youtube-facade__thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s var(--ease-out), filter 0.45s ease;
+  filter: brightness(0.85);
+}
+
+.youtube-facade:hover .youtube-facade__thumb {
+  transform: scale(1.05);
+  filter: brightness(0.5);
+}
+
+.youtube-facade__play {
+  position: absolute;
+  z-index: 2;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s var(--spring), background-color 0.25s ease, box-shadow 0.25s ease;
+  pointer-events: none; /* el click lo recibe el envoltorio padre */
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .youtube-facade:hover .youtube-facade__play {
+    transform: scale(1.1);
+    background: var(--color-white-pure);
+    color: var(--color-primary);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.youtube-facade__play svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-white-pure);
+  margin-left: 3px;
+  transition: color 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .youtube-facade:hover .youtube-facade__play svg {
+    color: var(--color-primary);
+  }
+}
+
+.youtube-facade iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   border: none;
@@ -850,6 +921,8 @@ input, select, textarea { font: inherit; color: inherit; }
   background: rgba(0, 0, 0, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.15);
   text-align: center;
+  transform: translateZ(0); /* Aísla la animación infinita en su propia capa GPU */
+  will-change: transform;
 }
 
 .que-hace__badge-247 {
@@ -933,6 +1006,7 @@ input, select, textarea { font: inherit; color: inherit; }
   position: absolute;
   top: -15%;
   left: 0;
+  transform: translateZ(0); /* Aísla la decodificación del vídeo del render principal */
 }
 
 .autonomos__overlay {
@@ -1021,10 +1095,10 @@ input, select, textarea { font: inherit; color: inherit; }
    ============================================ */
 /* Animación de brillo en el bloque de vidrio */
 @keyframes glass-shine {
-  0%   { transform: translateX(-120%) skewX(-20deg); opacity: 0; }
+  0%   { transform: translateX(-120%) skewX(-20deg) translateZ(0); opacity: 0; }
   5%   { opacity: 1; }
-  30%  { transform: translateX(220%) skewX(-20deg); opacity: 0; }
-  100% { transform: translateX(220%) skewX(-20deg); opacity: 0; }
+  30%  { transform: translateX(220%) skewX(-20deg) translateZ(0); opacity: 0; }
+  100% { transform: translateX(220%) skewX(-20deg) translateZ(0); opacity: 0; }
 }
 
 /* Shine del formulario de contacto — mismo keyframe que glass-shine */
@@ -1161,6 +1235,8 @@ section.contadores {
   display: flex;
   /* La transición la gestiona JS para el infinite loop */
   width: 100%;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 
@@ -2174,12 +2250,10 @@ section.contadores {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-  will-change: transform, opacity;
 }
 .anim-reveal.visible {
   opacity: 1;
   transform: translateY(0);
-  will-change: auto;
 }
 
 /* Modificador escala — para tarjetas: sube + crece, easing spring */
@@ -2228,12 +2302,10 @@ section.contadores {
   opacity: 0;
   transform: translateY(36px);
   transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
-  will-change: transform, opacity;
 }
 .anim-slide-up.visible {
   opacity: 1;
   transform: translateY(0);
-  will-change: auto;
 }
 
 /* ── Stagger de entrada por grids — 50ms: cascada fluida sin sentirse lenta ── */
@@ -2250,6 +2322,16 @@ section.contadores {
 .planes__grid    .anim-reveal:nth-child(1) { transition-delay:   0ms; }
 .planes__grid    .anim-reveal:nth-child(2) { transition-delay:  50ms; }
 .planes__grid    .anim-reveal:nth-child(3) { transition-delay: 100ms; }
+
+/* Stagger Sección 2 (Qué hace) */
+.que-hace__content .anim-reveal:nth-child(1) { transition-delay: 0ms; }
+.que-hace__content .anim-reveal:nth-child(2) { transition-delay: 60ms; }
+.que-hace__visual .anim-slide-up { transition-delay: 120ms; }
+
+/* Stagger Sección 3 (Autónomos) */
+.autonomos .anim-reveal:nth-child(1) { transition-delay: 0ms; }
+.autonomos .anim-reveal:nth-child(2) { transition-delay: 60ms; }
+.autonomos .anim-reveal:nth-child(3) { transition-delay: 120ms; }
 
 /* Anular delay en hover para respuesta inmediata */
 @media (hover: hover) and (pointer: fine) {
