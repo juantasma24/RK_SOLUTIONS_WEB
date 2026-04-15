@@ -1,9 +1,73 @@
 /* ============================================
-   RK SOLUTIONS � La Manzana Redesign
-   main.js � Vanilla JS interactions & animations
+   RK SOLUTIONS — La Manzana Redesign
+   main.js — Vanilla JS interactions & animations
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  /* --- Guardar y restaurar sección al refrescar --- */
+  const _sections = Array.from(document.querySelectorAll('section[id]'));
+  const headerEl  = document.querySelector('.header');
+
+  function saveActiveSection() {
+    const hH         = headerEl ? headerEl.offsetHeight : 0;
+    const contentTop = window.scrollY + hH;
+    let current      = _sections[0] || null;
+    let currentIdx   = 0;
+    _sections.forEach((section, idx) => {
+      const sTop = section.getBoundingClientRect().top + window.scrollY;
+      // +10px de tolerancia para evitar fallos por sub-píxel en el límite exacto
+      if (sTop <= contentTop + 10) { current = section; currentIdx = idx; }
+    });
+    // Post-proceso: si ya pasamos el punto medio de la sección actual,
+    // promovemos a la siguiente para no volver al inicio de esa sección al refrescar.
+    if (current && _sections[currentIdx + 1]) {
+      const sTop = current.getBoundingClientRect().top + window.scrollY;
+      const sMid = sTop + current.offsetHeight / 2;
+      if (sMid <= contentTop) current = _sections[currentIdx + 1];
+    }
+    if (current) sessionStorage.setItem('rk_section', current.id);
+  }
+
+  // Guardar mientras el usuario scrollea (primario — siempre exacto)
+  let _sectionTimer = null;
+  window.addEventListener('scroll', () => {
+    clearTimeout(_sectionTimer);
+    _sectionTimer = setTimeout(saveActiveSection, 150);
+  }, { passive: true });
+
+  // Guardar en pagehide como seguro final (cubre F5 inmediato antes de que dispare el timer)
+  window.addEventListener('pagehide', () => {
+    clearTimeout(_sectionTimer);
+    saveActiveSection();
+  });
+
+  // Restaurar: saltar a la sección guardada
+  // Usamos scrollIntoView en lugar de offsetTop porque content-visibility:auto
+  // asigna alturas placeholder (600px) a secciones fuera del viewport, lo que
+  // hace que offsetTop calcule posiciones incorrectas.
+  const savedSection = sessionStorage.getItem('rk_section');
+  if (savedSection) {
+    const target = document.getElementById(savedSection);
+    if (target) {
+      const headerH = headerEl ? headerEl.offsetHeight : 0;
+
+      // scroll-margin-top compensa el header sticky
+      target.style.scrollMarginTop = headerH + 'px';
+      // Desactivar smooth para que el salto sea instantáneo
+      document.documentElement.style.scrollBehavior = 'auto';
+      target.scrollIntoView({ behavior: 'instant', block: 'start' });
+
+      requestAnimationFrame(() => {
+        target.style.scrollMarginTop = '';
+        document.documentElement.style.scrollBehavior = '';
+        // Eliminar el <style> de pre-ocultación inyectado en <head> para que
+        // las transiciones del topbar/header vuelvan a funcionar normalmente.
+        const restoreStyle = document.getElementById('rk-restore-style');
+        if (restoreStyle) restoreStyle.remove();
+      });
+    }
+  }
 
   /* --- Scroll unificado: header + back-to-top + parallax vídeo --- */
   const header = document.querySelector('.header');
@@ -38,13 +102,13 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileToggle.addEventListener('click', () => {
       mobileToggle.classList.toggle('active');
       mobileMenu.classList.toggle('active');
-      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+      document.body.classList.toggle('no-scroll', mobileMenu.classList.contains('active'));
     });
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mobileToggle.classList.remove('active');
         mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
+        document.body.classList.remove('no-scroll');
       });
     });
   }
@@ -65,6 +129,13 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- IntersectionObserver: scroll-reveal --- */
   const revealElements = document.querySelectorAll('.anim-reveal, .anim-slide-up');
   if (revealElements.length) {
+    // Elementos ya por encima del viewport al cargar: marcarlos visibles sin animación
+    revealElements.forEach(el => {
+      if (el.getBoundingClientRect().bottom < 0) {
+        el.classList.add('visible');
+      }
+    });
+
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -73,7 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, { threshold: 0.15 });
-    revealElements.forEach(el => revealObserver.observe(el));
+
+    revealElements.forEach(el => {
+      if (!el.classList.contains('visible')) revealObserver.observe(el);
+    });
   }
 
   /* --- Back to top --- */
@@ -162,22 +236,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* --- FAQ accordion --- */
   const faqQuestions = document.querySelectorAll('.faq-item__question');
+  let openFaqItem = null; // track the currently open item
+
   faqQuestions.forEach(btn => {
     btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item');
+      const item   = btn.closest('.faq-item');
       const answer = item.querySelector('.faq-item__answer');
       const isOpen = btn.getAttribute('aria-expanded') === 'true';
 
-      faqQuestions.forEach(otherBtn => {
-        const otherItem = otherBtn.closest('.faq-item');
-        const otherAnswer = otherItem.querySelector('.faq-item__answer');
-        otherBtn.setAttribute('aria-expanded', 'false');
-        otherAnswer.style.maxHeight = '0';
-      });
+      // Close previously open item (single DOM update instead of looping all)
+      if (openFaqItem && openFaqItem.btn !== btn) {
+        openFaqItem.btn.setAttribute('aria-expanded', 'false');
+        openFaqItem.answer.style.maxHeight = '0';
+      }
 
-      if (!isOpen) {
+      if (isOpen) {
+        btn.setAttribute('aria-expanded', 'false');
+        answer.style.maxHeight = '0';
+        openFaqItem = null;
+      } else {
         btn.setAttribute('aria-expanded', 'true');
         answer.style.maxHeight = answer.scrollHeight + 'px';
+        openFaqItem = { btn, answer };
       }
     });
   });
@@ -423,6 +503,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function startTimer() { autoTimer = setInterval(() => { if (!isPaused) next(); }, 5000); }
     function resetTimer() { clearInterval(autoTimer); startTimer(); }
 
+    // Pause auto-advance when carousel is not visible
+    new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        if (!autoTimer) startTimer();
+      } else {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    }, { threshold: 0.1 }).observe(testimoniosCarousel);
+
     testimoniosNext.addEventListener('click', () => { next(); resetTimer(); });
     testimoniosPrev.addEventListener('click', () => { prev(); resetTimer(); });
 
@@ -452,7 +542,20 @@ document.addEventListener('DOMContentLoaded', () => {
     generateDots();
     jumpTo(N); // posición inicial sin animación
     updateDots(); // dot 0 activo al arrancar
-    startTimer();
+    // Timer starts via IntersectionObserver above
   }
+
+  /* --- Activar animaciones glass-shine solo cuando son visibles --- */
+  const shineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle('shine-active', entry.isIntersecting);
+    });
+  }, { threshold: 0.1 });
+
+  [
+    document.querySelector('.contadores__wrapper'),
+    document.querySelector('.plan-card__inner'),
+    document.querySelector('.contacto__form-shine'),
+  ].forEach(el => { if (el) shineObserver.observe(el); });
 
 });

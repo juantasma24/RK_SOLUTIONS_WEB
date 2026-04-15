@@ -13,6 +13,24 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Tomar control del scroll restoration antes de que el browser actúe -->
+  <script>
+    history.scrollRestoration = 'manual';
+    // Si vamos a restaurar a una sección no-hero, ocultar el topbar antes del
+    // primer paint para evitar el micro-flash verde al cargar la página.
+    (function () {
+      var s = sessionStorage.getItem('rk_section');
+      if (s && s !== 'inicio') {
+        var st = document.createElement('style');
+        st.id = 'rk-restore-style';
+        st.textContent =
+          '.topbar{transform:translateY(-100%)!important;transition:none!important;}' +
+          '.header{top:0!important;transition:none!important;}';
+        document.head.appendChild(st);
+      }
+    }());
+  </script>
 </head>
 <body>
 
@@ -79,7 +97,7 @@
         <div class="que-hace__visual">
           <div class="que-hace__laptop anim-slide-up">
             <div class="que-hace__laptop-frame">
-              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img">
+              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="lazy">
               <div class="que-hace__laptop-screen">
                 <iframe data-src="https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&showinfo=0&rel=0" title="Demo La Manzana" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
               </div>

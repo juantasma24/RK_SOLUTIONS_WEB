@@ -80,6 +80,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.no-scroll { overflow: hidden; }
+
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
@@ -284,9 +286,8 @@ input, select, textarea { font: inherit; color: inherit; }
   opacity: 0;
   visibility: hidden;
   transform: scale(0.92) translateY(-6px);
-  filter: blur(4px);
   transform-origin: top right;
-  transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out), filter 0.18s var(--ease-out), visibility 0.18s;
+  transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out), visibility 0.18s;
   z-index: 1002;
 }
 
@@ -294,7 +295,6 @@ input, select, textarea { font: inherit; color: inherit; }
   opacity: 1;
   visibility: visible;
   transform: scale(1) translateY(0);
-  filter: blur(0);
 }
 
 .topbar__lang-option {
@@ -581,7 +581,6 @@ input, select, textarea { font: inherit; color: inherit; }
   display: flex;
   height: 250%;
   width: max-content;
-  will-change: transform;
   animation: patternScroll 50s linear infinite;
 }
 
@@ -933,7 +932,6 @@ input, select, textarea { font: inherit; color: inherit; }
   position: absolute;
   top: -15%;
   left: 0;
-  will-change: transform;
 }
 
 .autonomos__overlay {
@@ -1034,7 +1032,7 @@ input, select, textarea { font: inherit; color: inherit; }
 
 section.contadores {
   background: var(--color-black);
-  padding: 0 0 30px;
+  padding: 40px 0 30px;
 }
 
 .contadores__wrapper {
@@ -1046,6 +1044,7 @@ section.contadores {
   border-radius: var(--radius-xl);
   transform: translateY(-5%);
   position: relative;
+  z-index: 1;
   overflow: hidden;
 }
 
@@ -1070,6 +1069,11 @@ section.contadores {
   animation: glass-shine 6s ease-in-out infinite;
   animation-delay: 1.5s;
   animation-fill-mode: backwards;
+  animation-play-state: paused;
+}
+
+.contadores__wrapper.shine-active::after {
+  animation-play-state: running;
 }
 
 /* Las cards quedan por encima del brillo */
@@ -1446,6 +1450,11 @@ section.contadores {
   animation: glass-shine 6s ease-in-out infinite;
   animation-delay: 2s;
   animation-fill-mode: backwards;
+  animation-play-state: paused;
+}
+
+.plan-card__inner.shine-active::after {
+  animation-play-state: running;
 }
 
 /* Card Standard — fondo blanco */
@@ -1632,6 +1641,11 @@ section.contadores {
   animation: glass-shine 6s ease-in-out infinite;
   animation-delay: 3s;
   animation-fill-mode: backwards;
+  animation-play-state: paused;
+}
+
+.contacto__form-shine.shine-active::after {
+  animation-play-state: running;
 }
 
 .contacto__form-intro {
@@ -1734,9 +1748,8 @@ section.contadores {
   opacity: 0;
   visibility: hidden;
   transform: scale(0.96) translateY(-6px);
-  filter: blur(4px);
   transform-origin: top center;
-  transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out), filter 0.18s var(--ease-out), visibility 0.18s;
+  transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out), visibility 0.18s;
   z-index: 500;
   max-height: 240px;
   overflow-y: auto;
@@ -1749,7 +1762,6 @@ section.contadores {
   opacity: 1;
   visibility: visible;
   transform: scale(1) translateY(0);
-  filter: blur(0);
 }
 
 .contacto__dropdown-option {
