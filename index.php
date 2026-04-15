@@ -11,6 +11,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,600;0,700;0,800;1,300;1,800&display=swap" rel="stylesheet">
 
+  <!-- DNS Prefetch & Preconnect: resolver dominios externos por adelantado (técnica WP Rocket) -->
+  <link rel="dns-prefetch" href="https://www.youtube.com">
+  <link rel="dns-prefetch" href="https://www.google.com">
+  <link rel="preconnect" href="https://www.youtube.com" crossorigin>
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+
+  <!-- Preload: imagen crítica del hero para LCP más rápido -->
+  <link rel="preload" as="image" href="assets/img/pattern_manzanas_outline.png">
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 
@@ -40,12 +49,7 @@
        SECCIÓN 1: HERO
        ============================================ -->
   <section class="hero" id="inicio">
-    <div class="hero__pattern" aria-hidden="true">
-      <div class="hero__pattern-track">
-        <img src="assets/img/pattern_manzanas_outline.png" alt="">
-        <img src="assets/img/pattern_manzanas_outline.png" alt="">
-      </div>
-    </div>
+    <div class="hero__pattern" aria-hidden="true"></div>
     <div class="container hero__container">
       <!-- Título con tipografías mixtas -->
       <h1 class="hero__title">
@@ -97,7 +101,7 @@
         <div class="que-hace__visual">
           <div class="que-hace__laptop anim-slide-up">
             <div class="que-hace__laptop-frame">
-              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="lazy" decoding="async">
+              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="eager" decoding="async">
               <div class="que-hace__laptop-screen">
                 <div class="youtube-facade" data-embed="ZVm05C_6VOs">
                   <img src="https://img.youtube.com/vi/ZVm05C_6VOs/maxresdefault.jpg" alt="Demo La Manzana" class="youtube-facade__thumb" loading="lazy">
@@ -638,7 +642,7 @@
   <?php include 'includes/footer.php'; ?>
 
   <!-- JavaScript -->
-  <script src="js/main.js"></script>
+  <script src="js/main.js" defer></script>
 
 </body>
 </html>

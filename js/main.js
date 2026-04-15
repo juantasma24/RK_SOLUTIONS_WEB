@@ -347,14 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* --- Pausar pattern cuando el hero no es visible --- */
-  const heroPattern = document.querySelector('.hero__pattern-track');
-  if (heroPattern) {
-    const heroSection = document.querySelector('.hero');
-    new IntersectionObserver((entries) => {
-      heroPattern.style.animationPlayState = entries[0].isIntersecting ? 'running' : 'paused';
-    }, { threshold: 0 }).observe(heroSection);
-  }
+  // Animación del hero_pattern eliminada: se mantiene como fondo estático optimizado
 
   /* --- YouTube Facade --- */
   const ytFacades = document.querySelectorAll('.youtube-facade');
@@ -368,10 +361,6 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- Pausar vídeo de autónomos cuando no es visible --- */
   const bgVideo = document.querySelector('.autonomos__video-bg video');
   if (bgVideo) {
-    bgVideo.addEventListener('ended', () => {
-      bgVideo.currentTime = 0;
-      setTimeout(() => bgVideo.play(), 0);
-    });
     new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         setTimeout(() => bgVideo.play(), 0);
