@@ -188,8 +188,8 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .btn--primary:hover { transform: translateY(-3px) scale(1.02); }
-  .btn--outline:hover  { transform: translateY(-3px) scale(1.02); }
+  .btn--primary:hover { transform: translateY(-4px); }
+  .btn--outline:hover  { transform: translateY(-4px); }
 }
 
 .btn:active {
@@ -725,7 +725,6 @@ input, select, textarea { font: inherit; color: inherit; }
   border-radius: var(--radius-full);
   padding: 14px 36px;
   opacity: 0;
-  transform: translateY(20px);
   animation: titleLineIn 0.7s var(--ease-out) forwards 1.4s;
   transition:
     transform     0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -741,7 +740,7 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .hero__cta:hover { transform: translateY(-3px) scale(1.02); }
+  .hero__cta:hover { transform: translateY(-4px); }
 }
 
 .hero__cta:active {
@@ -1622,9 +1621,8 @@ section.contadores {
 .plan-card__btn--standard:hover {
   background: var(--color-primary-dark);
   border-color: var(--color-primary-dark);
-  transform: translateY(-3px) scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 8px 28px rgba(94, 168, 74, 0.4);
-  transition-duration: 0.1s;
 }
 
 
@@ -1926,7 +1924,7 @@ section.contadores {
 
 @media (hover: hover) and (pointer: fine) {
   .contacto__submit:hover {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-4px);
     box-shadow: 0 8px 28px rgba(94, 168, 74, 0.45);
   }
 }
@@ -2085,7 +2083,7 @@ section.contadores {
   flex: 1;
   background: transparent;
   border: none;
-  outline: none;
+  outline: none !important;
   font-size: 12px;
   color: var(--color-black);
   min-width: 0;
@@ -2112,7 +2110,6 @@ section.contadores {
 @media (hover: hover) and (pointer: fine) {
   .footer__newsletter-btn:hover {
     background: #4a9038;
-    transform: translateY(-1px);
   }
 }
 
@@ -2182,10 +2179,10 @@ section.contadores {
    ============================================ */
 .back-to-top {
   position: fixed;
-  bottom: 100px;
+  bottom: 112px;
   right: 24px;
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   background: var(--color-gray-800);
   border: 2px solid rgba(255, 255, 255, 0.6);
   border-radius: 50%;
@@ -2196,7 +2193,7 @@ section.contadores {
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
-  transition: opacity 0.2s var(--ease-out), visibility 0.2s, transform 0.2s var(--ease-out), background-color 0.2s ease, border-color 0.2s ease;
+  transition: opacity 0.2s var(--ease-out), visibility 0.2s, transform 0.28s var(--spring), background-color 0.2s ease, border-color 0.2s ease;
   z-index: 90;
 }
 
@@ -2210,55 +2207,163 @@ section.contadores {
   .back-to-top:hover {
     background: var(--color-primary);
     border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-4px);
   }
 }
 .back-to-top:active { transform: scale(0.9); }
 
-.whatsapp-float {
+/* ============================================
+   MASCOT CHARACTER TOGGLE
+   ============================================ */
+
+.mascot-toggle {
   position: fixed;
-  bottom: 30px;
+  bottom: 28px;
   right: 24px;
-  width: 56px;
-  height: 56px;
-  background: #25D366;
+  z-index: 90;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+/* --- Character button (white circle) --- */
+.mascot-btn {
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  border: none;
   border-radius: 50%;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  z-index: 90;
-  transition: transform 0.2s var(--ease-out), box-shadow 0.2s ease;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  transition: transform 0.35s var(--spring), box-shadow 0.25s var(--ease-out);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.mascot-btn__img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: block;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .whatsapp-float:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-  }
-  .whatsapp-float:hover .whatsapp-float__tooltip {
-    opacity: 1;
-    visibility: visible;
+  .mascot-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
   }
 }
-.whatsapp-float:active { transform: scale(0.92); }
+.mascot-btn:active { transform: scale(0.92); }
 
-.whatsapp-float__tooltip {
-  position: absolute;
-  right: calc(100% + 12px);
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--color-gray-800);
-  color: var(--color-white);
-  padding: 8px 16px;
+/* --- Speech bubble --- */
+.mascot-bubble {
+  position: relative;
+  background: #ffffff;
   border-radius: var(--radius-md);
-  font-size: var(--text-sm);
-  white-space: nowrap;
+  padding: 12px 14px 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+  /* Entrada: oculto por defecto */
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.15s var(--ease-out), visibility 0.15s;
+  transform: translateX(10px) scale(0.95);
+  transform-origin: center right;
+  transition:
+    opacity 0.35s var(--ease-out),
+    transform 0.4s var(--spring),
+    visibility 0s linear 0.35s;
   pointer-events: none;
 }
+
+/* Cola del bubble (apunta al personaje, a la derecha) */
+.mascot-bubble::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  clip-path: polygon(0 0, 0 100%, 100% 50%);
+}
+
+/* Estado visible */
+.mascot-bubble.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) scale(1);
+  transition:
+    opacity 0.35s var(--ease-out),
+    transform 0.4s var(--spring),
+    visibility 0s linear 0s;
+  pointer-events: auto;
+}
+
+/* Botón cerrar */
+.mascot-bubble__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-600);
+  border-radius: 50%;
+  transition: background 0.15s ease, color 0.15s ease;
+  padding: 0;
+}
+.mascot-bubble__close:hover {
+  background: rgba(0, 0, 0, 0.07);
+  color: var(--color-dark);
+}
+
+/* Texto del bubble */
+.mascot-bubble__text {
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+  white-space: nowrap;
+  margin-bottom: 6px;
+  padding-right: 16px;
+  line-height: 1.3;
+}
+
+.mascot-bubble__text--green {
+  color: var(--color-primary);
+}
+
+/* CTA clickeable */
+.mascot-bubble__cta {
+  display: block;
+  text-align: center;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: background 0.2s var(--ease-out), transform 0.25s var(--spring);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mascot-bubble__cta:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+  }
+}
+.mascot-bubble__cta:active { transform: scale(0.96); }
 
 /* ============================================
    ANIMATIONS
@@ -2588,6 +2693,7 @@ section.contadores {
   }
 
   .footer__newsletter-btn {
+    transition: background var(--transition-base), transform 0.28s var(--spring);
     flex: 0 0 auto;
   }
 }
@@ -2724,10 +2830,15 @@ section.contadores {
   border-radius: 50%;
 }
 
-.whatsapp-float:focus-visible {
-  outline: 2px solid #25D366;
+.mascot-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
   outline-offset: 4px;
   border-radius: 50%;
+}
+
+.mascot-bubble__close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .footer__links a:focus-visible,

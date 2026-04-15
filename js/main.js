@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const headerEl  = document.querySelector('.header');
 
   function saveActiveSection() {
+    // Caso especial: fondo de página → guardar footer directamente
+    const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 80;
+    if (atBottom && document.getElementById('footer')) {
+      sessionStorage.setItem('rk_section', 'footer');
+      return;
+    }
+
     const hH         = headerEl ? headerEl.offsetHeight : 0;
     const contentTop = window.scrollY + hH;
     let current      = _sections[0] || null;
@@ -67,6 +74,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (restoreStyle) restoreStyle.remove();
       });
     }
+  }
+
+  /* --- Hero CTA: quitar animación al terminar para que el hover funcione --- */
+  const heroCta = document.getElementById('heroCtaBtn');
+  if (heroCta) {
+    heroCta.addEventListener('animationend', () => {
+      heroCta.style.opacity   = '1';
+      heroCta.style.animation = 'none';
+    }, { once: true });
   }
 
   /* --- Scroll unificado: header + back-to-top + parallax vídeo --- */
@@ -547,5 +563,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.plan-card__inner'),
     document.querySelector('.contacto__form-shine'),
   ].forEach(el => { if (el) shineObserver.observe(el); });
+
+  /* --- Mascot Character Toggle --- */
+  const mascotBtn    = document.getElementById('mascotBtn');
+  const mascotBubble = document.getElementById('mascotBubble');
+  const mascotClose  = document.getElementById('mascotClose');
+
+  if (mascotBtn && mascotBubble && mascotClose) {
+    // Abrir bubble al cargar después de un breve delay (presentación inicial)
+    setTimeout(() => {
+      mascotBubble.classList.add('is-open');
+    }, 1800);
+
+    // Toggle al hacer click en el personaje
+    mascotBtn.addEventListener('click', () => {
+      mascotBubble.classList.toggle('is-open');
+    });
+
+    // Cerrar con el botón X
+    mascotClose.addEventListener('click', () => {
+      mascotBubble.classList.remove('is-open');
+    });
+  }
 
 });
