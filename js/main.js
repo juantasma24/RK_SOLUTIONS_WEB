@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }, { once: true });
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+    }, { threshold: 0.2, rootMargin: '0px 0px -160px 0px' });
 
     revealElements.forEach(el => {
       if (!el.classList.contains('visible')) revealObserver.observe(el);

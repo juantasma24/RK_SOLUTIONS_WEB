@@ -2369,24 +2369,28 @@ section.contadores {
    ANIMATIONS
    ============================================ */
 
-/* Base reveal — translateY suave, distancia reducida para sensación premium */
+/* Base reveal — igual al estilo titleLineIn del header: blur + translateY */
 .anim-reveal {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  filter: blur(4px);
+  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out), filter 0.65s var(--ease-out);
 }
 .anim-reveal.visible {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0px);
 }
 
 /* Modificador escala — para tarjetas: sube + crece, easing spring */
 .anim-reveal.anim-reveal--scale {
   transform: translateY(16px) scale(0.96);
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--spring);
+  filter: blur(3px);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--spring), filter 0.55s var(--ease-out);
 }
 .anim-reveal.anim-reveal--scale.visible {
   transform: translateY(0) scale(1);
+  filter: blur(0px);
 }
 
 /* Hover states unificados con spring para respuesta viva */
@@ -2425,11 +2429,13 @@ section.contadores {
 .anim-slide-up {
   opacity: 0;
   transform: translateY(36px);
-  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+  filter: blur(5px);
+  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out), filter 0.75s var(--ease-out);
 }
 .anim-slide-up.visible {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0px);
 }
 
 /* ── Stagger de entrada por grids — 50ms: cascada fluida sin sentirse lenta ── */
@@ -2763,6 +2769,7 @@ section.contadores {
   .anim-reveal,
   .anim-slide-up {
     transform: none !important;
+    filter: none !important;
     transition: opacity 0.15s ease !important;
   }
 
