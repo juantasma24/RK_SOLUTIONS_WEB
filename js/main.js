@@ -571,6 +571,52 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.contacto__form-shine'),
   ].forEach(el => { if (el) shineObserver.observe(el); });
 
+  /* --- Reel animation en contadores (slot-machine vertical) --- */
+  const counterSlots = document.querySelectorAll('.counter-slot');
+  if (counterSlots.length) {
+    counterSlots.forEach(el => {
+      const target = parseInt(el.dataset.target, 10);
+
+      // Construir reel: números 0..target, empieza mostrando el target (último)
+      const wrap = document.createElement('span');
+      wrap.className = 'counter-reel-wrap';
+
+      const reel = document.createElement('span');
+      reel.className = 'counter-reel';
+      reel.style.setProperty('--reel-items', target + 1);
+
+      for (let i = 0; i <= target; i++) {
+        const digit = document.createElement('span');
+        digit.className = 'counter-reel__digit';
+        digit.textContent = i;
+        reel.appendChild(digit);
+      }
+
+      // Posicionar el reel en el target desde el inicio (sin animación)
+      reel.style.transform = `translateY(calc(-1em * ${target}))`;
+
+      wrap.appendChild(reel);
+      el.parentNode.replaceChild(wrap, el);
+    });
+
+    const reelObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        reelObserver.unobserve(entry.target);
+        const reel = entry.target.querySelector('.counter-reel');
+        const idx  = Array.from(document.querySelectorAll('.counter-reel-wrap')).indexOf(entry.target);
+        // Esperar: reveal (550ms) + stagger CSS (idx*50ms) + buffer (120ms)
+        setTimeout(() => {
+          // Quitar la posición inline para que la animación parta desde 0
+          reel.style.transform = '';
+          reel.classList.add('is-spinning');
+        }, 670 + idx * 50);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter-reel-wrap').forEach(el => reelObserver.observe(el));
+  }
+
   /* --- Pausar badges flotantes cuando no son visibles --- */
   const badgeEls = document.querySelectorAll('.que-hace__badge-247, .que-hace__badge-dispositivo');
   if (badgeEls.length) {

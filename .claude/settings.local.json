@@ -17,7 +17,9 @@
       "Bash(where python:*)",
       "Bash(python3 -c ' *)",
       "Bash(identify C:/xampp/htdocs/TEST/assets/img/frames_tpv/MOTION_TPV_00000.jpg)",
-      "Bash(powershell *)"
+      "Bash(powershell *)",
+      "WebFetch(domain:www.apple.com)",
+      "WebSearch"
     ]
   }
 }

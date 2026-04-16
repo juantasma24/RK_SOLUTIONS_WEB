@@ -169,69 +169,77 @@
   </section>
 
   <!-- ============================================
-       SECCIÓN 4: ¿POR QUÉ ELEGIR LA MANZANA?
+       SECCIÓN 4+5: ¿POR QUÉ ELEGIR LA MANZANA? + CONTADORES
        ============================================ -->
   <section class="pilares section" id="la-manzana">
     <div class="container text-center">
-      <h2 class="section-title section-title--italic anim-reveal">¿Por qué elegir <span class="highlight">La Manzana</span><span class="highlight">?</span></h2>
+      <h2 class="section-title anim-reveal">¿Por qué elegir <span class="highlight">La Manzana?</span></h2>
 
       <div class="pilares__grid">
-        <div class="pilar-card anim-reveal anim-reveal--scale">
-          <div class="pilar-card__icon">
-            <img src="assets/img/laptop.svg" alt="Fácil de usar" width="32" height="32">
+        <div class="pilar-item anim-reveal">
+          <div class="pilar-item__icon">
+            <img src="assets/img/laptop.svg" alt="Fácil de usar" width="72" height="72">
           </div>
-          <h3 class="pilar-card__title">Fácil de usar</h3>
+          <p class="pilar-item__label">Fácil de usar</p>
         </div>
 
-        <div class="pilar-card anim-reveal anim-reveal--scale">
-          <div class="pilar-card__icon">
-            <img src="assets/img/call.svg" alt="Soporte humano" width="32" height="32">
+        <div class="pilar-item anim-reveal">
+          <div class="pilar-item__icon">
+            <img src="assets/img/call.svg" alt="Soporte humano" width="72" height="72">
           </div>
-          <h3 class="pilar-card__title">Soporte humano 24/7</h3>
+          <p class="pilar-item__label">Soporte<br>humano 24/7</p>
         </div>
 
-        <div class="pilar-card anim-reveal anim-reveal--scale">
-          <div class="pilar-card__icon">
-            <img src="assets/img/house.svg" alt="Se adapta" width="32" height="32">
+        <div class="pilar-item anim-reveal">
+          <div class="pilar-item__icon">
+            <img src="assets/img/house.svg" alt="Se adapta" width="72" height="72">
           </div>
-          <h3 class="pilar-card__title">Se adapta a tu negocio</h3>
+          <p class="pilar-item__label">Se adapta a<br>tu negocio</p>
         </div>
 
-        <div class="pilar-card anim-reveal anim-reveal--scale">
-          <div class="pilar-card__icon">
-            <img src="assets/img/check_verde.svg" alt="Cumple" width="32" height="32">
+        <div class="pilar-item anim-reveal">
+          <div class="pilar-item__icon">
+            <img src="assets/img/check_verde.svg" alt="Cumple" width="72" height="72">
           </div>
-          <h3 class="pilar-card__title">Cumple la normativa</h3>
+          <p class="pilar-item__label">Cumple<br>la normativa</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ============================================
-       SECCIÓN 5: CONTADORES
-       ============================================ -->
-  <section class="contadores section" id="contadores">
-    <div class="container">
-      <div class="contadores__wrapper">
+      <!-- Contadores fusionados — ancla #contadores conservada -->
+      <div id="contadores" class="contadores__wrapper anim-reveal">
         <div class="contadores__grid">
-          <div class="contador-card glass-card anim-reveal anim-reveal--scale">
-            <div class="contador-card__number">+<span class="counter-animated" data-target="3">0</span>K</div>
-            <div class="contador-card__label">Manzanas</div>
+
+          <div class="contador-item anim-reveal anim-reveal--scale">
+            <div class="contador-card">
+              <div class="contador-card__number">+<span class="counter-slot" data-target="3">3</span>K</div>
+            </div>
+            <p class="contador-item__label">Manzanas</p>
           </div>
-          <div class="contador-card glass-card anim-reveal anim-reveal--scale">
-            <div class="contador-card__number">+<span class="counter-animated" data-target="11">0</span>K</div>
-            <div class="contador-card__label">Clientes</div>
+
+          <div class="contador-item anim-reveal anim-reveal--scale">
+            <div class="contador-card">
+              <div class="contador-card__number">+<span class="counter-slot" data-target="11">11</span>K</div>
+            </div>
+            <p class="contador-item__label">Clientes</p>
           </div>
-          <div class="contador-card glass-card anim-reveal anim-reveal--scale">
-            <div class="contador-card__number">+<span class="counter-animated" data-target="7">0</span></div>
-            <div class="contador-card__label">Oficinas</div>
+
+          <div class="contador-item anim-reveal anim-reveal--scale">
+            <div class="contador-card">
+              <div class="contador-card__number">+<span class="counter-slot" data-target="7">7</span></div>
+            </div>
+            <p class="contador-item__label">Oficinas</p>
           </div>
-          <div class="contador-card glass-card anim-reveal anim-reveal--scale">
-            <div class="contador-card__number">+<span class="counter-animated" data-target="20">0</span></div>
-            <div class="contador-card__label">Años</div>
+
+          <div class="contador-item anim-reveal anim-reveal--scale">
+            <div class="contador-card">
+              <div class="contador-card__number">+<span class="counter-slot" data-target="20">20</span></div>
+            </div>
+            <p class="contador-item__label">Años</p>
           </div>
+
         </div>
       </div>
+
     </div>
   </section>
 
