@@ -10,27 +10,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const headerEl  = document.querySelector('.header');
 
   function saveActiveSection() {
-    // Caso especial: fondo de página → guardar footer directamente
-    const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 80;
+    // PRIMERO: leer todo el DOM de una vez (evita layout thrashing)
+    const scrollY      = window.scrollY;
+    const innerHeight  = window.innerHeight;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const hH           = headerEl ? headerEl.offsetHeight : 0;
+    const contentTop   = scrollY + hH;
+    const atBottom     = scrollY + innerHeight >= scrollHeight - 80;
+
     if (atBottom && document.getElementById('footer')) {
       sessionStorage.setItem('rk_section', 'footer');
       return;
     }
 
-    const hH         = headerEl ? headerEl.offsetHeight : 0;
-    const contentTop = window.scrollY + hH;
-    let current      = _sections[0] || null;
-    let currentIdx   = 0;
+    // Leer todas las posiciones en batch (sin intercalar escrituras)
+    const sectionTops = _sections.map(s => s.getBoundingClientRect().top + scrollY);
+    const sectionHeights = _sections.map(s => s.offsetHeight);
+
+    // LUEGO: procesar con los datos ya leídos
+    let current    = _sections[0] || null;
+    let currentIdx = 0;
     _sections.forEach((section, idx) => {
-      const sTop = section.getBoundingClientRect().top + window.scrollY;
-      // +10px de tolerancia para evitar fallos por sub-píxel en el límite exacto
-      if (sTop <= contentTop + 10) { current = section; currentIdx = idx; }
+      if (sectionTops[idx] <= contentTop + 10) { current = section; currentIdx = idx; }
     });
-    // Post-proceso: si ya pasamos el punto medio de la sección actual,
-    // promovemos a la siguiente para no volver al inicio de esa sección al refrescar.
+
     if (current && _sections[currentIdx + 1]) {
-      const sTop = current.getBoundingClientRect().top + window.scrollY;
-      const sMid = sTop + current.offsetHeight / 2;
+      const sMid = sectionTops[currentIdx] + sectionHeights[currentIdx] / 2;
       if (sMid <= contentTop) current = _sections[currentIdx + 1];
     }
     if (current) sessionStorage.setItem('rk_section', current.id);
@@ -76,12 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* --- Hero CTA: quitar animación al terminar para que el hover funcione --- */
-  const heroCta = document.getElementById('heroCtaBtn');
-  if (heroCta) {
-    heroCta.addEventListener('animationend', () => {
-      heroCta.style.opacity   = '1';
-      heroCta.style.animation = 'none';
+  /* --- Hero actions: quitar animación al terminar para que el hover del CTA funcione --- */
+  const heroActions = document.querySelector('.hero__actions');
+  if (heroActions) {
+    heroActions.addEventListener('animationend', () => {
+      heroActions.style.opacity   = '1';
+      heroActions.style.animation = 'none';
     }, { once: true });
   }
 
@@ -461,6 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Movimiento animado normal
     function moveTo(idx) {
       currentIndex = idx;
+      testimoniosTrack.style.willChange = 'transform';
       testimoniosTrack.style.transition = TRANSITION;
       testimoniosTrack.style.transform  = `translateX(-${(currentIndex * 100) / vis()}%)`;
       updateDots();
@@ -491,6 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
         jumpTo(currentIndex + N);
       }
 
+      testimoniosTrack.style.willChange = 'auto';
       updateDots();
     });
 
@@ -564,6 +571,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.contacto__form-shine'),
   ].forEach(el => { if (el) shineObserver.observe(el); });
 
+  /* --- Pausar badges flotantes cuando no son visibles --- */
+  const badgeEls = document.querySelectorAll('.que-hace__badge-247, .que-hace__badge-dispositivo');
+  if (badgeEls.length) {
+    const badgeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        entry.target.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+      });
+    }, { threshold: 0.1 });
+    badgeEls.forEach(el => badgeObserver.observe(el));
+  }
+
   /* --- Secuencia TPV: scroll-driven canvas --- */
   const tpvCanvas  = document.getElementById('tpvCanvas');
   const tpvSection = document.querySelector('.tpv-seq');
@@ -589,11 +607,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return BASE + String(i).padStart(5, '0') + '.jpg';
     }
 
+    // Cachear offsetHeight (no cambia en scroll) para evitar reflow en cada RAF
+    let tpvTotal = tpvSection.offsetHeight - window.innerHeight;
+    window.addEventListener('resize', () => {
+      tpvTotal = tpvSection.offsetHeight - window.innerHeight;
+    }, { passive: true });
+
     function getProgress() {
-      const rect     = tpvSection.getBoundingClientRect();
-      const scrolled = -rect.top;
-      const total    = tpvSection.offsetHeight - window.innerHeight;
-      return Math.max(0, Math.min(1, scrolled / total));
+      const scrolled = -tpvSection.getBoundingClientRect().top;
+      return Math.max(0, Math.min(1, scrolled / tpvTotal));
     }
 
     function setCanvasSize(naturalW, naturalH) {
@@ -619,17 +641,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loop() {
-      // Lerp suave hacia el frame objetivo
-      current += (target - current) * LERP;
-      drawFrame(Math.round(current));
-
-      // Seguir el loop mientras no hayamos llegado al target
-      if (Math.abs(target - current) > 0.05) {
-        rafId = requestAnimationFrame(loop);
-      } else {
-        drawFrame(Math.round(target)); // asegura frame final exacto
+      const delta = target - current;
+      if (Math.abs(delta) < 0.01) {
+        drawFrame(Math.round(target)); // frame final exacto
         rafId = null;
+        return;
       }
+      current += delta * LERP;
+      drawFrame(Math.round(current));
+      rafId = requestAnimationFrame(loop);
     }
 
     function onScroll() {
@@ -675,6 +695,27 @@ document.addEventListener('DOMContentLoaded', () => {
     mascotClose.addEventListener('click', () => {
       mascotBubble.classList.remove('is-open');
     });
+
+    // Animación wiggle del personaje para llamar la atención
+    const mascotImg = mascotBtn.querySelector('.mascot-btn__img');
+    if (mascotImg) {
+      function triggerWiggle() {
+        mascotImg.classList.remove('is-wiggling');
+        // Forzar reflow para que la animación se reinicie aunque ya esté activa
+        void mascotImg.offsetWidth;
+        mascotImg.classList.add('is-wiggling');
+      }
+
+      mascotImg.addEventListener('animationend', () => {
+        mascotImg.classList.remove('is-wiggling');
+      }, { passive: true });
+
+      // Primera vez: 3s tras cargar (el bubble ya habrá aparecido)
+      setTimeout(triggerWiggle, 3000);
+
+      // Luego cada 12 segundos para mantener la atención
+      setInterval(triggerWiggle, 12000);
+    }
   }
 
 });

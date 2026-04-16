@@ -74,15 +74,7 @@
    hasta que el usuario se acerque con el scroll.
    contain-intrinsic-size = altura estimada para evitar CLS.
    ============================================ */
-.pilares,
-.contadores,
-.testimonios,
-.planes,
-.contacto,
-.faq {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
-}
+/* content-visibility consolidado abajo junto al bloque de secciones */
 
 html {
   -webkit-text-size-adjust: 100%;
@@ -606,16 +598,13 @@ input, select, textarea { font: inherit; color: inherit; }
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.2; /* <-- REBAJADO DE 0.5 a 0.15 */
+  opacity: 0.2;
   contain: layout paint;
-  will-change: transform;
-  background-image: url('../assets/img/pattern_manzanas_outline.png');
+  background-image: url('../assets/img/pattern_manzanas_outline.svg');
   background-repeat: repeat;
   background-size: 200px;
   background-position: center;
 }
-
-/* Eliminado contenedor track por obsoleto (Carga por tile) */
 
 @keyframes patternScroll {
   from { transform: translateX(0); }
@@ -724,8 +713,6 @@ input, select, textarea { font: inherit; color: inherit; }
   border: none;
   border-radius: var(--radius-full);
   padding: 14px 36px;
-  opacity: 0;
-  animation: titleLineIn 0.7s var(--ease-out) forwards 1.4s;
   transition:
     transform     0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
     background-color 0.22s ease,
@@ -748,6 +735,52 @@ input, select, textarea { font: inherit; color: inherit; }
   transition-duration: 0.1s;
   box-shadow: none !important;
 }
+
+/* Social proof + wrapper de acciones del hero */
+.hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  opacity: 0;
+  animation: titleLineIn 0.7s var(--ease-out) forwards 1.55s;
+}
+
+.hero__social-proof {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero__avatars {
+  display: flex;
+  align-items: center;
+}
+
+.hero__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  object-fit: cover;
+  margin-left: -10px;
+  background: #222;
+}
+.hero__avatar:first-child { margin-left: 0; }
+
+.hero__social-text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.4;
+  text-align: left;
+  margin: 0;
+}
+.hero__social-text strong {
+  color: var(--color-white-pure);
+  font-weight: 700;
+}
+
 
 /* ============================================
    SECCI�N: QU� HACE LA MANZANA POR TI
@@ -1254,7 +1287,6 @@ section.contadores {
   /* La transición la gestiona JS para el infinite loop */
   width: 100%;
   transform: translateZ(0);
-  will-change: transform;
 }
 
 
@@ -2269,6 +2301,7 @@ section.contadores {
   transition: transform 0.35s var(--spring), box-shadow 0.25s var(--ease-out);
   padding: 0;
   flex-shrink: 0;
+  overflow: visible;
 }
 
 .mascot-btn__img {
@@ -2276,6 +2309,22 @@ section.contadores {
   height: 44px;
   object-fit: contain;
   display: block;
+  transform-origin: center bottom;
+}
+
+@keyframes mascotWiggle {
+  0%   { transform: rotate(0deg);   }
+  15%  { transform: rotate(-18deg); }
+  30%  { transform: rotate(15deg);  }
+  45%  { transform: rotate(-10deg); }
+  60%  { transform: rotate(8deg);   }
+  75%  { transform: rotate(-4deg);  }
+  90%  { transform: rotate(3deg);   }
+  100% { transform: rotate(0deg);   }
+}
+
+.mascot-btn__img.is-wiggling {
+  animation: mascotWiggle 0.8s ease-in-out forwards;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -2441,7 +2490,6 @@ section.contadores {
 /* ============================================
    CONTENT VISIBILITY — salta render de secciones fuera de pantalla
    ============================================ */
-/* content-visibility solo en secciones suficientemente alejadas del fold */
 .pilares,
 .contadores,
 .testimonios,
@@ -2450,7 +2498,7 @@ section.contadores {
 .faq,
 .footer {
   content-visibility: auto;
-  contain-intrinsic-size: 0 600px;
+  contain-intrinsic-size: 0 700px;
 }
 
 .anim-slide-up {
@@ -2818,7 +2866,7 @@ section.contadores {
   }
 
   .hero__title-line,
-  .hero__cta {
+  .hero__actions {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;

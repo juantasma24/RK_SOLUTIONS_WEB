@@ -60,10 +60,26 @@
         <span class="hero__title-line hero__title-line--5">tu negocio.</span>
       </h1>
 
-      <!-- Botón Descubre más -->
-      <a href="#que-hace" class="hero__cta" id="heroCtaBtn">
-        <span>Descubre más</span>
-      </a>
+      <!-- Social proof + CTA -->
+      <div class="hero__actions">
+
+        <div class="hero__social-proof">
+          <div class="hero__avatars">
+            <img src="https://i.pravatar.cc/48?img=47" alt="" class="hero__avatar" width="38" height="38" loading="lazy">
+            <img src="https://i.pravatar.cc/48?img=32" alt="" class="hero__avatar" width="38" height="38" loading="lazy">
+            <img src="https://i.pravatar.cc/48?img=21" alt="" class="hero__avatar" width="38" height="38" loading="lazy">
+            <img src="https://i.pravatar.cc/48?img=10" alt="" class="hero__avatar" width="38" height="38" loading="lazy">
+          </div>
+          <p class="hero__social-text">
+            <strong>+3.000</strong> usuarios<br>eligen La Manzana
+          </p>
+        </div>
+
+        <a href="#que-hace" class="hero__cta" id="heroCtaBtn">
+          <span>Descubre más</span>
+        </a>
+
+      </div>
     </div>
   </section>
 
