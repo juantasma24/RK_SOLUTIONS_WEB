@@ -144,6 +144,15 @@
   </section>
 
   <!-- ============================================
+       SECCIÓN 3.5: SECUENCIA TPV (scroll-driven frames)
+       ============================================ -->
+  <section class="tpv-seq" id="tpv-seq" aria-hidden="true">
+    <div class="tpv-seq__sticky">
+      <canvas class="tpv-seq__canvas" id="tpvCanvas"></canvas>
+    </div>
+  </section>
+
+  <!-- ============================================
        SECCIÓN 4: ¿POR QUÉ ELEGIR LA MANZANA?
        ============================================ -->
   <section class="pilares section" id="la-manzana">

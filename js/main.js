@@ -564,6 +564,97 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.contacto__form-shine'),
   ].forEach(el => { if (el) shineObserver.observe(el); });
 
+  /* --- Secuencia TPV: scroll-driven canvas --- */
+  const tpvCanvas  = document.getElementById('tpvCanvas');
+  const tpvSection = document.querySelector('.tpv-seq');
+
+  if (tpvCanvas && tpvSection) {
+    const ctx        = tpvCanvas.getContext('2d');
+    const FRAMES     = 91;
+    const LERP       = 0.18; // velocidad de suavizado (0.1 = lento, 0.3 = rápido)
+    const DPR        = Math.min(window.devicePixelRatio || 1, 2); // máx 2× para no exceder
+    const BASE       = 'assets/img/frames_tpv/MOTION_TPV_';
+    const images     = new Array(FRAMES);
+    let   loadedCount = 0;
+    let   lastDrawn   = -1;
+    let   current     = 0;  // índice actual (con decimales para lerp)
+    let   target      = 0;  // índice objetivo según scroll
+    let   rafId       = null;
+
+    // Calidad de interpolación máxima
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    function frameUrl(i) {
+      return BASE + String(i).padStart(5, '0') + '.jpg';
+    }
+
+    function getProgress() {
+      const rect     = tpvSection.getBoundingClientRect();
+      const scrolled = -rect.top;
+      const total    = tpvSection.offsetHeight - window.innerHeight;
+      return Math.max(0, Math.min(1, scrolled / total));
+    }
+
+    function setCanvasSize(naturalW, naturalH) {
+      // Dimensiones físicas × DPR para nitidez en pantallas HiDPI
+      tpvCanvas.width  = naturalW * DPR;
+      tpvCanvas.height = naturalH * DPR;
+      // Tamaño CSS = dimensiones naturales (el CSS se encarga de ajustar)
+      tpvCanvas.style.width  = naturalW + 'px';
+      tpvCanvas.style.height = naturalH + 'px';
+      ctx.scale(DPR, DPR);
+      // Reaplicar calidad tras el scale
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+    }
+
+    function drawFrame(idx) {
+      if (idx === lastDrawn) return;
+      const img = images[idx];
+      if (!img || !img.complete || !img.naturalWidth) return;
+      ctx.clearRect(0, 0, tpvCanvas.width, tpvCanvas.height);
+      ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+      lastDrawn = idx;
+    }
+
+    function loop() {
+      // Lerp suave hacia el frame objetivo
+      current += (target - current) * LERP;
+      drawFrame(Math.round(current));
+
+      // Seguir el loop mientras no hayamos llegado al target
+      if (Math.abs(target - current) > 0.05) {
+        rafId = requestAnimationFrame(loop);
+      } else {
+        drawFrame(Math.round(target)); // asegura frame final exacto
+        rafId = null;
+      }
+    }
+
+    function onScroll() {
+      target = getProgress() * (FRAMES - 1);
+      if (!rafId) rafId = requestAnimationFrame(loop);
+    }
+
+    // Precargar todos los frames
+    for (let i = 0; i < FRAMES; i++) {
+      const img = new Image();
+      img.onload = function () {
+        loadedCount++;
+        if (i === 0) {
+          setCanvasSize(img.naturalWidth, img.naturalHeight);
+          current = target = getProgress() * (FRAMES - 1);
+          drawFrame(Math.round(current));
+        }
+      };
+      img.src   = frameUrl(i);
+      images[i] = img;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   /* --- Mascot Character Toggle --- */
   const mascotBtn    = document.getElementById('mascotBtn');
   const mascotBubble = document.getElementById('mascotBubble');

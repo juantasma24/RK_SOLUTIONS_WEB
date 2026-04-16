@@ -14,7 +14,10 @@
       "Read(//c/Users/usuario/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.5.0/**)",
       "Bash(python skills/ui-ux-pro-max/scripts/search.py \"SaaS ERP dark premium management software landing page\" --design-system -p \"La Manzana RK Solutions\" -f markdown)",
       "Bash(py --version)",
-      "Bash(where python:*)"
+      "Bash(where python:*)",
+      "Bash(python3 -c ' *)",
+      "Bash(identify C:/xampp/htdocs/TEST/assets/img/frames_tpv/MOTION_TPV_00000.jpg)",
+      "Bash(powershell *)"
     ]
   }
 }
