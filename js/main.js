@@ -633,19 +633,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const tpvSection = document.querySelector('.tpv-seq');
 
   if (tpvCanvas && tpvSection) {
-    const ctx        = tpvCanvas.getContext('2d');
-    const FRAMES     = 91;
-    const LERP       = 0.18; // velocidad de suavizado (0.1 = lento, 0.3 = rápido)
-    const DPR        = Math.min(window.devicePixelRatio || 1, 2); // máx 2× para no exceder
-    const BASE       = 'assets/img/frames_tpv/MOTION_TPV_';
-    const images     = new Array(FRAMES);
-    let   loadedCount = 0;
-    let   lastDrawn   = -1;
-    let   current     = 0;  // índice actual (con decimales para lerp)
-    let   target      = 0;  // índice objetivo según scroll
-    let   rafId       = null;
+    const ctx    = tpvCanvas.getContext('2d');
+    const FRAMES = 135;
+    const LERP   = 0.10;
+    const DPR    = Math.min(window.devicePixelRatio || 1, 2);
+    const BASE   = 'assets/img/frames_tpv/final_motion_tpv_';
+    const images = new Array(FRAMES);
+    let loadedCount = 0;
+    let allReady    = false;
+    let lastDrawn   = -1;
+    let current     = 0;
+    let target      = 0;
+    let rafId       = null;
+    let inView      = false;
 
-    // Calidad de interpolación máxima
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
 
@@ -653,7 +654,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return BASE + String(i).padStart(5, '0') + '.jpg';
     }
 
-    // Cachear offsetHeight (no cambia en scroll) para evitar reflow en cada RAF
     let tpvTotal = tpvSection.offsetHeight - window.innerHeight;
     window.addEventListener('resize', () => {
       tpvTotal = tpvSection.offsetHeight - window.innerHeight;
@@ -664,15 +664,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return Math.max(0, Math.min(1, scrolled / tpvTotal));
     }
 
-    function setCanvasSize(naturalW, naturalH) {
-      // Dimensiones físicas × DPR para nitidez en pantallas HiDPI
-      tpvCanvas.width  = naturalW * DPR;
-      tpvCanvas.height = naturalH * DPR;
-      // Tamaño CSS = dimensiones naturales (el CSS se encarga de ajustar)
-      tpvCanvas.style.width  = naturalW + 'px';
-      tpvCanvas.style.height = naturalH + 'px';
+    function setCanvasSize(w, h) {
+      tpvCanvas.width        = w * DPR;
+      tpvCanvas.height       = h * DPR;
+      tpvCanvas.style.width  = w + 'px';
+      tpvCanvas.style.height = h + 'px';
       ctx.scale(DPR, DPR);
-      // Reaplicar calidad tras el scale
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
     }
@@ -688,37 +685,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loop() {
       const delta = target - current;
-      if (Math.abs(delta) < 0.01) {
-        drawFrame(Math.round(target)); // frame final exacto
-        rafId = null;
-        return;
-      }
       current += delta * LERP;
       drawFrame(Math.round(current));
-      rafId = requestAnimationFrame(loop);
+      if (inView) rafId = requestAnimationFrame(loop);
+      else rafId = null;
     }
 
-    function onScroll() {
+    const tpvObserver = new IntersectionObserver(entries => {
+      inView = entries[0].isIntersecting;
+      if (inView && allReady && !rafId) rafId = requestAnimationFrame(loop);
+    }, { threshold: 0 });
+    tpvObserver.observe(tpvSection);
+
+    window.addEventListener('scroll', () => {
+      if (!allReady) return;
       target = getProgress() * (FRAMES - 1);
-      if (!rafId) rafId = requestAnimationFrame(loop);
-    }
+    }, { passive: true });
 
-    // Precargar todos los frames
     for (let i = 0; i < FRAMES; i++) {
       const img = new Image();
       img.onload = function () {
         loadedCount++;
         if (i === 0) {
           setCanvasSize(img.naturalWidth, img.naturalHeight);
+          drawFrame(0);
+        }
+        if (loadedCount === FRAMES) {
+          allReady = true;
           current = target = getProgress() * (FRAMES - 1);
           drawFrame(Math.round(current));
+          if (inView && !rafId) rafId = requestAnimationFrame(loop);
         }
       };
       img.src   = frameUrl(i);
       images[i] = img;
     }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   /* --- Mascot Character Toggle --- */
