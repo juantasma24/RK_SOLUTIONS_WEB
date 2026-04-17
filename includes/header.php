@@ -72,7 +72,6 @@
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu__header">
-    <img src="assets/img/isotipo-manzana.svg" alt="La Manzana" class="mobile-menu__isotipo">
   </div>
   <ul>
     <li><a href="#inicio" class="mobile-link">Inicio</a></li>

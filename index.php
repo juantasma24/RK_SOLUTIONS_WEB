@@ -20,6 +20,9 @@
   <!-- Preload: imagen crítica del hero para LCP más rápido -->
   <link rel="preload" as="image" href="assets/img/pattern_manzanas_outline.png">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/img/manzana_ico.svg">
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 
@@ -53,8 +56,7 @@
     <div class="container hero__container">
       <!-- Título con tipografías mixtas -->
       <h1 class="hero__title">
-        <span class="hero__title-line hero__title-line--1">La</span>
-        <span class="hero__title-line hero__title-line--2">Manzana,</span>
+        <span class="hero__title-line hero__title-line--1">La Manzana,</span>
         <span class="hero__title-line hero__title-line--3">el software</span>
         <span class="hero__title-line hero__title-line--4">que entiende</span>
         <span class="hero__title-line hero__title-line--5">tu negocio.</span>
@@ -65,10 +67,10 @@
 
         <div class="hero__social-proof">
           <div class="hero__avatars">
-            <img src="https://i.pravatar.cc/48?img=47" alt="" class="hero__avatar" width="38" height="38" loading="lazy">
-            <img src="https://i.pravatar.cc/48?img=32" alt="" class="hero__avatar" width="38" height="38" loading="lazy">
-            <img src="https://i.pravatar.cc/48?img=21" alt="" class="hero__avatar" width="38" height="38" loading="lazy">
-            <img src="https://i.pravatar.cc/48?img=10" alt="" class="hero__avatar" width="38" height="38" loading="lazy">
+            <div class="hero__avatar" data-pool="47,12,33,56,63"><img src="https://i.pravatar.cc/48?img=47" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=47" alt="" width="38" height="38" aria-hidden="true"></div>
+            <div class="hero__avatar" data-pool="32,5,44,19,68"><img src="https://i.pravatar.cc/48?img=32" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=32" alt="" width="38" height="38" aria-hidden="true"></div>
+            <div class="hero__avatar" data-pool="21,8,37,52,70"><img src="https://i.pravatar.cc/48?img=21" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=21" alt="" width="38" height="38" aria-hidden="true"></div>
+            <div class="hero__avatar" data-pool="10,25,41,60,15"><img src="https://i.pravatar.cc/48?img=10" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=10" alt="" width="38" height="38" aria-hidden="true"></div>
           </div>
           <p class="hero__social-text">
             <strong>+3.000</strong> usuarios<br>eligen La Manzana
@@ -165,6 +167,9 @@
   <section class="tpv-seq" id="tpv-seq" aria-hidden="true">
     <div class="tpv-seq__sticky">
       <canvas class="tpv-seq__canvas" id="tpvCanvas"></canvas>
+    </div>
+    <div class="tpv-seq__mobile">
+      <img src="assets/img/tpv_mobile/tpv_responsive.webp" alt="" loading="lazy">
     </div>
   </section>
 

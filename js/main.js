@@ -733,36 +733,80 @@ document.addEventListener('DOMContentLoaded', () => {
       mascotBubble.classList.add('is-open');
     }, 1800);
 
+    // Animación wiggle del personaje para llamar la atención
+    const mascotImg = mascotBtn.querySelector('.mascot-btn__img');
+
+    function triggerWiggle() {
+      if (!mascotImg) return;
+      mascotImg.classList.remove('is-wiggling');
+      void mascotImg.offsetWidth;
+      mascotImg.classList.add('is-wiggling');
+    }
+
+    let wiggleInterval = null;
+
+    function scheduleWiggle() {
+      clearInterval(wiggleInterval);
+      wiggleInterval = setInterval(triggerWiggle, 12000);
+    }
+
+    if (mascotImg) {
+      mascotImg.addEventListener('animationend', () => {
+        mascotImg.classList.remove('is-wiggling');
+      }, { passive: true });
+
+      setTimeout(() => { triggerWiggle(); scheduleWiggle(); }, 3000);
+    }
+
     // Toggle al hacer click en el personaje
     mascotBtn.addEventListener('click', () => {
       mascotBubble.classList.toggle('is-open');
+      triggerWiggle();
+      scheduleWiggle(); // reinicia el contador de 12s
     });
 
     // Cerrar con el botón X
     mascotClose.addEventListener('click', () => {
       mascotBubble.classList.remove('is-open');
     });
-
-    // Animación wiggle del personaje para llamar la atención
-    const mascotImg = mascotBtn.querySelector('.mascot-btn__img');
-    if (mascotImg) {
-      function triggerWiggle() {
-        mascotImg.classList.remove('is-wiggling');
-        // Forzar reflow para que la animación se reinicie aunque ya esté activa
-        void mascotImg.offsetWidth;
-        mascotImg.classList.add('is-wiggling');
-      }
-
-      mascotImg.addEventListener('animationend', () => {
-        mascotImg.classList.remove('is-wiggling');
-      }, { passive: true });
-
-      // Primera vez: 3s tras cargar (el bubble ya habrá aparecido)
-      setTimeout(triggerWiggle, 3000);
-
-      // Luego cada 12 segundos para mantener la atención
-      setInterval(triggerWiggle, 12000);
-    }
   }
 
 });
+
+/* --- Avatar cycling: fade entre fotos del pool --- */
+(function () {
+  const avatars = document.querySelectorAll('.hero__avatar[data-pool]');
+  if (!avatars.length) return;
+
+  avatars.forEach((avatar, i) => {
+    const pool = avatar.dataset.pool.split(',');
+    const imgs = avatar.querySelectorAll('img');
+    let idx = 0;
+    let showingFront = true;
+
+    function cycleAvatar() {
+      idx = (idx + 1) % pool.length;
+      const next = new Image();
+      next.onload = () => {
+        if (showingFront) {
+          imgs[1].src = next.src;
+          imgs[1].getBoundingClientRect(); // fuerza repaint antes de transición
+          imgs[0].style.opacity = '0';
+          imgs[1].style.opacity = '1';
+        } else {
+          imgs[0].src = next.src;
+          imgs[0].getBoundingClientRect();
+          imgs[1].style.opacity = '0';
+          imgs[0].style.opacity = '1';
+        }
+        showingFront = !showingFront;
+      };
+      next.src = 'https://i.pravatar.cc/48?img=' + pool[idx];
+    }
+
+    setTimeout(() => {
+      cycleAvatar();
+      setInterval(cycleAvatar, 3500);
+    }, 2000 + i * 800);
+  });
+}());
