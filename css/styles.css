@@ -2608,6 +2608,8 @@ input, select, textarea { font: inherit; color: inherit; }
 /* ============================================
    CONTENT VISIBILITY — salta render de secciones fuera de pantalla
    ============================================ */
+.que-hace,
+.autonomos,
 .pilares,
 .testimonios,
 .planes,

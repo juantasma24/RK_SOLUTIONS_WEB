@@ -6,19 +6,21 @@
   <meta name="description" content="RK Solutions — La Manzana: facturación, fichajes y cumplimiento normativo en una sola plataforma. Solicita tu demo gratis.">
   <title>La Manzana - RK Solutions</title>
 
-  <!-- Google Fonts: Poppins + Manrope + DM Serif Display -->
+  <!-- Google Fonts: Poppins + Manrope -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,300;0,600;0,700;0,800;1,300;1,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,300;0,600;0,700;0,800;1,300;1,800&display=swap" rel="stylesheet">
 
-  <!-- DNS Prefetch & Preconnect: resolver dominios externos por adelantado (técnica WP Rocket) -->
+  <!-- DNS Prefetch & Preconnect: resolver dominios externos por adelantado -->
   <link rel="dns-prefetch" href="https://www.youtube.com">
   <link rel="dns-prefetch" href="https://www.google.com">
+  <link rel="dns-prefetch" href="https://i.pravatar.cc">
   <link rel="preconnect" href="https://www.youtube.com" crossorigin>
   <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+  <link rel="preconnect" href="https://i.pravatar.cc" crossorigin>
 
-  <!-- Preload: imagen crítica del hero para LCP más rápido -->
-  <link rel="preload" as="image" href="assets/img/pattern_manzanas_outline.png">
+  <!-- Preload: laptop mockup es la imagen eager más pesada del fold -->
+  <link rel="preload" as="image" href="assets/img/laptop-mockup.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/img/manzana_ico.svg">
@@ -119,7 +121,7 @@
         <div class="que-hace__visual">
           <div class="que-hace__laptop anim-slide-up">
             <div class="que-hace__laptop-frame">
-              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="eager" decoding="async">
+              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="eager" decoding="async" fetchpriority="high">
               <div class="que-hace__laptop-screen">
                 <div class="youtube-facade" data-embed="ZVm05C_6VOs">
                   <img src="https://img.youtube.com/vi/ZVm05C_6VOs/maxresdefault.jpg" alt="Demo La Manzana" class="youtube-facade__thumb" loading="lazy">
