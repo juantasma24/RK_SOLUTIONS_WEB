@@ -9,7 +9,7 @@
   <!-- Google Fonts: Poppins + Manrope + DM Serif Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,600;0,700;0,800;1,300;1,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,300;0,600;0,700;0,800;1,300;1,800&display=swap" rel="stylesheet">
 
   <!-- DNS Prefetch & Preconnect: resolver dominios externos por adelantado (técnica WP Rocket) -->
   <link rel="dns-prefetch" href="https://www.youtube.com">
@@ -248,6 +248,7 @@
        ============================================ -->
   <section class="testimonios section" id="testimonios">
     <div class="container">
+      <h2 class="section-title text-center anim-reveal">Lo que dicen <span class="highlight">nuestros clientes</span></h2>
       <!-- Carrusel de testimonios -->
       <div class="testimonios__carousel anim-reveal" id="testimoniosCarousel">
         <!-- Botón anterior -->

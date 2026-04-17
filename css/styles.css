@@ -1096,8 +1096,8 @@ input, select, textarea { font: inherit; color: inherit; }
 .pilares__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  max-width: 100%;
+  gap: 5px;
+  max-width: 880px;
   margin: 0 auto 56px;
 }
 
@@ -1267,8 +1267,8 @@ input, select, textarea { font: inherit; color: inherit; }
 /* Label fuera de la card, en verde */
 .contador-item__label {
   font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: var(--text-2xl);
+  font-weight: 300;
+  font-size: 1.65rem;
   color: var(--color-primary);
   margin: 0;
   text-align: center;
@@ -1280,6 +1280,12 @@ input, select, textarea { font: inherit; color: inherit; }
 .testimonios {
   background: var(--color-black);
   position: relative;
+  min-height: 100vh;
+}
+
+.testimonios .section-title {
+  margin-bottom: 56px;
+  margin-top: -24px;
 }
 
 /* Carrusel container */
@@ -1392,14 +1398,14 @@ input, select, textarea { font: inherit; color: inherit; }
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  height: 420px; /* Alto fijo para todas las cards */
+  height: 420px;
   padding: 0 20px;
 }
 
 .testimonio-card__bubble {
   background: #ffffff;
   border-radius: var(--radius-xl);
-  padding: 40px 32px 40px 48px; /* Más padding izquierda para la cola */
+  padding: 40px 32px 40px 48px;
   position: relative;
   flex: 1;
   display: flex;
@@ -1426,7 +1432,7 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 .testimonio-card__quote {
-  font-size: calc(var(--text-base) - 2px); /* Texto más pequeño para que quepa todo */
+  font-size: calc(var(--text-base) - 2px);
   line-height: 1.6;
   color: #1a1a1a;
   margin: 0;
@@ -2605,7 +2611,7 @@ input, select, textarea { font: inherit; color: inherit; }
   }
 
   .testimonio-card {
-    height: 380px; /* Alto reducido en tablet */
+    height: 380px;
   }
 
   .planes__grid { grid-template-columns: 1fr 1fr; } /* 2 columnas en tablet+ */
@@ -2656,7 +2662,7 @@ input, select, textarea { font: inherit; color: inherit; }
   }
 
   .testimonio-card {
-    height: 420px; /* Alto desktop */
+    height: 420px;
   }
 }
 

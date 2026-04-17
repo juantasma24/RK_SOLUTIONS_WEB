@@ -19,7 +19,17 @@
       "Bash(identify C:/xampp/htdocs/TEST/assets/img/frames_tpv/MOTION_TPV_00000.jpg)",
       "Bash(powershell *)",
       "WebFetch(domain:www.apple.com)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(ffmpeg -version)",
+      "Bash(where ffmpeg *)",
+      "Bash(where cwebp *)",
+      "Bash(where magick *)",
+      "Bash(where convert *)",
+      "Bash(npm install *)",
+      "Bash(sharp-cli --version)",
+      "Bash(npx sharp-cli *)",
+      "Bash(sharp --help)",
+      "Bash(sharp *)"
     ]
   }
 }

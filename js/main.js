@@ -634,7 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (tpvCanvas && tpvSection) {
     const ctx    = tpvCanvas.getContext('2d');
-    const FRAMES = 135;
+    const FRAMES = 270;
     const LERP   = 0.10;
     const DPR    = Math.min(window.devicePixelRatio || 1, 2);
     const BASE   = 'assets/img/frames_tpv/final_motion_tpv_';
@@ -651,7 +651,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.imageSmoothingQuality = 'high';
 
     function frameUrl(i) {
-      return BASE + String(i).padStart(5, '0') + '.jpg';
+      return BASE + String(i).padStart(5, '0') + '.webp';
     }
 
     let tpvTotal = tpvSection.offsetHeight - window.innerHeight;
