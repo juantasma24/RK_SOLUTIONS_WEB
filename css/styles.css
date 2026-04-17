@@ -2746,6 +2746,12 @@ input, select, textarea { font: inherit; color: inherit; }
    RESPONSIVE: TABLET SOLO (768px–1023px)
    ============================================ */
 @media (min-width: 768px) and (max-width: 1023px) {
+  .que-hace__badge-dispositivo {
+    top: 8px;
+    transform: scale(0.75);
+    transform-origin: top right;
+    animation: none;
+  }
   .contador-card__number { font-size: var(--text-5xl); }
   .contadores__wrapper { background-image: url('../assets/img/bloque_vidrio_cuadrado.png'); }
   .pilares { height: auto; padding: 60px 0; }
@@ -2837,11 +2843,14 @@ input, select, textarea { font: inherit; color: inherit; }
     transform: scale(1);
   }
 
-  /* Los badges sobre el laptop en mobile se esconden para no desbordarse */
-  .que-hace__badge-dispositivo,
-  .que-hace__badge-247 {
-    display: none;
+  .que-hace__badge-dispositivo {
+    top: 8px;
+    transform: scale(0.75);
+    transform-origin: top right;
+    animation: none;
   }
+
+
 
   .contadores__wrapper { background-image: url('../assets/img/bloque_vidrio_cuadrado.png'); }
   .pilares { height: auto; padding: 60px 0; }
