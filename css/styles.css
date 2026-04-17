@@ -793,6 +793,7 @@ input, select, textarea { font: inherit; color: inherit; }
   background: var(--color-primary);
   overflow: hidden;
   position: relative;
+  isolation: isolate;
   scroll-margin-top: var(--header-height);
   height: calc(100vh - var(--header-height));
   display: flex;
@@ -824,7 +825,7 @@ input, select, textarea { font: inherit; color: inherit; }
   transform: translateX(-50%) translateY(-50%) rotate(25deg);
   opacity: 0.18;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 
 .que-hace::after,
@@ -840,7 +841,7 @@ input, select, textarea { font: inherit; color: inherit; }
   transform: translateX(50%) translateY(-50%) rotate(-25deg);
   opacity: 0.18;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 
 
@@ -1551,6 +1552,7 @@ input, select, textarea { font: inherit; color: inherit; }
 .planes {
   background: var(--color-primary);
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   height: calc(100vh - var(--header-height));
   display: flex;
@@ -2770,6 +2772,11 @@ input, select, textarea { font: inherit; color: inherit; }
    RESPONSIVE: MÓVIL (<768px)
    ============================================ */
 @media (max-width: 767px) {
+
+  .que-hace::before,
+  .planes::before {
+    top: 20%;
+  }
 
   /* Difuminado más suave en móvil (1 card visible) */
   .testimonios__track-wrapper {

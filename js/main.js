@@ -370,13 +370,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Animación del hero_pattern eliminada: se mantiene como fondo estático optimizado
 
-  /* --- YouTube Facade --- */
+  /* --- YouTube Facade + autoplay on scroll into view --- */
   const ytFacades = document.querySelectorAll('.youtube-facade');
   ytFacades.forEach(ytFacade => {
-    ytFacade.addEventListener('click', () => {
-      const embedId = ytFacade.dataset.embed;
-      ytFacade.innerHTML = `<iframe src="https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-    }, { once: true });
+    const embedId = ytFacade.dataset.embed;
+
+    function injectIframe(muted) {
+      const muteParam = muted ? '&mute=1' : '';
+      ytFacade.innerHTML = `<iframe src="https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0${muteParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    }
+
+    // Click: autoplay con sonido
+    ytFacade.addEventListener('click', () => injectIframe(false), { once: true });
+
+    // Scroll into view: autoplay silenciado (navegadores requieren mute=1 para autoplay sin gesto)
+    const ytObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !ytFacade.querySelector('iframe')) {
+          injectIframe(true);
+          ytObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    ytObserver.observe(ytFacade);
   });
 
   /* --- Pausar vídeo de autónomos cuando no es visible --- */
