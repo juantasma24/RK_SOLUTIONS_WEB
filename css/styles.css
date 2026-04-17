@@ -1703,6 +1703,9 @@ input, select, textarea { font: inherit; color: inherit; }
    ============================================ */
 .contacto {
   background: var(--color-black);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .contacto__inner {
@@ -2036,6 +2039,9 @@ input, select, textarea { font: inherit; color: inherit; }
    ============================================ */
 .faq {
   background: #4a4a4a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .faq__header {
