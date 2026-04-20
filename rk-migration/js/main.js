@@ -504,12 +504,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (locked) return;
       locked = true;
       moveTo(currentIndex + 1);
+      setTimeout(() => { locked = false; }, 700);
     }
 
     function prev() {
       if (locked) return;
       locked = true;
       moveTo(currentIndex - 1);
+      setTimeout(() => { locked = false; }, 700);
     }
 
     // Al terminar la transición → comprobar si toca saltar a los originales

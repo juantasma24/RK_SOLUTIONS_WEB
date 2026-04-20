@@ -2841,13 +2841,20 @@ input, select, textarea { font: inherit; color: inherit; }
     top: 8px;
     transform: scale(0.75);
     transform-origin: top right;
-    animation: none;
+    animation: badgeFloat2Mobile 3.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  }
+
+  @keyframes badgeFloat2Mobile {
+    0%, 100% { transform: scale(0.75) rotate(0.3deg); }
+    45%       { transform: scale(0.75) translateY(-9px) rotate(-0.4deg); }
+    65%       { transform: scale(0.75) translateY(-7px) rotate(-0.3deg); }
   }
 
 
 
   .contadores__wrapper { background-image: url('../assets/img/bloque_vidrio_cuadrado.png'); }
   .pilares { height: auto; padding: 60px 0; }
+  .testimonios { height: auto; padding: 60px 0; }
   .planes { height: auto; padding: 60px 0; }
   .contacto { height: auto; padding: 60px 0; }
 
@@ -2881,21 +2888,76 @@ input, select, textarea { font: inherit; color: inherit; }
     padding: 24px 16px;
   }
 
+  /* --- SECTION TITLE: evitar que "La" quede sola antes de "Manzana" --- */
+  .section-title .highlight {
+    white-space: nowrap;
+  }
+
   /* --- TESTIMONIOS --- */
   .testimonio-card {
-    height: 460px;
+    height: auto;
   }
 
   .testimonio-card__bubble {
-    padding: 32px 24px 32px 40px;
+    padding: 24px 20px 24px 28px;
+  }
+
+  /* Comillas más pequeñas para liberar espacio vertical */
+  .testimonio-card__comillas {
+    width: 36px;
+    margin-bottom: 8px;
   }
 
   .testimonio-card__quote {
-    -webkit-line-clamp: 5;
-    line-clamp: 5;
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    overflow: visible;
+    display: block;
+    -webkit-line-clamp: unset;
   }
 
-  /* --- PLANES: reducir padding de cards en 1 columna --- */
+  /* Evita que nombres largos rompan el layout */
+  .testimonio-card__author > div {
+    min-width: 0;
+  }
+
+  .testimonio-card__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Botones: quitar tap-highlight, rosa de iOS y cualquier outline en touch */
+  .testimonios__nav {
+    -webkit-tap-highlight-color: transparent;
+    outline: none !important;
+  }
+
+  .testimonios__nav:focus,
+  .testimonios__nav:focus-visible,
+  .testimonios__nav:active {
+    outline: none !important;
+    background: var(--color-gray-800);
+    border-color: var(--glass-border);
+    box-shadow: none;
+  }
+
+  /* "nuestros clientes" en línea propia en mobile */
+  .testimonios .section-title .highlight {
+    display: block;
+  }
+
+  /* --- PLANES: subtítulo + gap --- */
+  .planes__layout {
+    gap: 20px;
+  }
+
+  .planes__subtitulo strong:last-child {
+    display: block;
+    white-space: nowrap;
+  }
+
+  /* Reducir padding de cards en 1 columna */
   .plan-card {
     padding: 48px 20px 28px;
   }
@@ -2926,9 +2988,42 @@ input, select, textarea { font: inherit; color: inherit; }
     padding: 32px 20px;
   }
 
-  /* --- FAQ: reducir padding izquierdo de respuestas --- */
+  /* --- FAQ: altura automática y layout reparado en móvil --- */
+  .faq {
+    height: auto;
+    padding: 60px 0;
+    align-items: flex-start;
+    overflow-x: hidden;
+  }
+
+  .faq__grid {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .faq-item {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
   .faq__title {
     font-size: var(--text-3xl);
+  }
+
+  .faq-item__question {
+    border-radius: 16px;
+    align-items: flex-start;
+    padding: 14px 16px 14px 18px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .faq-item__text {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
   }
 
   .faq-item__answer-inner {
@@ -3202,13 +3297,18 @@ input, select, textarea { font: inherit; color: inherit; }
   color: #ffffff !important;
 }
 
-/* 3. Testimonios nav flechas — no queda rosa tras click (override :focus) */
+/* 3. Testimonios nav flechas — no queda rosa tras click (override :focus/:active) */
+.testimonios__nav {
+  -webkit-tap-highlight-color: transparent !important;
+}
 .testimonios__nav:focus,
-.testimonios__nav:focus-visible {
+.testimonios__nav:focus-visible,
+.testimonios__nav:active {
   background: var(--color-gray-800) !important;
   border-color: var(--glass-border) !important;
   color: var(--color-white) !important;
   outline: none !important;
+  box-shadow: none !important;
 }
 @media (hover: hover) and (pointer: fine) {
   .testimonios__nav:hover {
