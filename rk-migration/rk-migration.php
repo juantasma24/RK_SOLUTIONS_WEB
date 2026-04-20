@@ -72,12 +72,12 @@ function rk_enqueue_home_assets() {
     $pu = plugin_dir_url(__FILE__);
     wp_add_inline_style('rk-main-css', "
         .hero__pattern{background-image:url('{$pu}assets/img/pattern_manzanas_outline.svg')!important}
-        .que-hace::before,.planes::before{background:url('{$pu}assets/img/pattern_manzanas_outline.png') no-repeat center center!important;background-size:contain!important}
-        .que-hace::after,.planes::after{background:url('{$pu}assets/img/pattern_manzanas_outline.png') no-repeat center center!important;background-size:contain!important}
-        .contadores__wrapper{background:url('{$pu}assets/img/bloque_vidrio.png') no-repeat center center!important;background-size:100% 100%!important}
-        .contacto__form{background:url('{$pu}assets/img/bloque_vidrio_cuadrado.png') no-repeat center center!important;background-size:100% 100%!important}
-        @media(min-width:768px) and (max-width:1023px){.contadores__wrapper{background-image:url('{$pu}assets/img/bloque_vidrio_cuadrado.png')!important}}
-        @media(max-width:767px){.contadores__wrapper{background-image:url('{$pu}assets/img/bloque_vidrio_cuadrado.png')!important}}
+        .que-hace::before,.planes::before{background:url('{$pu}assets/img/pattern_manzanas_outline.webp') no-repeat center center!important;background-size:contain!important}
+        .que-hace::after,.planes::after{background:url('{$pu}assets/img/pattern_manzanas_outline.webp') no-repeat center center!important;background-size:contain!important}
+        .contadores__wrapper{background:url('{$pu}assets/img/bloque_vidrio.webp') no-repeat center center!important;background-size:100% 100%!important}
+        .contacto__form{background:url('{$pu}assets/img/bloque_vidrio_cuadrado.webp') no-repeat center center!important;background-size:100% 100%!important}
+        @media(min-width:768px) and (max-width:1023px){.contadores__wrapper{background-image:url('{$pu}assets/img/bloque_vidrio_cuadrado.webp')!important}}
+        @media(max-width:767px){.contadores__wrapper{background-image:url('{$pu}assets/img/bloque_vidrio_cuadrado.webp')!important}}
     ");
 
     // JS Local con defer

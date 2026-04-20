@@ -38,7 +38,10 @@
       "Bash(python deploy.py css)",
       "Bash(python *)",
       "Bash(grep -v \"^\\\\\\(< \\\\|> \\\\\\)\\\\s*$\")",
-      "Bash(php *)"
+      "Bash(php *)",
+      "WebFetch(domain:gtmetrix.com)",
+      "Bash(python3 -c \"from PIL import Image; print\\('Pillow OK'\\)\")",
+      "Bash(pip install *)"
     ]
   }
 }

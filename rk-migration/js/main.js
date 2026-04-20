@@ -850,7 +850,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         showingFront = !showingFront;
       };
-      next.src = 'https://i.pravatar.cc/48?img=' + pool[idx];
+      next.src = rkConfig.pluginUrl + 'assets/img/avatars/avatar-' + pool[idx] + '.jpg';
     }
 
     setTimeout(() => {
