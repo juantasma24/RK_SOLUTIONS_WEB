@@ -2165,6 +2165,17 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .faq-item__question:active { transform: scale(0.99); }
 
+@media (hover: hover) and (pointer: fine) {
+  .faq-item__question:hover {
+    background: var(--color-primary-dark);
+    box-shadow: 0 6px 24px rgba(94, 168, 74, 0.35);
+    transform: translateY(-2px);
+  }
+  .faq-item__question:hover .faq-item__icon {
+    background: rgba(255,255,255,0.2);
+  }
+}
+
 .faq-item__plus {
   font-size: 1.5rem;
   font-weight: 400;
