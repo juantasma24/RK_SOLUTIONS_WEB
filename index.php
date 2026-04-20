@@ -517,7 +517,7 @@
       <div class="contacto__inner">
         <!-- Lado izquierdo -->
         <div class="contacto__info anim-reveal">
-          <h2 class="contacto__title">Trabaja con<br><span class="highlight">La Manzana</span>,<br>sin costes<br>por 12 meses</h2>
+          <h2 class="contacto__title">Trabaja con<br><span class="highlight">La Manzana</span>,<br>sin coste<br>por 12 meses</h2>
           <p class="contacto__subtitle">INCLUYE:</p>
           <ul class="contacto__list">
             <li><img src="assets/img/check.svg" width="20" height="20" alt="">Software La Manzana</li>
@@ -531,7 +531,7 @@
         <div class="contacto__form-wrapper anim-slide-up">
           <form class="contacto__form" id="contactForm" action="#" method="POST">
             <div class="contacto__form-shine" aria-hidden="true"></div>
-            <p class="contacto__form-intro">Déjanos tus datos y te contamos cómo empezar con La Manzana <strong>sin costes el primer año.</strong></p>
+            <p class="contacto__form-intro">Déjanos tus datos y te contamos cómo empezar con La Manzana <strong>sin coste el primer año.</strong></p>
 
             <div class="contacto__form-group">
               <input type="text" name="name" class="contacto__input" placeholder="Nombre y apellido" required>
@@ -673,7 +673,7 @@
             </div>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Sí. Ofrecemos 12 meses sin costes para que pruebes todas las funcionalidades sin compromiso. Déjanos tus datos y te contactamos para empezar.</div>
+            <div class="faq-item__answer-inner">Sí. Ofrecemos 12 meses sin coste para que pruebes todas las funcionalidades sin compromiso. Déjanos tus datos y te contactamos para empezar.</div>
           </div>
         </div>
       </div>

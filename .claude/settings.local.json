@@ -36,7 +36,9 @@
       "Bash(identify C:/xampp/htdocs/TEST/assets/img/laptop-mockup.png)",
       "WebFetch(domain:juandiego.rkinformatika.online)",
       "Bash(python deploy.py css)",
-      "Bash(python *)"
+      "Bash(python *)",
+      "Bash(grep -v \"^\\\\\\(< \\\\|> \\\\\\)\\\\s*$\")",
+      "Bash(php *)"
     ]
   }
 }

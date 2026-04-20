@@ -34,7 +34,7 @@
   <div class="header__inner">
     <!-- Logo -->
     <a href="#inicio" class="header__logo">
-      <img src="assets/img/logos/logo_rk_blanco.svg" alt="RK Solutions" class="header__logo-img">
+      <img src="assets/img/logos/logo_rk_blanco.svg" alt="RK Solutions" class="header__logo-img" draggable="false">
     </a>
 
     <!-- Navegación Izquierda -->
@@ -48,7 +48,7 @@
 
     <!-- Isotipo Centro -->
     <a href="#inicio" class="header__isotipo">
-      <img src="assets/img/isotipo-manzana.svg" alt="La Manzana" class="header__isotipo-img">
+      <img src="assets/img/isotipo-manzana.svg" alt="La Manzana" class="header__isotipo-img" draggable="false">
     </a>
 
     <!-- Navegación Derecha -->
@@ -103,10 +103,10 @@
 
         <div class="hero__social-proof">
           <div class="hero__avatars">
-            <div class="hero__avatar" data-pool="47,12,33,56,63"><img src="https://i.pravatar.cc/48?img=47" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=47" alt="" width="38" height="38" aria-hidden="true"></div>
-            <div class="hero__avatar" data-pool="32,5,44,19,68"><img src="https://i.pravatar.cc/48?img=32" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=32" alt="" width="38" height="38" aria-hidden="true"></div>
-            <div class="hero__avatar" data-pool="21,8,37,52,70"><img src="https://i.pravatar.cc/48?img=21" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=21" alt="" width="38" height="38" aria-hidden="true"></div>
-            <div class="hero__avatar" data-pool="10,25,41,60,15"><img src="https://i.pravatar.cc/48?img=10" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=10" alt="" width="38" height="38" aria-hidden="true"></div>
+            <div class="hero__avatar" data-pool="47,12,33,56,63"><img src="https://i.pravatar.cc/48?img=47" alt="" width="38" height="38" draggable="false"><img src="https://i.pravatar.cc/48?img=47" alt="" width="38" height="38" aria-hidden="true" draggable="false"></div>
+            <div class="hero__avatar" data-pool="32,5,44,19,68"><img src="https://i.pravatar.cc/48?img=32" alt="" width="38" height="38" draggable="false"><img src="https://i.pravatar.cc/48?img=32" alt="" width="38" height="38" aria-hidden="true" draggable="false"></div>
+            <div class="hero__avatar" data-pool="21,8,37,52,70"><img src="https://i.pravatar.cc/48?img=21" alt="" width="38" height="38" draggable="false"><img src="https://i.pravatar.cc/48?img=21" alt="" width="38" height="38" aria-hidden="true" draggable="false"></div>
+            <div class="hero__avatar" data-pool="10,25,41,60,15"><img src="https://i.pravatar.cc/48?img=10" alt="" width="38" height="38" draggable="false"><img src="https://i.pravatar.cc/48?img=10" alt="" width="38" height="38" aria-hidden="true" draggable="false"></div>
           </div>
           <p class="hero__social-text">
             <strong>+3.000</strong> usuarios<br>eligen La Manzana
@@ -137,15 +137,15 @@
 
           <ul class="que-hace__features anim-reveal">
             <li>
-              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓"></span>
+              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓" draggable="false"></span>
               <span><strong>Gestiona</strong> tus ventas</span>
             </li>
             <li>
-              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓"></span>
+              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓" draggable="false"></span>
               <span><strong>Controla</strong> fichajes y horarios</span>
             </li>
             <li>
-              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓"></span>
+              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓" draggable="false"></span>
               <span><strong>Cumple</strong> con TicketBAI (País Vasco) y VERI*FACTU (España)</span>
             </li>
           </ul>
@@ -155,10 +155,10 @@
         <div class="que-hace__visual">
           <div class="que-hace__laptop anim-slide-up">
             <div class="que-hace__laptop-frame">
-              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="eager" decoding="async" fetchpriority="high">
+              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="eager" decoding="async" fetchpriority="high" draggable="false">
               <div class="que-hace__laptop-screen">
                 <div class="youtube-facade" data-embed="ZVm05C_6VOs">
-                  <img src="https://img.youtube.com/vi/ZVm05C_6VOs/maxresdefault.jpg" alt="Demo La Manzana" class="youtube-facade__thumb" loading="lazy">
+                  <img src="https://img.youtube.com/vi/ZVm05C_6VOs/maxresdefault.jpg" alt="Demo La Manzana" class="youtube-facade__thumb" loading="lazy" draggable="false">
                   <button class="youtube-facade__play" aria-label="Reproducir vídeo">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                   </button>
@@ -205,7 +205,7 @@
       <canvas class="tpv-seq__canvas" id="tpvCanvas"></canvas>
     </div>
     <div class="tpv-seq__mobile">
-      <img src="assets/img/tpv_mobile/tpv_responsive.webp" alt="" loading="lazy">
+      <img src="assets/img/tpv_mobile/tpv_responsive.webp" alt="" loading="lazy" draggable="false">
     </div>
   </section>
 
@@ -219,28 +219,28 @@
       <div class="pilares__grid">
         <div class="pilar-item anim-reveal">
           <div class="pilar-item__icon">
-            <img src="assets/img/laptop.svg" alt="Fácil de usar" width="72" height="72">
+            <img src="assets/img/laptop.svg" alt="Fácil de usar" width="72" height="72" draggable="false">
           </div>
           <p class="pilar-item__label">Fácil de usar</p>
         </div>
 
         <div class="pilar-item anim-reveal">
           <div class="pilar-item__icon">
-            <img src="assets/img/call.svg" alt="Soporte humano" width="72" height="72">
+            <img src="assets/img/call.svg" alt="Soporte humano" width="72" height="72" draggable="false">
           </div>
           <p class="pilar-item__label">Soporte<br>humano 24/7</p>
         </div>
 
         <div class="pilar-item anim-reveal">
           <div class="pilar-item__icon">
-            <img src="assets/img/house.svg" alt="Se adapta" width="72" height="72">
+            <img src="assets/img/house.svg" alt="Se adapta" width="72" height="72" draggable="false">
           </div>
           <p class="pilar-item__label">Se adapta a<br>tu negocio</p>
         </div>
 
         <div class="pilar-item anim-reveal">
           <div class="pilar-item__icon">
-            <img src="assets/img/check_verde.svg" alt="Cumple" width="72" height="72">
+            <img src="assets/img/check_verde.svg" alt="Cumple" width="72" height="72" draggable="false">
           </div>
           <p class="pilar-item__label">Cumple<br>la normativa</p>
         </div>
@@ -304,12 +304,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true" draggable="false">
                   <p class="testimonio-card__quote">"Desde que uso La Manzana, mi negocio funciona como un reloj. La facturación es automática y el fichaje de empleados es súper sencillo. El soporte 24/7 me ha salvado varias veces."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="assets/img/isotipo-manzana.svg" alt="Eukene Sanchez">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Eukene Sanchez" draggable="false">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Eukene Sanchez</div>
@@ -323,12 +323,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true" draggable="false">
                   <p class="testimonio-card__quote">"Autónoma desde hace 15 años, he probado muchos programas. La Manzana es el único que entiendo sin necesitar un máster. Cumple con TicketBAI y me quita un peso de encima."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="assets/img/isotipo-manzana.svg" alt="Pilar Marar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Pilar Marar" draggable="false">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Pilar Marar</div>
@@ -342,12 +342,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true" draggable="false">
                   <p class="testimonio-card__quote">"Tenía 3 tiendas y cada una con su sistema. Ahora con La Manzana lo veo todo desde el móvil. Los reportes son claros y la formación que me dieron fue excelente."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="assets/img/isotipo-manzana.svg" alt="Sarahí Cabrera">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Sarahí Cabrera" draggable="false">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Sarahí Cabrera</div>
@@ -361,12 +361,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true" draggable="false">
                   <p class="testimonio-card__quote">"El mejor software que he usado en mis 10 años gestionando hoteles. La integración con los canales de reserva es perfecta y el soporte técnico responde en minutos."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="assets/img/isotipo-manzana.svg" alt="Carlos Mendoza">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Carlos Mendoza" draggable="false">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Carlos Mendoza</div>
@@ -380,12 +380,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true" draggable="false">
                   <p class="testimonio-card__quote">"Como gestoría, necesitamos control total. La Manzana nos da reportes detallados de cada cliente y nos ahorra horas de trabajo administrativo."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="assets/img/isotipo-manzana.svg" alt="Laura Giménez">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Laura Giménez" draggable="false">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Laura Giménez</div>
@@ -399,12 +399,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true" draggable="false">
                   <p class="testimonio-card__quote">"La migración desde mi antiguo software fue gratuita y sin dolor. El equipo de La Manzana se encargó de todo. Llevo 2 años sin incidencias."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="assets/img/isotipo-manzana.svg" alt="Roberto Díaz">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Roberto Díaz" draggable="false">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Roberto Díaz</div>
@@ -418,12 +418,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true" draggable="false">
                   <p class="testimonio-card__quote">"Tengo una academia y el módulo de facturación me permite generar recibos automáticos para 200 alumnos. Un cambio radical en mi productividad."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="assets/img/isotipo-manzana.svg" alt="Mónica Torres">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Mónica Torres" draggable="false">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Mónica Torres</div>
@@ -437,12 +437,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true" draggable="false">
                   <p class="testimonio-card__quote">"Lo que más valoro es la tranquilidad de estar cumpliendo la normativa sin tener que preocuparme. La Manzana se actualiza sola y eso no tiene precio."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="assets/img/isotipo-manzana.svg" alt="Javier Ruiz">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Javier Ruiz" draggable="false">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Javier Ruiz</div>
@@ -456,12 +456,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true" draggable="false">
                   <p class="testimonio-card__quote">"Mis camareros aprendieron a usar el TPV en una tarde. La interfaz es intuitiva y los clientes agradecen la rapidez en las cuentas."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="assets/img/isotipo-manzana.svg" alt="Ana Belén López">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Ana Belén López" draggable="false">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Ana Belén López</div>
@@ -505,17 +505,17 @@
           <!-- Plan Premium -->
           <div class="plan-card plan-card--premium anim-reveal anim-reveal--scale">
             <div class="plan-card__badge">
-              <img src="assets/img/medal.svg" alt="" width="32" height="32" aria-hidden="true">
+              <img src="assets/img/medal.svg" alt="" width="32" height="32" aria-hidden="true" draggable="false">
             </div>
             <div class="plan-card__inner">
               <h3 class="plan-card__name">Premium</h3>
               <hr class="plan-card__divider">
               <ul class="plan-card__features">
-                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">TPV</li>
-                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Fichas de cliente</li>
-                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas</li>
-                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos, empleados, etc.</li>
-                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Personalización de pestañas</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="" draggable="false">TPV</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="" draggable="false">Fichas de cliente</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="" draggable="false">Control y realización de facturas</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="" draggable="false">Economía: gastos, presupuestos, empleados, etc.</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="" draggable="false">Personalización de pestañas</li>
               </ul>
               <a href="#contacto" class="btn btn--primary plan-card__btn">Quiero este plan</a>
             </div>
@@ -524,15 +524,15 @@
           <!-- Plan Standard -->
           <div class="plan-card plan-card--standard anim-reveal anim-reveal--scale">
             <div class="plan-card__badge plan-card__badge--standard">
-              <img src="assets/img/laptop.svg" alt="" width="32" height="32" aria-hidden="true">
+              <img src="assets/img/laptop.svg" alt="" width="32" height="32" aria-hidden="true" draggable="false">
             </div>
             <h3 class="plan-card__name">Standard</h3>
             <hr class="plan-card__divider">
             <ul class="plan-card__features">
-              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">TPV</li>
-              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Fichas de cliente</li>
-              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas</li>
-              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos, empleados, etc.</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="" draggable="false">TPV</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="" draggable="false">Fichas de cliente</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="" draggable="false">Control y realización de facturas</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="" draggable="false">Economía: gastos, presupuestos, empleados, etc.</li>
             </ul>
             <a href="#contacto" class="btn plan-card__btn plan-card__btn--standard">Quiero este plan</a>
           </div>
@@ -551,13 +551,13 @@
       <div class="contacto__inner">
         <!-- Lado izquierdo -->
         <div class="contacto__info anim-reveal">
-          <h2 class="contacto__title">Trabaja con<br><span class="highlight">La Manzana</span>,<br>sin costes<br>por 12 meses</h2>
+          <h2 class="contacto__title">Trabaja con<br><span class="highlight">La Manzana</span>,<br>sin coste<br>por 12 meses</h2>
           <p class="contacto__subtitle">INCLUYE:</p>
           <ul class="contacto__list">
-            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Software La Manzana</li>
-            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Soporte técnico 24/7</li>
-            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Acompañamiento y formación</li>
-            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Fichaje horario integrado</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="" draggable="false">Software La Manzana</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="" draggable="false">Soporte técnico 24/7</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="" draggable="false">Acompañamiento y formación</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="" draggable="false">Fichaje horario integrado</li>
           </ul>
         </div>
 
@@ -565,7 +565,7 @@
         <div class="contacto__form-wrapper anim-slide-up">
           <form class="contacto__form" id="contactForm" action="#" method="POST">
             <div class="contacto__form-shine" aria-hidden="true"></div>
-            <p class="contacto__form-intro">Déjanos tus datos y te contamos cómo empezar con La Manzana <strong>sin costes el primer año.</strong></p>
+            <p class="contacto__form-intro">Déjanos tus datos y te contamos cómo empezar con La Manzana <strong>sin coste el primer año.</strong></p>
 
             <div class="contacto__form-group">
               <input type="text" name="name" class="contacto__input" placeholder="Nombre y apellido" required>
@@ -707,7 +707,7 @@
             </div>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Sí. Ofrecemos 12 meses sin costes para que pruebes todas las funcionalidades sin compromiso. Déjanos tus datos y te contactamos para empezar.</div>
+            <div class="faq-item__answer-inner">Sí. Ofrecemos 12 meses sin coste para que pruebes todas las funcionalidades sin compromiso. Déjanos tus datos y te contactamos para empezar.</div>
           </div>
         </div>
       </div>
@@ -719,7 +719,7 @@
     <div class="footer__grid">
       <!-- Brand -->
       <div class="footer__brand">
-        <img src="assets/img/logos/logo_rk_blanco.svg" alt="RK Solutions" class="footer__logo-img">
+        <img src="assets/img/logos/logo_rk_blanco.svg" alt="RK Solutions" class="footer__logo-img" draggable="false">
         <p class="footer__tagline">El software que entiende tu negocio.</p>
         <form class="footer__newsletter">
           <input type="email" class="footer__newsletter-input" placeholder="Ingresa tu email y suscríbete a nuestro newsletter" required>
@@ -800,6 +800,6 @@
   </div>
   <!-- Character Button -->
   <button class="mascot-btn" id="mascotBtn" aria-label="Abrir mensaje del personaje">
-    <img src="assets/img/personaje_manzana.svg" alt="Personaje La Manzana" class="mascot-btn__img">
+    <img src="assets/img/personaje_manzana.svg" alt="Personaje La Manzana" class="mascot-btn__img" draggable="false">
   </button>
 </div>

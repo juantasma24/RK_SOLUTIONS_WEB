@@ -859,3 +859,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2000 + i * 800);
   });
 }());
+
+// Protección básica de imágenes contra descarga casual
+(function () {
+  document.addEventListener('contextmenu', function (e) {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+  document.addEventListener('dragstart', function (e) {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+}());
