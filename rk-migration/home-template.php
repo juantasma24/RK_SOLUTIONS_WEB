@@ -34,7 +34,7 @@
   <div class="header__inner">
     <!-- Logo -->
     <a href="#inicio" class="header__logo">
-      <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/logos/logo_rk_blanco.svg" alt="RK Solutions" class="header__logo-img">
+      <img src="assets/img/logos/logo_rk_blanco.svg" alt="RK Solutions" class="header__logo-img">
     </a>
 
     <!-- Navegación Izquierda -->
@@ -48,7 +48,7 @@
 
     <!-- Isotipo Centro -->
     <a href="#inicio" class="header__isotipo">
-      <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/isotipo-manzana.svg" alt="La Manzana" class="header__isotipo-img">
+      <img src="assets/img/isotipo-manzana.svg" alt="La Manzana" class="header__isotipo-img">
     </a>
 
     <!-- Navegación Derecha -->
@@ -56,7 +56,7 @@
       <ul>
         <li><a href="#">Prensa</a></li>
         <li><a href="#">Trabaja con Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#">Contacto</a></li>
       </ul>
     </nav>
 
@@ -76,11 +76,11 @@
   <ul>
     <li><a href="#inicio" class="mobile-link">Inicio</a></li>
     <li><a href="#" class="mobile-link">Sobre Nosotros</a></li>
-    <li><a href="#la-manzana" class="mobile-link">La Manzana</a></li>
+    <li><a href="#que-hace" class="mobile-link">La Manzana</a></li>
     <li><a href="#" class="mobile-link">Soluciones</a></li>
     <li><a href="#" class="mobile-link">Prensa</a></li>
     <li><a href="#" class="mobile-link">Trabaja con Nosotros</a></li>
-    <li><a href="#contacto" class="mobile-link">Contacto</a></li>
+    <li><a href="#" class="mobile-link">Contacto</a></li>
   </ul>
 </div>
 
@@ -137,15 +137,15 @@
 
           <ul class="que-hace__features anim-reveal">
             <li>
-              <span class="que-hace__check"><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check.svg" alt="✓"></span>
+              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓"></span>
               <span><strong>Gestiona</strong> tus ventas</span>
             </li>
             <li>
-              <span class="que-hace__check"><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check.svg" alt="✓"></span>
+              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓"></span>
               <span><strong>Controla</strong> fichajes y horarios</span>
             </li>
             <li>
-              <span class="que-hace__check"><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check.svg" alt="✓"></span>
+              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓"></span>
               <span><strong>Cumple</strong> con TicketBAI (País Vasco) y VERI*FACTU (España)</span>
             </li>
           </ul>
@@ -155,7 +155,7 @@
         <div class="que-hace__visual">
           <div class="que-hace__laptop anim-slide-up">
             <div class="que-hace__laptop-frame">
-              <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="eager" decoding="async" fetchpriority="high">
+              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" loading="eager" decoding="async" fetchpriority="high">
               <div class="que-hace__laptop-screen">
                 <div class="youtube-facade" data-embed="ZVm05C_6VOs">
                   <img src="https://img.youtube.com/vi/ZVm05C_6VOs/maxresdefault.jpg" alt="Demo La Manzana" class="youtube-facade__thumb" loading="lazy">
@@ -186,7 +186,7 @@
   <section class="autonomos section" id="autonomos">
     <div class="autonomos__video-bg">
       <video muted loop playsinline preload="auto">
-        <source src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/video-autonomos.mp4" type="video/mp4">
+        <source src="assets/img/video-autonomos.mp4" type="video/mp4">
       </video>
       <div class="autonomos__overlay"></div>
     </div>
@@ -205,7 +205,7 @@
       <canvas class="tpv-seq__canvas" id="tpvCanvas"></canvas>
     </div>
     <div class="tpv-seq__mobile">
-      <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/tpv_mobile/tpv_responsive.webp" alt="" loading="lazy">
+      <img src="assets/img/tpv_mobile/tpv_responsive.webp" alt="" loading="lazy">
     </div>
   </section>
 
@@ -219,28 +219,28 @@
       <div class="pilares__grid">
         <div class="pilar-item anim-reveal">
           <div class="pilar-item__icon">
-            <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/laptop.svg" alt="Fácil de usar" width="72" height="72">
+            <img src="assets/img/laptop.svg" alt="Fácil de usar" width="72" height="72">
           </div>
           <p class="pilar-item__label">Fácil de usar</p>
         </div>
 
         <div class="pilar-item anim-reveal">
           <div class="pilar-item__icon">
-            <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/call.svg" alt="Soporte humano" width="72" height="72">
+            <img src="assets/img/call.svg" alt="Soporte humano" width="72" height="72">
           </div>
           <p class="pilar-item__label">Soporte<br>humano 24/7</p>
         </div>
 
         <div class="pilar-item anim-reveal">
           <div class="pilar-item__icon">
-            <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/house.svg" alt="Se adapta" width="72" height="72">
+            <img src="assets/img/house.svg" alt="Se adapta" width="72" height="72">
           </div>
           <p class="pilar-item__label">Se adapta a<br>tu negocio</p>
         </div>
 
         <div class="pilar-item anim-reveal">
           <div class="pilar-item__icon">
-            <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check_verde.svg" alt="Cumple" width="72" height="72">
+            <img src="assets/img/check_verde.svg" alt="Cumple" width="72" height="72">
           </div>
           <p class="pilar-item__label">Cumple<br>la normativa</p>
         </div>
@@ -304,12 +304,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
                   <p class="testimonio-card__quote">"Desde que uso La Manzana, mi negocio funciona como un reloj. La facturación es automática y el fichaje de empleados es súper sencillo. El soporte 24/7 me ha salvado varias veces."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/isotipo-manzana.svg" alt="Eukene Sanchez">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Eukene Sanchez">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Eukene Sanchez</div>
@@ -323,12 +323,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
                   <p class="testimonio-card__quote">"Autónoma desde hace 15 años, he probado muchos programas. La Manzana es el único que entiendo sin necesitar un máster. Cumple con TicketBAI y me quita un peso de encima."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/isotipo-manzana.svg" alt="Pilar Marar">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Pilar Marar">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Pilar Marar</div>
@@ -342,12 +342,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
                   <p class="testimonio-card__quote">"Tenía 3 tiendas y cada una con su sistema. Ahora con La Manzana lo veo todo desde el móvil. Los reportes son claros y la formación que me dieron fue excelente."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/isotipo-manzana.svg" alt="Sarahí Cabrera">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Sarahí Cabrera">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Sarahí Cabrera</div>
@@ -361,12 +361,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
                   <p class="testimonio-card__quote">"El mejor software que he usado en mis 10 años gestionando hoteles. La integración con los canales de reserva es perfecta y el soporte técnico responde en minutos."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/isotipo-manzana.svg" alt="Carlos Mendoza">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Carlos Mendoza">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Carlos Mendoza</div>
@@ -380,12 +380,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
                   <p class="testimonio-card__quote">"Como gestoría, necesitamos control total. La Manzana nos da reportes detallados de cada cliente y nos ahorra horas de trabajo administrativo."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/isotipo-manzana.svg" alt="Laura Giménez">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Laura Giménez">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Laura Giménez</div>
@@ -399,12 +399,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
                   <p class="testimonio-card__quote">"La migración desde mi antiguo software fue gratuita y sin dolor. El equipo de La Manzana se encargó de todo. Llevo 2 años sin incidencias."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/isotipo-manzana.svg" alt="Roberto Díaz">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Roberto Díaz">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Roberto Díaz</div>
@@ -418,12 +418,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
                   <p class="testimonio-card__quote">"Tengo una academia y el módulo de facturación me permite generar recibos automáticos para 200 alumnos. Un cambio radical en mi productividad."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/isotipo-manzana.svg" alt="Mónica Torres">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Mónica Torres">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Mónica Torres</div>
@@ -437,12 +437,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
                   <p class="testimonio-card__quote">"Lo que más valoro es la tranquilidad de estar cumpliendo la normativa sin tener que preocuparme. La Manzana se actualiza sola y eso no tiene precio."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/isotipo-manzana.svg" alt="Javier Ruiz">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Javier Ruiz">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Javier Ruiz</div>
@@ -456,12 +456,12 @@
             <div class="testimonio-slide">
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
-                  <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
+                  <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
                   <p class="testimonio-card__quote">"Mis camareros aprendieron a usar el TPV en una tarde. La interfaz es intuitiva y los clientes agradecen la rapidez en las cuentas."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
-                    <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/isotipo-manzana.svg" alt="Ana Belén López">
+                    <img src="assets/img/isotipo-manzana.svg" alt="Ana Belén López">
                   </div>
                   <div>
                     <div class="testimonio-card__name">Ana Belén López</div>
@@ -505,17 +505,17 @@
           <!-- Plan Premium -->
           <div class="plan-card plan-card--premium anim-reveal anim-reveal--scale">
             <div class="plan-card__badge">
-              <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/medal.svg" alt="" width="32" height="32" aria-hidden="true">
+              <img src="assets/img/medal.svg" alt="" width="32" height="32" aria-hidden="true">
             </div>
             <div class="plan-card__inner">
               <h3 class="plan-card__name">Premium</h3>
               <hr class="plan-card__divider">
               <ul class="plan-card__features">
-                <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check_verde.svg" width="18" height="18" alt="">TPV</li>
-                <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check_verde.svg" width="18" height="18" alt="">Fichas de cliente</li>
-                <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas</li>
-                <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos, empleados, etc.</li>
-                <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check_verde.svg" width="18" height="18" alt="">Personalización de pestañas</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">TPV</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Fichas de cliente</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos, empleados, etc.</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Personalización de pestañas</li>
               </ul>
               <a href="#contacto" class="btn btn--primary plan-card__btn">Quiero este plan</a>
             </div>
@@ -524,15 +524,15 @@
           <!-- Plan Standard -->
           <div class="plan-card plan-card--standard anim-reveal anim-reveal--scale">
             <div class="plan-card__badge plan-card__badge--standard">
-              <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/laptop.svg" alt="" width="32" height="32" aria-hidden="true">
+              <img src="assets/img/laptop.svg" alt="" width="32" height="32" aria-hidden="true">
             </div>
             <h3 class="plan-card__name">Standard</h3>
             <hr class="plan-card__divider">
             <ul class="plan-card__features">
-              <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check_verde.svg" width="18" height="18" alt="">TPV</li>
-              <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check_verde.svg" width="18" height="18" alt="">Fichas de cliente</li>
-              <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas</li>
-              <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos, empleados, etc.</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">TPV</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Fichas de cliente</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos, empleados, etc.</li>
             </ul>
             <a href="#contacto" class="btn plan-card__btn plan-card__btn--standard">Quiero este plan</a>
           </div>
@@ -554,10 +554,10 @@
           <h2 class="contacto__title">Trabaja con<br><span class="highlight">La Manzana</span>,<br>sin costes<br>por 12 meses</h2>
           <p class="contacto__subtitle">INCLUYE:</p>
           <ul class="contacto__list">
-            <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check.svg" width="20" height="20" alt="">Software La Manzana</li>
-            <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check.svg" width="20" height="20" alt="">Soporte técnico 24/7</li>
-            <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check.svg" width="20" height="20" alt="">Acompañamiento y formación</li>
-            <li><img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/check.svg" width="20" height="20" alt="">Fichaje horario integrado</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Software La Manzana</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Soporte técnico 24/7</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Acompañamiento y formación</li>
+            <li><img src="assets/img/check.svg" width="20" height="20" alt="">Fichaje horario integrado</li>
           </ul>
         </div>
 
@@ -719,7 +719,7 @@
     <div class="footer__grid">
       <!-- Brand -->
       <div class="footer__brand">
-        <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/logos/logo_rk_blanco.svg" alt="RK Solutions" class="footer__logo-img">
+        <img src="assets/img/logos/logo_rk_blanco.svg" alt="RK Solutions" class="footer__logo-img">
         <p class="footer__tagline">El software que entiende tu negocio.</p>
         <form class="footer__newsletter">
           <input type="email" class="footer__newsletter-input" placeholder="Ingresa tu email y suscríbete a nuestro newsletter" required>
@@ -800,6 +800,6 @@
   </div>
   <!-- Character Button -->
   <button class="mascot-btn" id="mascotBtn" aria-label="Abrir mensaje del personaje">
-    <img src="https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration/assets/img/personaje_manzana.svg" alt="Personaje La Manzana" class="mascot-btn__img">
+    <img src="assets/img/personaje_manzana.svg" alt="Personaje La Manzana" class="mascot-btn__img">
   </button>
 </div>
