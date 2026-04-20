@@ -109,7 +109,51 @@ function rk_remove_wp_bloat() {
     wp_dequeue_style('global-styles');
 }
 
-// 3. REGISTRAMOS EL SHORTCODE
+// 3. ENDPOINT DE DEPLOY — autenticado por token secreto en el cuerpo
+define('RK_DEPLOY_TOKEN', '1935217e3c894b382535cffa9bff6833d1e678de022fc4111b4c51e3677683dd');
+
+add_action('rest_api_init', function () {
+    register_rest_route('rk/v1', '/deploy', array(
+        'methods'             => 'POST',
+        'callback'            => 'rk_deploy_file',
+        'permission_callback' => '__return_true',
+    ));
+});
+
+function rk_deploy_file(WP_REST_Request $request) {
+    $token = $request->get_param('token');
+    if (!hash_equals(RK_DEPLOY_TOKEN, (string) $token)) {
+        return new WP_Error('forbidden', 'Token invalido', array('status' => 403));
+    }
+
+    $allowed = array(
+        'css/styles.css',
+        'js/main.js',
+        'home-template.php',
+        'rk-migrations.php',
+    );
+
+    $file_path = sanitize_text_field($request->get_param('path'));
+    $content   = $request->get_param('content');
+
+    if (!in_array($file_path, $allowed, true)) {
+        return new WP_Error('forbidden_path', 'Ruta no permitida', array('status' => 403));
+    }
+
+    if (empty($content)) {
+        return new WP_Error('empty_content', 'Contenido vacio', array('status' => 400));
+    }
+
+    $dest = plugin_dir_path(__FILE__) . $file_path;
+
+    if (file_put_contents($dest, $content) === false) {
+        return new WP_Error('write_failed', 'No se pudo escribir el archivo', array('status' => 500));
+    }
+
+    return rest_ensure_response(array('ok' => true, 'path' => $file_path));
+}
+
+// 5. REGISTRAMOS EL SHORTCODE
 add_shortcode('rk_home', 'rk_render_home');
 
 function rk_render_home() {
