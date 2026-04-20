@@ -822,10 +822,11 @@ input, select, textarea { font: inherit; color: inherit; }
   height: 320px;
   background: url('../assets/img/pattern_manzanas_outline.png') no-repeat center center;
   background-size: contain;
-  transform: translateX(-50%) translateY(-50%) rotate(25deg);
+  transform: translateX(-50%) translateY(-50%) rotate(25deg) translateZ(0);
   opacity: 0.18;
   pointer-events: none;
   z-index: -1;
+  will-change: transform;
 }
 
 .que-hace::after,
@@ -838,10 +839,11 @@ input, select, textarea { font: inherit; color: inherit; }
   height: 320px;
   background: url('../assets/img/pattern_manzanas_outline.png') no-repeat center center;
   background-size: contain;
-  transform: translateX(50%) translateY(-50%) rotate(-25deg);
+  transform: translateX(50%) translateY(-50%) rotate(-25deg) translateZ(0);
   opacity: 0.18;
   pointer-events: none;
   z-index: -1;
+  will-change: transform;
 }
 
 
@@ -911,15 +913,12 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .que-hace__laptop {
   position: relative;
-  will-change: transform, opacity;
-  transform: translateZ(0);
 }
 
 .que-hace__laptop-frame {
   position: relative;
-  transform: scale(1.3) translateZ(0);
+  transform: scale(1.3);
   transform-origin: center center;
-  will-change: transform;
 }
 
 .que-hace__laptop-img {
@@ -2101,6 +2100,7 @@ input, select, textarea { font: inherit; color: inherit; }
   width: auto;
   height: auto;
   object-fit: contain;
+  will-change: contents;
 }
 
 .tpv-seq__mobile {
@@ -2568,20 +2568,17 @@ input, select, textarea { font: inherit; color: inherit; }
 .anim-reveal {
   opacity: 0;
   transform: translateY(22px);
-  filter: blur(4px);
-  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out), filter 0.65s var(--ease-out);
+  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
 }
 .anim-reveal.visible {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0px);
 }
 
 /* Modificador escala — para tarjetas: sube + crece, easing spring */
 .anim-reveal.anim-reveal--scale {
   transform: translateY(16px) scale(0.96);
-  filter: blur(3px);
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--spring), filter 0.55s var(--ease-out);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--spring);
 }
 .anim-reveal.anim-reveal--scale.visible {
   transform: translateY(0) scale(1);
@@ -2610,7 +2607,6 @@ input, select, textarea { font: inherit; color: inherit; }
 /* ============================================
    CONTENT VISIBILITY — salta render de secciones fuera de pantalla
    ============================================ */
-.que-hace,
 .autonomos,
 .pilares,
 .testimonios,
@@ -2625,13 +2621,11 @@ input, select, textarea { font: inherit; color: inherit; }
 .anim-slide-up {
   opacity: 0;
   transform: translateY(36px);
-  filter: blur(5px);
-  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out), filter 0.75s var(--ease-out);
+  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
 }
 .anim-slide-up.visible {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0px);
 }
 
 /* ── Stagger de entrada por grids — 50ms: cascada fluida sin sentirse lenta ── */

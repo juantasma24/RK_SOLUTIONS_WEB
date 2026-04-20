@@ -373,11 +373,20 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- YouTube Facade + autoplay on scroll into view --- */
   const ytFacades = document.querySelectorAll('.youtube-facade');
   ytFacades.forEach(ytFacade => {
-    const embedId = ytFacade.dataset.embed;
+    // Sanitizar: solo caracteres válidos de un ID de YouTube (alfanumérico, guión, guión bajo)
+    const embedId = (ytFacade.dataset.embed || '').replace(/[^a-zA-Z0-9_-]/g, '');
 
     function injectIframe(muted) {
+      if (!embedId) return;
       const muteParam = muted ? '&mute=1' : '';
-      ytFacade.innerHTML = `<iframe src="https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0${muteParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0${muteParam}`;
+      iframe.title = 'YouTube video player';
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      ytFacade.innerHTML = '';
+      ytFacade.appendChild(iframe);
     }
 
     // Click: autoplay con sonido
@@ -396,16 +405,18 @@ document.addEventListener('DOMContentLoaded', () => {
     ytObserver.observe(ytFacade);
   });
 
-  /* --- Pausar vídeo de autónomos cuando no es visible --- */
+  /* --- Lazy-load + play/pause vídeo autónomos --- */
   const bgVideo = document.querySelector('.autonomos__video-bg video');
   if (bgVideo) {
+    let videoLoaded = false;
     new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        setTimeout(() => bgVideo.play(), 0);
+        if (!videoLoaded) { bgVideo.load(); videoLoaded = true; }
+        bgVideo.play();
       } else {
         bgVideo.pause();
       }
-    }, { rootMargin: '800px 0px 800px 0px' }).observe(bgVideo.closest('section'));
+    }, { rootMargin: '400px 0px 400px 0px' }).observe(bgVideo.closest('section'));
   }
 
   /* ============================================
@@ -665,19 +676,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let inView      = false;
 
     ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
+    ctx.imageSmoothingQuality = 'medium';
 
     function frameUrl(i) {
       return BASE + String(i).padStart(5, '0') + '.webp';
     }
 
-    let tpvTotal = tpvSection.offsetHeight - window.innerHeight;
+    // Posición cacheada — evita getBoundingClientRect() en cada scroll
+    let tpvSectionTop = tpvSection.getBoundingClientRect().top + window.scrollY;
+    let tpvTotal      = tpvSection.offsetHeight - window.innerHeight;
     window.addEventListener('resize', () => {
-      tpvTotal = tpvSection.offsetHeight - window.innerHeight;
+      tpvSectionTop = tpvSection.getBoundingClientRect().top + window.scrollY;
+      tpvTotal      = tpvSection.offsetHeight - window.innerHeight;
     }, { passive: true });
 
     function getProgress() {
-      const scrolled = -tpvSection.getBoundingClientRect().top;
+      const scrolled = window.scrollY - tpvSectionTop;
       return Math.max(0, Math.min(1, scrolled / tpvTotal));
     }
 
@@ -688,7 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tpvCanvas.style.height = h + 'px';
       ctx.scale(DPR, DPR);
       ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
+      ctx.imageSmoothingQuality = 'medium';
     }
 
     function drawFrame(idx) {
@@ -696,12 +710,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const img = images[idx];
       if (!img || !img.complete || !img.naturalWidth) return;
       ctx.clearRect(0, 0, tpvCanvas.width, tpvCanvas.height);
-      ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+      ctx.drawImage(img, 0, 0, tpvCanvas.width / DPR, tpvCanvas.height / DPR);
       lastDrawn = idx;
     }
 
     function loop() {
       const delta = target - current;
+      if (Math.abs(delta) < 0.05) {
+        drawFrame(Math.round(target));
+        current = target;
+        rafId = null;
+        return;
+      }
       current += delta * LERP;
       drawFrame(Math.round(current));
       if (inView) rafId = requestAnimationFrame(loop);
@@ -717,26 +737,38 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
       if (!allReady) return;
       target = getProgress() * (FRAMES - 1);
+      if (inView && !rafId) rafId = requestAnimationFrame(loop);
     }, { passive: true });
 
-    for (let i = 0; i < FRAMES; i++) {
-      const img = new Image();
-      img.onload = function () {
-        loadedCount++;
-        if (i === 0) {
-          setCanvasSize(img.naturalWidth, img.naturalHeight);
-          drawFrame(0);
-        }
-        if (loadedCount === FRAMES) {
-          allReady = true;
-          current = target = getProgress() * (FRAMES - 1);
-          drawFrame(Math.round(current));
-          if (inView && !rafId) rafId = requestAnimationFrame(loop);
-        }
-      };
-      img.src   = frameUrl(i);
-      images[i] = img;
+    // Lazy-load frames: empieza a cargar solo cuando el usuario se acerca
+    function loadFrames() {
+      for (let i = 0; i < FRAMES; i++) {
+        const img = new Image();
+        img.onload = function () {
+          loadedCount++;
+          if (i === 0) {
+            setCanvasSize(img.naturalWidth, img.naturalHeight);
+            drawFrame(0);
+          }
+          if (loadedCount === FRAMES) {
+            allReady = true;
+            current = target = getProgress() * (FRAMES - 1);
+            drawFrame(Math.round(current));
+            if (inView && !rafId) rafId = requestAnimationFrame(loop);
+          }
+        };
+        img.src   = frameUrl(i);
+        images[i] = img;
+      }
     }
+
+    const tpvLoadObserver = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        tpvLoadObserver.disconnect();
+        loadFrames();
+      }
+    }, { rootMargin: '800px 0px' });
+    tpvLoadObserver.observe(tpvSection);
   }
 
   /* --- Mascot Character Toggle --- */

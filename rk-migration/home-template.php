@@ -185,7 +185,7 @@
        ============================================ -->
   <section class="autonomos section" id="autonomos">
     <div class="autonomos__video-bg">
-      <video muted loop playsinline preload="auto">
+      <video muted loop playsinline preload="none" data-lazy-video>
         <source src="assets/img/video-autonomos.mp4" type="video/mp4">
       </video>
       <div class="autonomos__overlay"></div>

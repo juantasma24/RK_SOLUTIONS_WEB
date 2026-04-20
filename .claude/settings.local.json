@@ -33,7 +33,8 @@
       "Bash(xargs ls *)",
       "Bash(awk '{print $5, $9}')",
       "Bash(python3 -c \"from PIL import Image; img=Image.open\\('C:/xampp/htdocs/TEST/assets/img/laptop-mockup.png'\\); print\\(img.size\\)\")",
-      "Bash(identify C:/xampp/htdocs/TEST/assets/img/laptop-mockup.png)"
+      "Bash(identify C:/xampp/htdocs/TEST/assets/img/laptop-mockup.png)",
+      "WebFetch(domain:juandiego.rkinformatika.online)"
     ]
   }
 }
