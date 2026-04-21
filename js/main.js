@@ -63,21 +63,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const target = document.getElementById(savedSection);
     if (target) {
       const headerH = headerEl ? headerEl.offsetHeight : 0;
-
-      // scroll-margin-top compensa el header sticky
       target.style.scrollMarginTop = headerH + 'px';
-      // Desactivar smooth para que el salto sea instantáneo
       document.documentElement.style.scrollBehavior = 'auto';
-      target.scrollIntoView({ behavior: 'instant', block: 'start' });
 
-      requestAnimationFrame(() => {
+      const doRestore = () => {
+        target.scrollIntoView({ behavior: 'instant', block: 'start' });
+        requestAnimationFrame(() => {
+          target.style.scrollMarginTop = '';
+          document.documentElement.style.scrollBehavior = '';
+          const restoreStyle = document.getElementById('rk-restore-style');
+          if (restoreStyle) restoreStyle.remove();
+        });
+      };
+
+      if (window.innerWidth < 768) {
+        // Mobile: content-visibility está desactivado, offsetTop es fiable
         target.style.scrollMarginTop = '';
         document.documentElement.style.scrollBehavior = '';
-        // Eliminar el <style> de pre-ocultación inyectado en <head> para que
-        // las transiciones del topbar/header vuelvan a funcionar normalmente.
-        const restoreStyle = document.getElementById('rk-restore-style');
-        if (restoreStyle) restoreStyle.remove();
-      });
+        window.scrollTo({ top: Math.max(0, target.offsetTop - headerH), behavior: 'instant' });
+        requestAnimationFrame(() => {
+          const restoreStyle = document.getElementById('rk-restore-style');
+          if (restoreStyle) restoreStyle.remove();
+        });
+      } else {
+        doRestore();
+      }
     }
   }
 
@@ -143,6 +153,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Mobile: forzar reveals visibles tras el scroll suave (content-visibility
+        // puede retrasar el disparo del IntersectionObserver en móvil)
+        if (window.innerWidth < 768) {
+          setTimeout(() => {
+            document.querySelectorAll('.anim-reveal:not(.visible), .anim-slide-up:not(.visible)').forEach(el => {
+              const r = el.getBoundingClientRect();
+              if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
+            });
+          }, 650);
+        }
       }
     });
   });
@@ -654,7 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const FRAMES = 270;
     const LERP   = 0.10;
     const DPR    = Math.min(window.devicePixelRatio || 1, 2);
-    const BASE   = 'assets/img/frames_tpv/final_motion_tpv_';
+    const BASE   = (typeof rkConfig !== 'undefined' ? rkConfig.pluginUrl : '') + 'assets/img/frames_tpv/final_motion_tpv_';
     const images = new Array(FRAMES);
     let loadedCount = 0;
     let allReady    = false;
@@ -679,6 +699,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function getProgress() {
       const scrolled = -tpvSection.getBoundingClientRect().top;
       return Math.max(0, Math.min(1, scrolled / tpvTotal));
+    }
+
+    /* Flecha sección 2: desaparece cuando entra la sección 3 */
+    const queHaceArrow = document.getElementById('queHaceArrow');
+    if (queHaceArrow) {
+      new IntersectionObserver((entries) => {
+        queHaceArrow.classList.toggle('hidden', entries[0].isIntersecting);
+      }, { threshold: 0.15 }).observe(tpvSection);
+    }
+
+    /* Scroll hint: visible al inicio, desaparece en frame 50 */
+    const tpvScrollHint = document.getElementById('tpvScrollHint');
+    if (tpvScrollHint) {
+      const updateHint = () => {
+        const frame = getProgress() * (FRAMES - 1);
+        const show  = frame < 50;
+        tpvScrollHint.classList.toggle('hidden', !show);
+      };
+      window.addEventListener('scroll', updateHint, { passive: true });
     }
 
     function setCanvasSize(w, h) {

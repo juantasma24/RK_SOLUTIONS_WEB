@@ -63,21 +63,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const target = document.getElementById(savedSection);
     if (target) {
       const headerH = headerEl ? headerEl.offsetHeight : 0;
-
-      // scroll-margin-top compensa el header sticky
       target.style.scrollMarginTop = headerH + 'px';
-      // Desactivar smooth para que el salto sea instantáneo
       document.documentElement.style.scrollBehavior = 'auto';
-      target.scrollIntoView({ behavior: 'instant', block: 'start' });
 
-      requestAnimationFrame(() => {
+      const doRestore = () => {
+        target.scrollIntoView({ behavior: 'instant', block: 'start' });
+        requestAnimationFrame(() => {
+          target.style.scrollMarginTop = '';
+          document.documentElement.style.scrollBehavior = '';
+          const restoreStyle = document.getElementById('rk-restore-style');
+          if (restoreStyle) restoreStyle.remove();
+        });
+      };
+
+      if (window.innerWidth < 768) {
+        // Mobile: content-visibility está desactivado, offsetTop es fiable
         target.style.scrollMarginTop = '';
         document.documentElement.style.scrollBehavior = '';
-        // Eliminar el <style> de pre-ocultación inyectado en <head> para que
-        // las transiciones del topbar/header vuelvan a funcionar normalmente.
-        const restoreStyle = document.getElementById('rk-restore-style');
-        if (restoreStyle) restoreStyle.remove();
-      });
+        window.scrollTo({ top: Math.max(0, target.offsetTop - headerH), behavior: 'instant' });
+        requestAnimationFrame(() => {
+          const restoreStyle = document.getElementById('rk-restore-style');
+          if (restoreStyle) restoreStyle.remove();
+        });
+      } else {
+        doRestore();
+      }
     }
   }
 
@@ -143,6 +153,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Mobile: forzar reveals visibles tras el scroll suave (content-visibility
+        // puede retrasar el disparo del IntersectionObserver en móvil)
+        if (window.innerWidth < 768) {
+          setTimeout(() => {
+            document.querySelectorAll('.anim-reveal:not(.visible), .anim-slide-up:not(.visible)').forEach(el => {
+              const r = el.getBoundingClientRect();
+              if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
+            });
+          }, 650);
+        }
       }
     });
   });
@@ -373,20 +393,11 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- YouTube Facade + autoplay on scroll into view --- */
   const ytFacades = document.querySelectorAll('.youtube-facade');
   ytFacades.forEach(ytFacade => {
-    // Sanitizar: solo caracteres válidos de un ID de YouTube (alfanumérico, guión, guión bajo)
-    const embedId = (ytFacade.dataset.embed || '').replace(/[^a-zA-Z0-9_-]/g, '');
+    const embedId = ytFacade.dataset.embed;
 
     function injectIframe(muted) {
-      if (!embedId) return;
       const muteParam = muted ? '&mute=1' : '';
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0${muteParam}`;
-      iframe.title = 'YouTube video player';
-      iframe.frameBorder = '0';
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      iframe.allowFullscreen = true;
-      ytFacade.innerHTML = '';
-      ytFacade.appendChild(iframe);
+      ytFacade.innerHTML = `<iframe src="https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0${muteParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     }
 
     // Click: autoplay con sonido
@@ -405,18 +416,16 @@ document.addEventListener('DOMContentLoaded', () => {
     ytObserver.observe(ytFacade);
   });
 
-  /* --- Lazy-load + play/pause vídeo autónomos --- */
+  /* --- Pausar vídeo de autónomos cuando no es visible --- */
   const bgVideo = document.querySelector('.autonomos__video-bg video');
   if (bgVideo) {
-    let videoLoaded = false;
     new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        if (!videoLoaded) { bgVideo.load(); videoLoaded = true; }
-        bgVideo.play();
+        setTimeout(() => bgVideo.play(), 0);
       } else {
         bgVideo.pause();
       }
-    }, { rootMargin: '400px 0px 400px 0px' }).observe(bgVideo.closest('section'));
+    }, { rootMargin: '800px 0px 800px 0px' }).observe(bgVideo.closest('section'));
   }
 
   /* ============================================
@@ -504,14 +513,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (locked) return;
       locked = true;
       moveTo(currentIndex + 1);
-      setTimeout(() => { locked = false; }, 700);
     }
 
     function prev() {
       if (locked) return;
       locked = true;
       moveTo(currentIndex - 1);
-      setTimeout(() => { locked = false; }, 700);
     }
 
     // Al terminar la transición → comprobar si toca saltar a los originales
@@ -667,7 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const FRAMES = 270;
     const LERP   = 0.10;
     const DPR    = Math.min(window.devicePixelRatio || 1, 2);
-    const BASE   = (window.rkConfig && window.rkConfig.pluginUrl ? window.rkConfig.pluginUrl : '') + 'assets/img/frames_tpv/final_motion_tpv_';
+    const BASE   = (typeof rkConfig !== 'undefined' ? rkConfig.pluginUrl : '') + 'assets/img/frames_tpv/final_motion_tpv_';
     const images = new Array(FRAMES);
     let loadedCount = 0;
     let allReady    = false;
@@ -678,23 +685,39 @@ document.addEventListener('DOMContentLoaded', () => {
     let inView      = false;
 
     ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'medium';
+    ctx.imageSmoothingQuality = 'high';
 
     function frameUrl(i) {
       return BASE + String(i).padStart(5, '0') + '.webp';
     }
 
-    // Posición cacheada — evita getBoundingClientRect() en cada scroll
-    let tpvSectionTop = tpvSection.getBoundingClientRect().top + window.scrollY;
-    let tpvTotal      = tpvSection.offsetHeight - window.innerHeight;
+    let tpvTotal = tpvSection.offsetHeight - window.innerHeight;
     window.addEventListener('resize', () => {
-      tpvSectionTop = tpvSection.getBoundingClientRect().top + window.scrollY;
-      tpvTotal      = tpvSection.offsetHeight - window.innerHeight;
+      tpvTotal = tpvSection.offsetHeight - window.innerHeight;
     }, { passive: true });
 
     function getProgress() {
-      const scrolled = window.scrollY - tpvSectionTop;
+      const scrolled = -tpvSection.getBoundingClientRect().top;
       return Math.max(0, Math.min(1, scrolled / tpvTotal));
+    }
+
+    /* Flecha sección 2: desaparece cuando entra la sección 3 */
+    const queHaceArrow = document.getElementById('queHaceArrow');
+    if (queHaceArrow) {
+      new IntersectionObserver((entries) => {
+        queHaceArrow.classList.toggle('hidden', entries[0].isIntersecting);
+      }, { threshold: 0.15 }).observe(tpvSection);
+    }
+
+    /* Scroll hint: visible al inicio, desaparece en frame 50 */
+    const tpvScrollHint = document.getElementById('tpvScrollHint');
+    if (tpvScrollHint) {
+      const updateHint = () => {
+        const frame = getProgress() * (FRAMES - 1);
+        const show  = frame < 50;
+        tpvScrollHint.classList.toggle('hidden', !show);
+      };
+      window.addEventListener('scroll', updateHint, { passive: true });
     }
 
     function setCanvasSize(w, h) {
@@ -704,7 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tpvCanvas.style.height = h + 'px';
       ctx.scale(DPR, DPR);
       ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'medium';
+      ctx.imageSmoothingQuality = 'high';
     }
 
     function drawFrame(idx) {
@@ -712,18 +735,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const img = images[idx];
       if (!img || !img.complete || !img.naturalWidth) return;
       ctx.clearRect(0, 0, tpvCanvas.width, tpvCanvas.height);
-      ctx.drawImage(img, 0, 0, tpvCanvas.width / DPR, tpvCanvas.height / DPR);
+      ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
       lastDrawn = idx;
     }
 
     function loop() {
       const delta = target - current;
-      if (Math.abs(delta) < 0.05) {
-        drawFrame(Math.round(target));
-        current = target;
-        rafId = null;
-        return;
-      }
       current += delta * LERP;
       drawFrame(Math.round(current));
       if (inView) rafId = requestAnimationFrame(loop);
@@ -739,38 +756,26 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
       if (!allReady) return;
       target = getProgress() * (FRAMES - 1);
-      if (inView && !rafId) rafId = requestAnimationFrame(loop);
     }, { passive: true });
 
-    // Lazy-load frames: empieza a cargar solo cuando el usuario se acerca
-    function loadFrames() {
-      for (let i = 0; i < FRAMES; i++) {
-        const img = new Image();
-        img.onload = function () {
-          loadedCount++;
-          if (i === 0) {
-            setCanvasSize(img.naturalWidth, img.naturalHeight);
-            drawFrame(0);
-          }
-          if (loadedCount === FRAMES) {
-            allReady = true;
-            current = target = getProgress() * (FRAMES - 1);
-            drawFrame(Math.round(current));
-            if (inView && !rafId) rafId = requestAnimationFrame(loop);
-          }
-        };
-        img.src   = frameUrl(i);
-        images[i] = img;
-      }
+    for (let i = 0; i < FRAMES; i++) {
+      const img = new Image();
+      img.onload = function () {
+        loadedCount++;
+        if (i === 0) {
+          setCanvasSize(img.naturalWidth, img.naturalHeight);
+          drawFrame(0);
+        }
+        if (loadedCount === FRAMES) {
+          allReady = true;
+          current = target = getProgress() * (FRAMES - 1);
+          drawFrame(Math.round(current));
+          if (inView && !rafId) rafId = requestAnimationFrame(loop);
+        }
+      };
+      img.src   = frameUrl(i);
+      images[i] = img;
     }
-
-    const tpvLoadObserver = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        tpvLoadObserver.disconnect();
-        loadFrames();
-      }
-    }, { rootMargin: '800px 0px' });
-    tpvLoadObserver.observe(tpvSection);
   }
 
   /* --- Mascot Character Toggle --- */
@@ -852,22 +857,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         showingFront = !showingFront;
       };
-      next.src = rkConfig.pluginUrl + 'assets/img/avatars/avatar-' + pool[idx] + '.jpg';
+      next.src = 'https://i.pravatar.cc/48?img=' + pool[idx];
     }
 
     setTimeout(() => {
       cycleAvatar();
       setInterval(cycleAvatar, 3500);
     }, 2000 + i * 800);
-  });
-}());
-
-// Protección básica de imágenes contra descarga casual
-(function () {
-  document.addEventListener('contextmenu', function (e) {
-    if (e.target.tagName === 'IMG') e.preventDefault();
-  });
-  document.addEventListener('dragstart', function (e) {
-    if (e.target.tagName === 'IMG') e.preventDefault();
   });
 }());

@@ -1108,13 +1108,14 @@ input, select, textarea { font: inherit; color: inherit; }
    ============================================ */
 .autonomos {
   position: relative;
-  min-height: 400px;
+  height: calc(100vh - var(--header-height));
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background: var(--color-black);
   isolation: isolate;
+  scroll-margin-top: var(--header-height);
 }
 
 .autonomos__video-bg {
@@ -1152,6 +1153,14 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 .dot-green {
   color: var(--color-primary);
+}
+
+.autonomos .hero__cta {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: fit-content;
+  margin: 32px auto 0;
 }
 
 /* ============================================
@@ -2129,6 +2138,85 @@ input, select, textarea { font: inherit; color: inherit; }
   display: none;
 }
 
+.que-hace__arrow {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.5);
+  z-index: 10;
+  transition: opacity 0.4s ease, color 0.2s ease;
+  text-decoration: none;
+}
+
+.que-hace__arrow:hover {
+  color: rgba(255,255,255,0.9);
+}
+
+.que-hace__arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.que-hace__arrow svg {
+  width: 32px;
+  height: 32px;
+  animation: arrowBounce 1.8s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+
+.tpv-scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.7);
+  font-size: 11px;
+  font-family: var(--font-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 10;
+}
+
+.tpv-scroll-hint.hidden {
+  opacity: 0;
+}
+
+.tpv-scroll-hint svg {
+  width: 26px;
+  height: 26px;
+  animation: scrollMouse 1.6s ease-in-out infinite;
+}
+
+.tpv-scroll-hint line {
+  animation: scrollWheel 1.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes scrollMouse {
+  0%, 100% { transform: translateY(0);   opacity: 1; }
+  50%       { transform: translateY(6px); opacity: 0.5; }
+}
+
+@keyframes scrollWheel {
+  0%   { stroke-dasharray: 0 4; stroke-dashoffset: 0; }
+  50%  { stroke-dasharray: 4 0; stroke-dashoffset: -2; }
+  100% { stroke-dasharray: 0 4; stroke-dashoffset: -4; }
+}
+
 
 /* ============================================
    SECCI�N: FAQ
@@ -2189,13 +2277,21 @@ input, select, textarea { font: inherit; color: inherit; }
 
 @media (hover: hover) and (pointer: fine) {
   .faq-item__question:hover {
-    background: var(--color-primary-dark);
+    background: var(--color-primary-dark) !important;
+    color: #ffffff !important;
     box-shadow: 0 6px 24px rgba(94, 168, 74, 0.35);
     transform: translateY(-2px);
   }
   .faq-item__question:hover .faq-item__icon {
     background: rgba(255,255,255,0.2);
   }
+}
+
+.faq-item__question:focus,
+.faq-item__question:active {
+  background: var(--color-primary) !important;
+  color: #ffffff !important;
+  outline: none !important;
 }
 
 .faq-item__plus {
@@ -2642,17 +2738,20 @@ input, select, textarea { font: inherit; color: inherit; }
 
 /* ============================================
    CONTENT VISIBILITY — salta render de secciones fuera de pantalla
+   Solo desktop: en mobile causa offsetTop incorrecto al restaurar scroll
    ============================================ */
-.que-hace,
-.autonomos,
-.pilares,
-.testimonios,
-.planes,
-.contacto,
-.faq,
-.footer {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 700px;
+@media (min-width: 768px) {
+  .que-hace,
+  .autonomos,
+  .pilares,
+  .testimonios,
+  .planes,
+  .contacto,
+  .faq,
+  .footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 700px;
+  }
 }
 
 .anim-slide-up {
@@ -2776,7 +2875,8 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 /* ============================================
-   RESPONSIVE: TABLET SOLO (768px–1023px)
+   RESPONSIVE: TABLET SOLO (768px–1023px) + MÓVIL (<768px) + MÓVIL PEQUEÑO (<480px)
+   — Base: d8c6b98 (ajustes mobile) + nuevas features (ilustración, flecha, scroll hint)
    ============================================ */
 @media (min-width: 768px) and (max-width: 1023px) {
   .que-hace__badge-dispositivo {
@@ -2790,6 +2890,11 @@ input, select, textarea { font: inherit; color: inherit; }
   .pilares { height: auto; padding: 60px 0; }
   .planes { height: auto; padding: 60px 0; }
   .contacto { height: auto; padding: 60px 0; }
+  .faq { height: auto; padding: 60px 0; align-items: flex-start; overflow-x: clip; }
+  .faq__grid { width: 100%; overflow-x: clip; }
+  .faq-item { max-width: 100%; overflow-x: clip; }
+  .faq-item__question { align-items: flex-start; width: 100%; max-width: 100%; box-sizing: border-box; }
+  .faq-item__text { min-width: 0; overflow-wrap: break-word; word-break: break-word; white-space: normal; }
   .tpv-seq { height: auto; }
   .tpv-seq__sticky { display: none; }
   .tpv-seq__mobile {
@@ -2859,6 +2964,7 @@ input, select, textarea { font: inherit; color: inherit; }
   .que-hace__content {
     text-align: center;
     padding-top: 0;
+    padding-bottom: 0;
   }
 
   .que-hace__ilustracion {
@@ -2892,6 +2998,7 @@ input, select, textarea { font: inherit; color: inherit; }
 
   .contadores__wrapper { background-image: url('../assets/img/bloque_vidrio_cuadrado.png'); }
   .pilares { height: auto; padding: 60px 0; }
+  .testimonios { height: auto; padding: 60px 0; }
   .planes { height: auto; padding: 60px 0; }
   .contacto { height: auto; padding: 60px 0; }
 
@@ -2927,21 +3034,62 @@ input, select, textarea { font: inherit; color: inherit; }
 
   /* --- TESTIMONIOS --- */
   .testimonio-card {
-    height: 460px;
+    height: auto;
   }
 
   .testimonio-card__bubble {
-    padding: 32px 24px 32px 40px;
+    padding: 24px 20px 24px 28px;
+  }
+
+  /* Comillas más pequeñas para liberar espacio vertical */
+  .testimonio-card__comillas {
+    width: 36px;
+    margin-bottom: 8px;
   }
 
   .testimonio-card__quote {
-    -webkit-line-clamp: 5;
-    line-clamp: 5;
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    overflow: visible;
+    display: block;
+    -webkit-line-clamp: unset;
+  }
+
+  /* Evita que nombres largos rompan el layout */
+  .testimonio-card__author > div {
+    min-width: 0;
+  }
+
+  .testimonio-card__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Quitar tap-highlight rosa de iOS en botones de navegación */
+  .testimonios__nav {
+    -webkit-tap-highlight-color: transparent;
+    outline: none !important;
+  }
+
+  .testimonios__nav:focus,
+  .testimonios__nav:focus-visible,
+  .testimonios__nav:active {
+    outline: none !important;
+    background: var(--color-gray-800);
+    border-color: var(--glass-border);
+    box-shadow: none;
+  }
+
+  /* --- PLANES: subtítulo gap + reducir espacio antes de cards --- */
+  .planes__layout {
+    gap: 20px;
   }
 
   /* --- PLANES: reducir padding de cards en 1 columna --- */
   .plan-card {
     padding: 48px 20px 28px;
+    margin-top: 12px;
   }
 
   /* El premium usa padding 0 en el wrapper (lo gestiona el .plan-card__inner) */
@@ -2970,13 +3118,66 @@ input, select, textarea { font: inherit; color: inherit; }
     padding: 32px 20px;
   }
 
-  /* --- FAQ: reducir padding izquierdo de respuestas --- */
+  /* --- FAQ: altura automática y layout reparado en móvil --- */
+  .faq {
+    height: auto;
+    padding: 60px 0;
+    align-items: flex-start;
+    overflow-x: clip;
+  }
+
+  .faq__grid {
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  .faq-item {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
   .faq__title {
     font-size: var(--text-3xl);
   }
 
+  .faq-item__question {
+    border-radius: 16px;
+    align-items: flex-start;
+    padding: 14px 16px 14px 18px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .faq-item__text {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+  }
+
   .faq-item__answer-inner {
     padding: 16px 16px 8px 20px;
+  }
+
+  /* --- SECTION TITLE: evitar que "La" quede sola antes de "Manzana" --- */
+  .section-title .highlight {
+    white-space: nowrap;
+  }
+
+  /* "nuestros clientes" en línea propia en mobile */
+  .testimonios .section-title .highlight {
+    display: block;
+  }
+
+  /* --- PLANES: subtítulo en línea propia + reducir espacio antes de cards --- */
+  .planes__subtitulo strong:last-child {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .plan-card {
+    margin-top: 12px;
   }
 
   /* --- FOOTER: evitar overflow en tagline y newsletter --- */
@@ -3165,4 +3366,110 @@ input, select, textarea { font: inherit; color: inherit; }
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
+}
+
+/* ── WP overrides: tema inyecta estilos en hover/focus — forzar los nuestros ── */
+
+.back-to-top,
+.back-to-top:focus,
+.back-to-top:focus-visible {
+  background: var(--color-gray-800) !important;
+  color: var(--color-white) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  outline: none !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  .back-to-top:hover {
+    background: var(--color-primary) !important;
+    color: var(--color-white) !important;
+  }
+}
+
+.mascot-btn:hover,
+.mascot-btn:focus {
+  background: #ffffff !important;
+  color: inherit !important;
+  border-color: transparent !important;
+}
+
+.hero__cta:hover {
+  color: #ffffff !important;
+}
+
+.mascot-bubble__cta:hover,
+.mascot-bubble__cta:focus {
+  color: #ffffff !important;
+  background: var(--color-primary-dark) !important;
+}
+
+.btn--primary:hover,
+.btn--primary:focus {
+  color: #ffffff !important;
+}
+
+.testimonios__nav:focus,
+.testimonios__nav:focus-visible {
+  background: var(--color-gray-800) !important;
+  border-color: var(--glass-border) !important;
+  color: var(--color-white) !important;
+  outline: none !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  .testimonios__nav:hover {
+    background: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-white) !important;
+  }
+}
+
+.plan-card__btn--standard:hover {
+  color: #ffffff !important;
+}
+
+.contacto__dropdown-btn:hover,
+.contacto__dropdown-btn:focus {
+  background: var(--color-white-pure) !important;
+  color: var(--color-gray-600) !important;
+  border-color: transparent !important;
+  outline: none !important;
+}
+.contacto__dropdown-btn.has-value:hover,
+.contacto__dropdown-btn.has-value:focus {
+  color: var(--color-black) !important;
+}
+
+.contacto__input,
+.contacto__input:hover,
+.contacto__input:focus {
+  border-radius: 9999px !important;
+  background: var(--color-white-pure) !important;
+  color: var(--color-black) !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.footer__newsletter .footer__newsletter-input,
+.footer__newsletter .footer__newsletter-input:focus,
+.footer__newsletter .footer__newsletter-input:focus-visible,
+.footer__newsletter .footer__newsletter-input:hover {
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border: none !important;
+  -webkit-appearance: none !important;
+}
+
+@media (max-width: 767px) {
+  .testimonios__nav {
+    -webkit-tap-highlight-color: transparent;
+    outline: none !important;
+  }
+  .testimonios__nav:focus,
+  .testimonios__nav:focus-visible,
+  .testimonios__nav:active {
+    outline: none !important;
+    background: var(--color-gray-800);
+    border-color: var(--glass-border);
+    box-shadow: none;
+  }
 }

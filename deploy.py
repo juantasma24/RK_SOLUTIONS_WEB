@@ -3,10 +3,14 @@
 deploy.py — Sube archivos del plugin local a WordPress vía REST API.
 Uso: python deploy.py              (sube todos los archivos)
      python deploy.py css js       (sube solo css y js)
+
+Auto-sync: antes de subir, copia css/styles.css y js/main.js desde la raíz
+del proyecto a rk-migration/ para que root sea siempre la fuente de verdad.
 """
 
 import sys
 import os
+import shutil
 import configparser
 import urllib.request
 import urllib.error
@@ -58,6 +62,19 @@ def upload_file(wp_url, token, local_path, remote_path):
     except urllib.error.URLError as e:
         return False, str(e.reason)
 
+def sync_root_to_migration():
+    """Copia css y js desde la raíz del proyecto a rk-migration/ antes de deployar."""
+    base = os.path.dirname(__file__)
+    pairs = [
+        ('css/styles.css',  'rk-migration/css/styles.css'),
+        ('js/main.js',      'rk-migration/js/main.js'),
+    ]
+    for src_rel, dst_rel in pairs:
+        src = os.path.join(base, src_rel)
+        dst = os.path.join(base, dst_rel)
+        if os.path.exists(src):
+            shutil.copy2(src, dst)
+
 def main():
     cfg = load_config()
     wp_url = cfg['url']
@@ -71,6 +88,9 @@ def main():
         sys.exit(1)
 
     targets = [(k, FILES[k]) for k in keys]
+
+    # Sincronizar css y js desde root → rk-migration antes de subir
+    sync_root_to_migration()
 
     print(f'\nDeploy a {wp_url}')
     print('-' * 50)

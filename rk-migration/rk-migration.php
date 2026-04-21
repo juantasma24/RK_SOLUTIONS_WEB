@@ -95,18 +95,25 @@ function rk_enqueue_home_assets() {
     }, 10, 2);
 }
 
-// 2. ELIMINAR SCRIPTS/ESTILOS DE WP QUE NO USAMOS
-add_action('wp_enqueue_scripts', 'rk_remove_wp_bloat', 100);
+// 2. ELIMINAR TODOS LOS ESTILOS EXTERNOS — página 100% custom
+add_action('wp_enqueue_scripts', 'rk_remove_wp_bloat', 9999);
 function rk_remove_wp_bloat() {
-    // Emoji
     remove_action('wp_head', 'print_emoji_detection_script', 7);
     remove_action('wp_print_styles', 'print_emoji_styles');
-    wp_dequeue_style('wp-emoji');
-    // Block library (Gutenberg styles)
-    wp_dequeue_style('wp-block-library');
-    wp_dequeue_style('wp-block-library-theme');
-    wp_dequeue_style('classic-theme-styles');
-    wp_dequeue_style('global-styles');
+}
+
+// Nuclear: elimina TODOS los estilos en el momento de impresión excepto los nuestros
+add_action('wp_print_styles', 'rk_nuke_all_styles', 9999);
+function rk_nuke_all_styles() {
+    global $wp_styles;
+    if ( ! isset( $wp_styles ) ) return;
+    $keep = array( 'rk-main-css', 'rk-google-fonts' );
+    foreach ( array_keys( $wp_styles->registered ) as $handle ) {
+        if ( ! in_array( $handle, $keep, true ) ) {
+            wp_dequeue_style( $handle );
+            wp_deregister_style( $handle );
+        }
+    }
 }
 
 // 3. ENDPOINT DE DEPLOY — autenticado por token secreto en el cuerpo

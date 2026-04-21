@@ -184,6 +184,9 @@
         </div>
       </div>
     </div>
+    <a href="#autonomos" class="que-hace__arrow" id="queHaceArrow" aria-label="Ir a la siguiente sección">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </a>
   </section>
 
   <!-- ============================================
@@ -200,6 +203,9 @@
       <h2 class="autonomos__title anim-reveal">
         Para autónomos, hostelería<br>y comercio<span class="dot-green">.</span>
       </h2>
+      <a href="#tpv-seq" class="hero__cta anim-reveal">
+        <span>Así inicia tu negocio</span>
+      </a>
     </div>
   </section>
 
@@ -209,6 +215,10 @@
   <section class="tpv-seq" id="tpv-seq" aria-hidden="true">
     <div class="tpv-seq__sticky">
       <canvas class="tpv-seq__canvas" id="tpvCanvas"></canvas>
+      <div class="tpv-scroll-hint" id="tpvScrollHint" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="16" rx="5"/><line x1="12" y1="6" x2="12" y2="9"/></svg>
+        <span>Scroll</span>
+      </div>
     </div>
     <div class="tpv-seq__mobile">
       <img src="assets/img/tpv_mobile/tpv_responsive.webp" alt="" loading="lazy" draggable="false">
