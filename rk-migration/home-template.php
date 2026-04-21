@@ -1,3 +1,4 @@
+<script>history.scrollRestoration="manual";(function(){var s=sessionStorage.getItem("rk_section");if(s&&s!=="inicio"){var st=document.createElement("style");st.id="rk-restore-style";st.textContent=".topbar{transform:translateY(-100%)!important;transition:none!important;}.header{top:0!important;transition:none!important;}";(document.head||document.documentElement).appendChild(st);}})();</script>
 <!-- Top Bar -->
 <div class="topbar" id="topbar">
   <div class="topbar__inner">
@@ -149,6 +150,11 @@
               <span><strong>Cumple</strong> con TicketBAI (País Vasco) y VERI*FACTU (España)</span>
             </li>
           </ul>
+
+          <!-- Ilustración decorativa -->
+          <div class="que-hace__ilustracion" aria-hidden="true">
+            <img src="assets/img/ilustraciones/personaje_portatil.svg" alt="" loading="lazy" decoding="async" width="400" height="307">
+          </div>
         </div><!-- /.que-hace__content -->
 
         <!-- Lado derecho: laptop con video -->

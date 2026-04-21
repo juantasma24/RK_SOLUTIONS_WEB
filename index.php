@@ -115,6 +115,11 @@
               <span><strong>Cumple</strong> con TicketBAI (País Vasco) y VERI*FACTU (España)</span>
             </li>
           </ul>
+
+          <!-- Ilustración decorativa -->
+          <div class="que-hace__ilustracion" aria-hidden="true">
+            <img src="assets/img/ilustraciones/personaje_portatil.svg" alt="" loading="lazy" decoding="async" width="400" height="307">
+          </div>
         </div><!-- /.que-hace__content -->
 
         <!-- Lado derecho: laptop con video -->
