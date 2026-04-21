@@ -66,6 +66,13 @@ document.addEventListener('DOMContentLoaded', () => {
       target.style.scrollMarginTop = headerH + 'px';
       document.documentElement.style.scrollBehavior = 'auto';
 
+      const forceRevealVisible = () => {
+        document.querySelectorAll('.anim-reveal:not(.visible), .anim-slide-up:not(.visible)').forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
+        });
+      };
+
       const doRestore = () => {
         target.scrollIntoView({ behavior: 'instant', block: 'start' });
         requestAnimationFrame(() => {
@@ -73,17 +80,18 @@ document.addEventListener('DOMContentLoaded', () => {
           document.documentElement.style.scrollBehavior = '';
           const restoreStyle = document.getElementById('rk-restore-style');
           if (restoreStyle) restoreStyle.remove();
+          forceRevealVisible();
         });
       };
 
       if (window.innerWidth < 768) {
-        // Mobile: content-visibility está desactivado, offsetTop es fiable
         target.style.scrollMarginTop = '';
         document.documentElement.style.scrollBehavior = '';
         window.scrollTo({ top: Math.max(0, target.offsetTop - headerH), behavior: 'instant' });
         requestAnimationFrame(() => {
           const restoreStyle = document.getElementById('rk-restore-style');
           if (restoreStyle) restoreStyle.remove();
+          forceRevealVisible();
         });
       } else {
         doRestore();

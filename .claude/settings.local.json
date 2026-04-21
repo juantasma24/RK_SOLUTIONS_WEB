@@ -41,7 +41,11 @@
       "Bash(php *)",
       "WebFetch(domain:gtmetrix.com)",
       "Bash(python3 -c \"from PIL import Image; print\\('Pillow OK'\\)\")",
-      "Bash(pip install *)"
+      "Bash(pip install *)",
+      "Bash(git show *)",
+      "Read(//tmp/**)",
+      "Bash(cp \"C:/xampp/htdocs/TEST/js/main.js\" \"C:/xampp/htdocs/TEST/rk-migration/js/main.js\")",
+      "Bash(cp \"C:/xampp/htdocs/TEST/css/styles.css\" \"C:/xampp/htdocs/TEST/rk-migration/css/styles.css\")"
     ]
   }
 }
