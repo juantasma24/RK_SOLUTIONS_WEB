@@ -45,7 +45,10 @@
       "Bash(git show *)",
       "Read(//tmp/**)",
       "Bash(cp \"C:/xampp/htdocs/TEST/js/main.js\" \"C:/xampp/htdocs/TEST/rk-migration/js/main.js\")",
-      "Bash(cp \"C:/xampp/htdocs/TEST/css/styles.css\" \"C:/xampp/htdocs/TEST/rk-migration/css/styles.css\")"
+      "Bash(cp \"C:/xampp/htdocs/TEST/css/styles.css\" \"C:/xampp/htdocs/TEST/rk-migration/css/styles.css\")",
+      "Skill(update-config)",
+      "Bash(git checkout *)",
+      "Bash(magick --version)"
     ]
   }
 }

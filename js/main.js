@@ -691,6 +691,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let target      = 0;
     let rafId       = null;
     let inView      = false;
+    let naturalW    = 0;
+    let naturalH    = 0;
 
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
@@ -702,6 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let tpvTotal = tpvSection.offsetHeight - window.innerHeight;
     window.addEventListener('resize', () => {
       tpvTotal = tpvSection.offsetHeight - window.innerHeight;
+      if (naturalW) { setCanvasSize(); drawFrame(Math.round(current)); }
     }, { passive: true });
 
     function getProgress() {
@@ -728,22 +731,44 @@ document.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('scroll', updateHint, { passive: true });
     }
 
-    function setCanvasSize(w, h) {
-      tpvCanvas.width        = w * DPR;
-      tpvCanvas.height       = h * DPR;
-      tpvCanvas.style.width  = w + 'px';
-      tpvCanvas.style.height = h + 'px';
+    function setCanvasSize() {
+      const portrait = window.innerHeight > window.innerWidth;
+      let cw, ch;
+      if (portrait && naturalW) {
+        const sticky = tpvSection.querySelector('.tpv-seq__sticky');
+        cw = sticky.offsetWidth;
+        ch = sticky.offsetHeight;
+      } else {
+        cw = naturalW;
+        ch = naturalH;
+      }
+      if (!cw || !ch) return;
+      tpvCanvas.width        = Math.round(cw * DPR);
+      tpvCanvas.height       = Math.round(ch * DPR);
+      tpvCanvas.style.width  = cw + 'px';
+      tpvCanvas.style.height = ch + 'px';
       ctx.scale(DPR, DPR);
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
+      lastDrawn = -1;
     }
 
     function drawFrame(idx) {
       if (idx === lastDrawn) return;
       const img = images[idx];
       if (!img || !img.complete || !img.naturalWidth) return;
-      ctx.clearRect(0, 0, tpvCanvas.width, tpvCanvas.height);
-      ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+      const cw = tpvCanvas.width / DPR;
+      const ch = tpvCanvas.height / DPR;
+      ctx.clearRect(0, 0, cw, ch);
+      const portrait = window.innerHeight > window.innerWidth;
+      if (portrait && naturalW) {
+        const scale = Math.min(cw / naturalW, ch / naturalH) * 1.2;
+        const dw = naturalW * scale;
+        const dh = naturalH * scale;
+        ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+      } else {
+        ctx.drawImage(img, 0, 0, naturalW, naturalH);
+      }
       lastDrawn = idx;
     }
 
@@ -771,7 +796,9 @@ document.addEventListener('DOMContentLoaded', () => {
       img.onload = function () {
         loadedCount++;
         if (i === 0) {
-          setCanvasSize(img.naturalWidth, img.naturalHeight);
+          naturalW = img.naturalWidth;
+          naturalH = img.naturalHeight;
+          setCanvasSize();
           drawFrame(0);
         }
         if (loadedCount === FRAMES) {
