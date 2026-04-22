@@ -298,6 +298,9 @@
       </div>
 
     </div>
+    <a href="#testimonios" class="pilares__arrow" aria-label="Ir a la siguiente sección">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </a>
   </section>
 
   <!-- ============================================
@@ -513,6 +516,11 @@
         <div class="planes__texto anim-reveal">
           <h2 class="planes__titulo">Elige el plan<br><strong>que se adapte<br>a tu negocio</strong></h2>
           <p class="planes__subtitulo"><strong>VERI*FACTU</strong> llega y adaptarse a tiempo <strong>marca la diferencia.</strong></p>
+
+          <!-- Ilustración decorativa -->
+          <div class="planes__ilustracion" aria-hidden="true">
+            <img src="<?php echo plugin_dir_url(__FILE__); ?>assets/img/ilustraciones/personaje_cohete.svg" alt="" loading="lazy" decoding="async" width="418" height="377">
+          </div>
         </div>
 
         <!-- Columna derecha: cards -->
@@ -556,7 +564,9 @@
         </div>
       </div>
     </div>
-
+    <a href="#contacto" class="planes__arrow" aria-label="Ir a la siguiente sección">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </a>
   </section>
 
   <!-- ============================================
@@ -643,6 +653,15 @@
        SECCIÓN 10: FAQ
        ============================================ -->
   <section class="faq section" id="faq">
+
+    <!-- Ilustraciones decorativas -->
+    <div class="faq__ilustracion faq__ilustracion--izq" aria-hidden="true">
+      <img src="<?php echo plugin_dir_url(__FILE__); ?>assets/img/ilustraciones/personaje_faq01.svg" alt="" loading="lazy" decoding="async" width="320" height="456">
+    </div>
+    <div class="faq__ilustracion faq__ilustracion--der" aria-hidden="true">
+      <img src="<?php echo plugin_dir_url(__FILE__); ?>assets/img/ilustraciones/personaje_faq02.svg" alt="" loading="lazy" decoding="async" width="353" height="353">
+    </div>
+
     <div class="container">
       <div class="faq__header anim-reveal">
         <h2 class="faq__title">Resolvemos tus dudas antes de empezar.</h2>

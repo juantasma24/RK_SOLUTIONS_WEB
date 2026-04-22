@@ -3,6 +3,7 @@
 deploy.py — Sube archivos del plugin local a WordPress vía REST API.
 Uso: python deploy.py              (sube todos los archivos)
      python deploy.py css js       (sube solo css y js)
+     python deploy.py -y           (sube todos sin pedir confirmación)
 
 Auto-sync: antes de subir, copia css/styles.css y js/main.js desde la raíz
 del proyecto a rk-migration/ para que root sea siempre la fuente de verdad.
@@ -80,7 +81,9 @@ def main():
     wp_url = cfg['url']
     token  = cfg['token']
 
-    keys = sys.argv[1:] if len(sys.argv) > 1 else list(FILES.keys())
+    args = sys.argv[1:]
+    auto_yes = '-y' in args
+    keys = [a for a in args if a != '-y'] or list(FILES.keys())
     invalid = [k for k in keys if k not in FILES]
     if invalid:
         print(f'ERROR: Claves desconocidas: {invalid}')
@@ -97,10 +100,11 @@ def main():
     for key, (local, remote) in targets:
         print(f'  [{key}]  {local}  ->  {remote}')
     print('-' * 50)
-    confirm = input('Subir estos archivos? (s/n): ').strip().lower()
-    if confirm != 's':
-        print('Cancelado.')
-        sys.exit(0)
+    if not auto_yes:
+        confirm = input('Subir estos archivos? (s/n): ').strip().lower()
+        if confirm != 's':
+            print('Cancelado.')
+            sys.exit(0)
 
     print()
     ok_count = 0
