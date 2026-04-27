@@ -3532,6 +3532,24 @@ input, select, textarea { font: inherit; color: inherit; }
 
 /* ── WP overrides: tema inyecta estilos en hover/focus — forzar los nuestros ── */
 
+.topbar__lang-btn,
+.topbar__lang-btn:focus,
+.topbar__lang-btn:active {
+  background: var(--color-black) !important;
+  color: var(--color-white) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.topbar__lang-option,
+.topbar__lang-option:focus,
+.topbar__lang-option:active {
+  background: transparent !important;
+  color: var(--color-white) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .back-to-top,
 .back-to-top:focus,
 .back-to-top:focus-visible {
