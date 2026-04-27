@@ -2605,17 +2605,15 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .mascot-toggle {
   position: fixed;
-  bottom: 28px;
+  bottom: 44px;
   right: 24px;
   z-index: 90;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 12px;
+  pointer-events: none;
 }
 
 /* --- Character button (white circle) --- */
 .mascot-btn {
+  pointer-events: auto;
   width: 60px;
   height: 60px;
   background: #ffffff;
@@ -2665,7 +2663,9 @@ input, select, textarea { font: inherit; color: inherit; }
 
 /* --- Speech bubble --- */
 .mascot-bubble {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  right: 72px; /* 60px botón + 12px gap */
   background: #ffffff;
   border-radius: var(--radius-md);
   padding: 12px 14px 12px;
@@ -2699,6 +2699,7 @@ input, select, textarea { font: inherit; color: inherit; }
 .mascot-bubble.is-open {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: translateX(0) scale(1);
   transition:
     opacity 0.35s var(--ease-out),
@@ -2955,16 +2956,84 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 /* ============================================
+   RESPONSIVE: Tablets portrait — sección 2 layout apilado
+   Cubre iPad 9th (768), Air/10th (820), Pro 11" (834), Pro 12.9" (1024) en portrait.
+   Landscape queda con el layout desktop de 2 columnas (bloque 1024px+).
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .que-hace { height: auto; padding: 60px 0 80px; }
+  .que-hace__inner { grid-template-columns: 1fr; gap: 40px; }
+  .que-hace__title { font-size: 1.9rem; text-align: center; }
+  /* Todos los spans inline para fusionar "¿Qué hace La Manzana", highlight en bloque para forzar 2ª línea "por ti?" — igual en mini y Air */
+  .que-hace__title span { display: inline; }
+  .que-hace__title .highlight { display: block; }
+  .que-hace__content { align-self: auto; justify-content: flex-start; padding-bottom: 0; align-items: center; }
+  .que-hace__ilustracion { display: none; }
+  .que-hace__visual { align-items: center; }
+  /* Laptop 15% más pequeño; badges compensados para ser 20% más visibles */
+  .que-hace__laptop-frame { transform: scale(0.85); }
+  .que-hace__badge-247 { animation: none; transform: scale(1.2); }
+  .que-hace__badge-dispositivo { animation: none; top: 8px; transform: scale(0.9); transform-origin: top right; }
+  .faq__ilustracion { display: none; }
+  /* Contadores: 2×2 en portrait — 4 en fila queda demasiado ancho y deja espacio vacío */
+  .contadores__grid { grid-template-columns: repeat(2, 1fr); }
+  /* max-width: 80% reduce el bloque real (layout + cards por aspect-ratio) sin transform */
+  .contadores__wrapper { background-image: url('../assets/img/bloque_vidrio_cuadrado.png'); max-width: 80%; }
+  .contador-card__number { font-size: 2.4rem; }
+  /* Testimonios: card 10% más alta (380→418px) y bubble 10% más padding para que no se corte el contenido */
+  .testimonio-card { height: 418px; }
+  .testimonio-card__bubble { padding: 44px 35px 44px 53px; }
+}
+
+/* ============================================
+   RESPONSIVE: Tablets landscape — sección 2 ajustes por tamaño
+   hover:none excluye navegadores desktop con ventana estrecha.
+   ============================================ */
+
+/* Tablets landscape 768-1024px: layout 2 columnas con scale(1.3) desborda; reducir a 1.0 */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .que-hace__laptop-frame { transform: scale(1.0) translateZ(0); }
+}
+
+/* iPad mini (1024px) + iPad Air/10th (1180px): scale(1.3) desborda; reducir padding-bottom baja el bloque texto para alinearlo con el laptop */
+@media (min-width: 1024px) and (max-width: 1193px) and (orientation: landscape) and (hover: none) {
+  .que-hace__laptop-frame { transform: scale(1.0); }
+  .que-hace__content { padding-bottom: 40px; }
+  .faq__ilustracion { display: none; }
+}
+
+/* iPad Pro 11" (1194px) + 12.9" (1366px): ilustración más abajo, cortada por la sección */
+@media (min-width: 1194px) and (max-width: 1366px) and (orientation: landscape) and (hover: none) {
+  .que-hace__ilustracion {
+    margin-bottom: -440px;
+    transform: translateY(100px);
+  }
+  .faq__ilustracion { display: none; }
+}
+
+/* FAQ ilustraciones: se ocultan cuando el viewport es demasiado estrecho para que
+   quepan en los márgenes sin tocar las píldoras (el borde derecho toca a ~1646px) */
+@media (max-width: 1660px) {
+  .faq__ilustracion { display: none; }
+}
+
+/* ============================================
+   RESPONSIVE: Desktop ventana estrecha (hover:hover excluye tablets táctiles)
+   Evita que la laptop + badge "DESDE CUALQUIER DISPOSITIVO" se peguen al borde derecho
+   al reducir la ventana. Dos escalones: scale(1.0) hasta 1320px, scale(1.1) hasta 1440px.
+   ============================================ */
+@media (min-width: 1025px) and (max-width: 1320px) and (hover: hover) {
+  .que-hace__laptop-frame { transform: scale(1.0) translateZ(0); }
+}
+@media (min-width: 1321px) and (max-width: 1440px) and (hover: hover) {
+  .que-hace__laptop-frame { transform: scale(1.1) translateZ(0); }
+}
+
+/* ============================================
    RESPONSIVE: TABLET SOLO (768px–1023px) + MÓVIL (<768px) + MÓVIL PEQUEÑO (<480px)
    — Base: d8c6b98 (ajustes mobile) + nuevas features (ilustración, flecha, scroll hint)
    ============================================ */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .que-hace__badge-dispositivo {
-    top: 8px;
-    transform: scale(0.75);
-    transform-origin: top right;
-    animation: none;
-  }
   .contador-card__number { font-size: var(--text-5xl); }
   .contadores__wrapper { background-image: url('../assets/img/bloque_vidrio_cuadrado.png'); }
   .pilares { height: auto; padding: 60px 0; }
