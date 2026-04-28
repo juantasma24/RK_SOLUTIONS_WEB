@@ -132,7 +132,7 @@
     </div>
     <div class="container">
       <h2 class="autonomos__title anim-reveal">
-        Para autónomos, hostelería<br>y comercio<span class="dot-green">.</span>
+        Para autónomos, hostelería<br class="br--desktop"><span class="nowrap"> y <br class="br--mobile">comercio<span class="dot-green">.</span></span>
       </h2>
       <a href="#tpv-seq" class="hero__cta anim-reveal">
         <span>Así inicia tu negocio</span>
@@ -189,7 +189,7 @@
           <div class="pilar-item__icon">
             <img src="assets/img/check_verde.svg" alt="Cumple" width="72" height="72">
           </div>
-          <p class="pilar-item__label">Cumple<br>la normativa</p>
+          <p class="pilar-item__label">Cumple <br class="br--desktop">la <br class="br--mobile">normativa</p>
         </div>
       </div>
 
@@ -199,28 +199,40 @@
 
           <div class="contador-item anim-reveal anim-reveal--scale">
             <div class="contador-card">
-              <div class="contador-card__number">+<span class="counter-slot" data-target="3">3</span>K</div>
+              <div class="contador-card__number">
+                <span class="roll-1">+<span class="counter-slot" data-target="3">3</span>K</span>
+                <span class="roll-2" aria-hidden="true">+3K</span>
+              </div>
             </div>
             <p class="contador-item__label">Manzanas</p>
           </div>
 
           <div class="contador-item anim-reveal anim-reveal--scale">
             <div class="contador-card">
-              <div class="contador-card__number">+<span class="counter-slot" data-target="11">11</span>K</div>
+              <div class="contador-card__number">
+                <span class="roll-1">+<span class="counter-slot" data-target="11">11</span>K</span>
+                <span class="roll-2" aria-hidden="true">+11K</span>
+              </div>
             </div>
             <p class="contador-item__label">Clientes</p>
           </div>
 
           <div class="contador-item anim-reveal anim-reveal--scale">
             <div class="contador-card">
-              <div class="contador-card__number">+<span class="counter-slot" data-target="7">7</span></div>
+              <div class="contador-card__number">
+                <span class="roll-1">+<span class="counter-slot" data-target="7">7</span></span>
+                <span class="roll-2" aria-hidden="true">+7</span>
+              </div>
             </div>
             <p class="contador-item__label">Oficinas</p>
           </div>
 
           <div class="contador-item anim-reveal anim-reveal--scale">
             <div class="contador-card">
-              <div class="contador-card__number">+<span class="counter-slot" data-target="20">20</span></div>
+              <div class="contador-card__number">
+                <span class="roll-1">+<span class="counter-slot" data-target="20">20</span></span>
+                <span class="roll-2" aria-hidden="true">+20</span>
+              </div>
             </div>
             <p class="contador-item__label">Años</p>
           </div>
@@ -601,11 +613,8 @@
       <div class="faq__grid">
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span class="faq-item__plus">+</span>
             <span class="faq-item__text">¿Qué es La Manzana y para qué sirve?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
-            </div>
+            <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">La Manzana es un software de gestión integral que unifica facturación, fichajes, TPV y cumplimiento normativo (TicketBAI y VERI*FACTU) en una sola plataforma. Diseñado para autónomos, hostelería y comercio.</div>
@@ -614,11 +623,8 @@
 
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span class="faq-item__plus">+</span>
             <span class="faq-item__text">¿Tengo un comercio, es para mí?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
-            </div>
+            <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">Sí. La Manzana se adapta a cualquier tipo de comercio: retail, hostelería, servicios profesionales y más. Si necesitas gestionar ventas, fichajes o cumplir la normativa fiscal, es para ti.</div>
@@ -627,11 +633,8 @@
 
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span class="faq-item__plus">+</span>
             <span class="faq-item__text">¿Puedo usar La Manzana desde cualquier dispositivo?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
-            </div>
+            <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">Sí. Funciona desde ordenador, tablet y móvil. Accede a todos tus datos en tiempo real desde cualquier lugar con conexión a internet.</div>
@@ -640,11 +643,8 @@
 
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span class="faq-item__plus">+</span>
             <span class="faq-item__text">¿Cumple con TicketBAI y VERI*FACTU?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
-            </div>
+            <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">Sí, al 100%. La Manzana está homologada y actualizada para cumplir con TicketBAI (País Vasco) y VERI*FACTU (resto de España). Nos encargamos de las actualizaciones normativas.</div>
@@ -653,11 +653,8 @@
 
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span class="faq-item__plus">+</span>
             <span class="faq-item__text">¿Es fácil de usar para alguien que no es técnico?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
-            </div>
+            <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">Totalmente. Si sabes enviar un correo electrónico, sabes usar La Manzana. Además, incluimos formación completa y soporte humano 24/7 para cualquier duda.</div>
@@ -666,11 +663,8 @@
 
         <div class="faq-item anim-reveal">
           <button class="faq-item__question" aria-expanded="false">
-            <span class="faq-item__plus">+</span>
             <span class="faq-item__text">¿Puedo probar La Manzana antes de contratarla?</span>
-            <div class="faq-item__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
-            </div>
+            <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
             <div class="faq-item__answer-inner">Sí. Ofrecemos 12 meses sin coste para que pruebes todas las funcionalidades sin compromiso. Déjanos tus datos y te contactamos para empezar.</div>

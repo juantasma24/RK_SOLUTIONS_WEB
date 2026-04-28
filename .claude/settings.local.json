@@ -49,7 +49,10 @@
       "Skill(update-config)",
       "Bash(git checkout *)",
       "Bash(magick --version)",
-      "WebFetch(domain:evolve.es)"
+      "WebFetch(domain:evolve.es)",
+      "Bash(curl -s https://evolve.es/)",
+      "Bash(curl -s 'https://evolve.es/wp-content/themes/evolve/assets/css/style.css')",
+      "Bash(curl -s 'https://evolve.es/wp-content/themes/evolve/style.css')"
     ]
   }
 }

@@ -41,9 +41,47 @@ document.addEventListener('DOMContentLoaded', () => {
     if (current) sessionStorage.setItem('rk_section', current.id);
   }
 
-  // Guardar mientras el usuario scrollea (primario — siempre exacto)
+  // Preservar sección visible durante resize (evita saltos al cruzar breakpoints)
+  let _isResizing = false;
+  let _resizeEndTimer = null;
+  let _resizeSection = null;
+
+  function getVisibleSection() {
+    const hH = headerEl ? headerEl.offsetHeight : 0;
+    const threshold = window.scrollY + hH;
+    let current = _sections[0];
+    for (const s of _sections) {
+      if (s.getBoundingClientRect().top + window.scrollY <= threshold + 60) current = s;
+    }
+    return current;
+  }
+
+  window.addEventListener('resize', () => {
+    if (!_isResizing) {
+      _isResizing = true;
+      _resizeSection = getVisibleSection();
+    }
+    // Correct scroll on every resize tick — stops the visual jump caused by
+    // 350vh sections changing pixel height as viewport height changes
+    if (_resizeSection) {
+      const hH = headerEl ? headerEl.offsetHeight : 0;
+      window.scrollTo({ top: Math.max(0, _resizeSection.offsetTop - hH), behavior: 'instant' });
+    }
+    clearTimeout(_resizeEndTimer);
+    _resizeEndTimer = setTimeout(() => {
+      _isResizing = false;
+      if (_resizeSection) {
+        const hH = headerEl ? headerEl.offsetHeight : 0;
+        window.scrollTo({ top: Math.max(0, _resizeSection.offsetTop - hH), behavior: 'instant' });
+        _resizeSection = null;
+      }
+    }, 150);
+  }, { passive: true });
+
+  // Guardar mientras el usuario scrollea — no durante resize
   let _sectionTimer = null;
   window.addEventListener('scroll', () => {
+    if (_isResizing) return;
     clearTimeout(_sectionTimer);
     _sectionTimer = setTimeout(saveActiveSection, 150);
   }, { passive: true });
@@ -759,8 +797,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const raw = (vh * 1.5 - trigger.top) / (vh * 1.2);
           const p   = Math.max(0, Math.min(1, raw));
 
-          const topClip  = (45 * (1 - p)).toFixed(2);
-          const sideClip = (5  * (1 - p)).toFixed(2);
+          const topClip  = (62 * (1 - p)).toFixed(2);
+          const sideClip = (12 * (1 - p)).toFixed(2);
           const radius   = (24 - 8 * p).toFixed(1);
 
           queHaceVideo.style.clipPath =
