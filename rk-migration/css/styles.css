@@ -156,7 +156,7 @@ input, select, textarea { font: inherit; color: inherit; }
   font-weight: 600;
   border-radius: var(--radius-full);
   transition:
-    transform     0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform     0.25s var(--ease-out),
     background-color 0.22s ease,
     color         0.22s ease,
     border-color  0.22s ease,
@@ -166,6 +166,9 @@ input, select, textarea { font: inherit; color: inherit; }
   gap: 8px;
   padding: 12px 28px;
   font-size: var(--text-base);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 .btn--primary {
