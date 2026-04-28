@@ -41,8 +41,8 @@
     <!-- Navegación Izquierda -->
     <nav class="header__nav header__nav--left" id="navLeft">
       <ul>
-        <li><a href="#">Sobre Nosotros</a></li>
         <li><a href="#que-hace" class="active">La Manzana</a></li>
+        <li><a href="#">Sobre Nosotros</a></li>
         <li><a href="#">Soluciones</a></li>
       </ul>
     </nav>
@@ -76,8 +76,8 @@
   </div>
   <ul>
     <li><a href="#inicio" class="mobile-link">Inicio</a></li>
-    <li><a href="#" class="mobile-link">Sobre Nosotros</a></li>
     <li><a href="#que-hace" class="mobile-link">La Manzana</a></li>
+    <li><a href="#" class="mobile-link">Sobre Nosotros</a></li>
     <li><a href="#" class="mobile-link">Soluciones</a></li>
     <li><a href="#" class="mobile-link">Prensa</a></li>
     <li><a href="#" class="mobile-link">Trabaja con Nosotros</a></li>
@@ -127,62 +127,28 @@
        ============================================ -->
   <section class="que-hace section" id="que-hace">
     <div class="container">
-      <div class="que-hace__inner">
-        <!-- Lado izquierdo: texto -->
-        <div class="que-hace__content">
-          <h2 class="que-hace__title anim-reveal">
-            <span>¿Qué hace</span>
-            <span>La Manzana</span>
-            <span class="highlight">por ti?</span>
-          </h2>
+      <h2 class="que-hace__title anim-reveal text-center">
+        <span class="title-part">¿Qué hace</span> <span class="title-part">La Manzana por ti?</span>
+      </h2>
 
-          <ul class="que-hace__features anim-reveal">
-            <li>
-              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓" width="50" height="50" draggable="false"></span>
-              <span><strong>Gestiona</strong> tus ventas</span>
-            </li>
-            <li>
-              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓" width="50" height="50" draggable="false"></span>
-              <span><strong>Controla</strong> fichajes y horarios</span>
-            </li>
-            <li>
-              <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓" width="50" height="50" draggable="false"></span>
-              <span><strong>Cumple</strong> con TicketBAI (País Vasco) y VERI*FACTU (España)</span>
-            </li>
-          </ul>
+      <!-- Video YouTube autoplay -->
+      <div class="que-hace__video-wrap anim-reveal" id="queHaceVideo"></div>
 
-          <!-- Ilustración decorativa -->
-          <div class="que-hace__ilustracion" aria-hidden="true">
-            <img src="assets/img/ilustraciones/personaje_portatil.svg" alt="" loading="lazy" decoding="async" width="400" height="307">
-          </div>
-        </div><!-- /.que-hace__content -->
-
-        <!-- Lado derecho: laptop con video -->
-        <div class="que-hace__visual">
-          <div class="que-hace__laptop anim-slide-up">
-            <div class="que-hace__laptop-frame">
-              <img src="assets/img/laptop-mockup.png" alt="La Manzana en portátil" class="que-hace__laptop-img" width="1200" height="725" loading="eager" decoding="async" fetchpriority="high" draggable="false">
-              <div class="que-hace__laptop-screen">
-                <div class="youtube-facade" data-embed="ZVm05C_6VOs">
-                  <img src="https://img.youtube.com/vi/ZVm05C_6VOs/maxresdefault.jpg" alt="Demo La Manzana" class="youtube-facade__thumb" width="1280" height="720" loading="lazy" draggable="false">
-                  <button class="youtube-facade__play" aria-label="Reproducir vídeo">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                  </button>
-                </div>
-              </div>
-              <!-- Badge sobre la laptop -->
-              <div class="que-hace__badge-dispositivo">
-                <span>Desde cualquier</span>
-                <strong>DISPOSITIVO</strong>
-              </div>
-              <div class="que-hace__badge-247">
-                <span>SOPORTE</span>
-                <strong>24/7</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- Características alineadas horizontalmente debajo -->
+      <ul class="que-hace__features anim-reveal">
+        <li>
+          <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓" width="50" height="50" draggable="false"></span>
+          <span><strong>Gestiona</strong> tus ventas</span>
+        </li>
+        <li>
+          <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓" width="50" height="50" draggable="false"></span>
+          <span><strong>Controla</strong> fichajes y horarios</span>
+        </li>
+        <li>
+          <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓" width="50" height="50" draggable="false"></span>
+          <span><strong>Cumple</strong> con TicketBAI y VERI*FACTU</span>
+        </li>
+      </ul>
     </div>
     <a href="#autonomos" class="que-hace__arrow" id="queHaceArrow" aria-label="Ir a la siguiente sección">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>

@@ -55,7 +55,7 @@
   --spring:      cubic-bezier(0.34, 1.56, 0.64, 1);    /* Spring overshoot — botones, cards hover */
   --ease-snappy: cubic-bezier(0.2, 0, 0, 1);           /* Material You — settle rápido y preciso  */
 
-  --container-max: 1200px;
+  --container-max: 1385px;
   --header-height: 80px;
   --topbar-height: 46px;
 
@@ -220,7 +220,7 @@ input, select, textarea { font: inherit; color: inherit; }
   height: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 20px;
 }
 
 .topbar__social {
@@ -370,7 +370,7 @@ input, select, textarea { font: inherit; color: inherit; }
   height: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 20px;
   position: relative;
 }
 
@@ -403,7 +403,7 @@ input, select, textarea { font: inherit; color: inherit; }
 .header__nav ul {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 56px;
 }
 
 .header__nav a {
@@ -795,14 +795,18 @@ input, select, textarea { font: inherit; color: inherit; }
   position: relative;
   isolation: isolate;
   scroll-margin-top: var(--header-height);
-  height: calc(100vh - var(--header-height));
+  min-height: calc(100vh - var(--header-height));
   display: flex;
   align-items: center;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 16px;
+  padding-bottom: 30px;
 }
 
-.que-hace > .container,
+.que-hace > .container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
 .pilares > .container,
 .testimonios > .container,
 .planes > .container,
@@ -845,30 +849,20 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 
-.que-hace__inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px;
-  align-items: center;
-}
 
 .que-hace__title {
   font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: var(--text-4xl);
-  line-height: 1.05;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 0.85;
+  letter-spacing: -0.06em;
   color: var(--color-white-pure);
+  white-space: nowrap;
+  text-align: center;
+  margin-bottom: 32px;
 }
 
-.que-hace__title span {
-  display: block;
-}
 
-.que-hace__title .highlight {
-  color: var(--color-white-pure);
-  font-weight: 800;
-  font-style: italic;
-}
 
 /* Checkmark icons */
 .que-hace__check {
@@ -876,6 +870,7 @@ input, select, textarea { font: inherit; color: inherit; }
   align-items: center;
   justify-content: center;
   min-width: 20px;
+  flex-shrink: 0;
 }
 .que-hace__check img {
   width: 20px;
@@ -884,8 +879,9 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .que-hace__features {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  flex-direction: row;
+  justify-content: center;
+  gap: 32px;
   margin-top: 32px;
 }
 
@@ -895,212 +891,26 @@ input, select, textarea { font: inherit; color: inherit; }
   gap: 12px;
   font-size: var(--text-base);
   color: var(--color-white-pure);
+  line-height: 1.2;
 }
 
-.que-hace__features svg {
-  flex-shrink: 0;
-}
-
-/* Columna izquierda: grupo anclado al fondo, ilustración cortada por overflow:hidden */
-.que-hace__content {
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  justify-content: flex-end;
-  padding-bottom: 100px;
-}
-
-.que-hace__ilustracion {
-  margin-top: 28px;
-  margin-bottom: -350px;
-  line-height: 0;
-  transform: translateY(40px);
-}
-
-.que-hace__ilustracion img {
-  width: 380px;
-  max-width: 100%;
-  display: block;
-}
-
-/* Laptop */
-.que-hace__visual {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.que-hace__laptop {
-  position: relative;
-  will-change: transform, opacity;
-  transform: translateZ(0);
-}
-
-.que-hace__laptop-frame {
-  position: relative;
-  transform: scale(1.3) translateZ(0);
-  transform-origin: center center;
-  will-change: transform;
-}
-
-.que-hace__laptop-img {
+/* Video YouTube autoplay */
+.que-hace__video-wrap {
   width: 100%;
-  position: relative;
-  z-index: 2;
-  pointer-events: none; /* Permite hacer clic en el iframe a través del hueco transparente */
-}
-
-.que-hace__laptop-screen {
-  position: absolute;
-  top: 1.5%;
-  left: 10%;
-  width: 80%;
-  height: 90%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  border-radius: 4px;
-  z-index: 1;
-}
-
-/* YouTube Facade */
-.youtube-facade {
+  background: var(--color-dark);
   position: relative;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  background: var(--color-black);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
 }
 
-.youtube-facade__thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.45s var(--ease-out), filter 0.45s ease;
-  filter: brightness(0.85);
-}
-
-.youtube-facade:hover .youtube-facade__thumb {
-  transform: scale(1.05);
-  filter: brightness(0.5);
-}
-
-.youtube-facade__play {
-  position: absolute;
-  z-index: 2;
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-full);
-  background: var(--color-primary);
-  border: none;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s var(--spring), background-color 0.25s ease, box-shadow 0.25s ease;
-  pointer-events: none; /* el click lo recibe el envoltorio padre */
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .youtube-facade:hover .youtube-facade__play {
-    transform: scale(1.1);
-    background: var(--color-white-pure);
-    color: var(--color-primary);
-    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
-  }
-}
-
-.youtube-facade__play svg {
-  width: 24px;
-  height: 24px;
-  color: var(--color-white-pure);
-  margin-left: 3px;
-  transition: color 0.25s ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .youtube-facade:hover .youtube-facade__play svg {
-    color: var(--color-primary);
-  }
-}
-
-.youtube-facade iframe {
+.que-hace__video-wrap iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   border: none;
-}
-
-/* Badges superiores — 24/7 + Dispositivo */
-.que-hace__badge-247,
-.que-hace__badge-dispositivo {
-  position: absolute;
-  z-index: 10;
-  padding: 14px 24px;
-  border-radius: var(--radius-lg);
-  background: rgba(0, 0, 0, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  text-align: center;
-  transform: translateZ(0); /* Aísla la animación infinita en su propia capa GPU */
-  will-change: transform;
-}
-
-.que-hace__badge-247 {
-  bottom: 15%;
-  left: 2%;
-  top: auto;
-  line-height: 1.1;
-  animation: badgeFloat 3.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-}
-
-.que-hace__badge-dispositivo {
-  top: 0;
-  right: 0;
-  transform: translateY(-50%) scale(0.85);
-  transform-origin: top right;
-  line-height: 1.1;
-  animation: badgeFloat2 3.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-}
-
-@keyframes badgeFloat {
-  0%, 100% { transform: translateY(0)    rotate(-0.4deg); }
-  40%       { transform: translateY(-9px) rotate(0.3deg);  }
-  60%       { transform: translateY(-8px) rotate(0.5deg);  }
-}
-@keyframes badgeFloat2 {
-  0%, 100% { transform: translateY(-50%) scale(0.85) rotate(0.3deg);        }
-  45%       { transform: translateY(calc(-50% - 9px)) scale(0.85) rotate(-0.4deg); }
-  65%       { transform: translateY(calc(-50% - 7px)) scale(0.85) rotate(-0.3deg); }
-}
-
-.que-hace__badge-247 span,
-.que-hace__badge-dispositivo span {
-  display: block;
-  font-size: var(--text-xs);
-  color: var(--color-white);
-  opacity: 0.8;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.que-hace__badge-247 strong {
-  display: block;
-  font-size: var(--text-2xl);
-  font-weight: 800;
-  color: var(--color-primary);
-}
-
-.que-hace__badge-dispositivo strong {
-  display: block;
-  font-size: var(--text-lg);
-  font-weight: 800;
-  color: var(--color-primary);
-  letter-spacing: -0.02em;
 }
 
 /* ============================================
@@ -2664,7 +2474,7 @@ input, select, textarea { font: inherit; color: inherit; }
 /* --- Speech bubble --- */
 .mascot-bubble {
   position: absolute;
-  bottom: 0;
+  bottom: -8px;
   right: 72px; /* 60px botón + 12px gap */
   background: #ffffff;
   border-radius: var(--radius-md);
@@ -2863,9 +2673,9 @@ input, select, textarea { font: inherit; color: inherit; }
 .planes__grid    .anim-reveal:nth-child(3) { transition-delay: 100ms; }
 
 /* Stagger Sección 2 (Qué hace) */
-.que-hace__content .anim-reveal:nth-child(1) { transition-delay: 0ms; }
-.que-hace__content .anim-reveal:nth-child(2) { transition-delay: 60ms; }
-.que-hace__visual .anim-slide-up { transition-delay: 120ms; }
+.que-hace__title.anim-reveal { transition-delay: 0ms; }
+.que-hace__video-wrap.anim-reveal { transition-delay: 80ms; }
+.que-hace__features.anim-reveal { transition-delay: 160ms; }
 
 /* Stagger Sección 3 (Autónomos) */
 .autonomos .anim-reveal:nth-child(1) { transition-delay: 0ms; }
@@ -2887,8 +2697,8 @@ input, select, textarea { font: inherit; color: inherit; }
 
   .hero__title-line { font-size: 5.4rem; }
 
-  .que-hace__inner { grid-template-columns: 1fr 1fr; gap: 60px; }
-  .que-hace__title { font-size: var(--text-5xl); }
+  .que-hace { padding: 32px 0 56px; }
+  .que-hace__title { font-size: 3rem; }
   .planes__titulo  { font-size: var(--text-5xl); }
 
   .autonomos { min-height: 500px; }
@@ -2933,7 +2743,10 @@ input, select, textarea { font: inherit; color: inherit; }
 
   .hero__title-line { font-size: 6.75rem; }
 
-  .que-hace__title { font-size: var(--text-6xl); }
+  .que-hace { padding: 28px 0 60px; }
+
+
+  .que-hace__title { font-size: 4rem; }
   .planes__titulo  { font-size: var(--text-6xl); }
   .pilares .section-title { font-size: var(--text-6xl); }
 
@@ -2961,19 +2774,7 @@ input, select, textarea { font: inherit; color: inherit; }
    Landscape queda con el layout desktop de 2 columnas (bloque 1024px+).
    ============================================ */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
-  .que-hace { height: auto; padding: 60px 0 80px; }
-  .que-hace__inner { grid-template-columns: 1fr; gap: 40px; }
-  .que-hace__title { font-size: 1.9rem; text-align: center; }
-  /* Todos los spans inline para fusionar "¿Qué hace La Manzana", highlight en bloque para forzar 2ª línea "por ti?" — igual en mini y Air */
-  .que-hace__title span { display: inline; }
-  .que-hace__title .highlight { display: block; }
-  .que-hace__content { align-self: auto; justify-content: flex-start; padding-bottom: 0; align-items: center; }
-  .que-hace__ilustracion { display: none; }
-  .que-hace__visual { align-items: center; }
-  /* Laptop 15% más pequeño; badges compensados para ser 20% más visibles */
-  .que-hace__laptop-frame { transform: scale(0.85); }
-  .que-hace__badge-247 { animation: none; transform: scale(1.2); }
-  .que-hace__badge-dispositivo { animation: none; top: 8px; transform: scale(0.9); transform-origin: top right; }
+  .que-hace__title { font-size: 3.2rem; white-space: normal; }
   .faq__ilustracion { display: none; }
   /* Contadores: 2×2 en portrait — 4 en fila queda demasiado ancho y deja espacio vacío */
   .contadores__grid { grid-template-columns: repeat(2, 1fr); }
@@ -2986,28 +2787,16 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 /* ============================================
-   RESPONSIVE: Tablets landscape — sección 2 ajustes por tamaño
-   hover:none excluye navegadores desktop con ventana estrecha.
+   RESPONSIVE: Tablets landscape — sección 2
    ============================================ */
 
-/* Tablets landscape 768-1024px: layout 2 columnas con scale(1.3) desborda; reducir a 1.0 */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-  .que-hace__laptop-frame { transform: scale(1.0) translateZ(0); }
-}
-
-/* iPad mini (1024px) + iPad Air/10th (1180px): scale(1.3) desborda; reducir padding-bottom baja el bloque texto para alinearlo con el laptop */
+/* iPad mini (1024px) + iPad Air/10th (1180px): ocultar FAQ ilustraciones */
 @media (min-width: 1024px) and (max-width: 1193px) and (orientation: landscape) and (hover: none) {
-  .que-hace__laptop-frame { transform: scale(1.0); }
-  .que-hace__content { padding-bottom: 40px; }
   .faq__ilustracion { display: none; }
 }
 
-/* iPad Pro 11" (1194px) + 12.9" (1366px): ilustración más abajo, cortada por la sección */
+/* iPad Pro 11" (1194px) + 12.9" (1366px): ocultar FAQ ilustraciones */
 @media (min-width: 1194px) and (max-width: 1366px) and (orientation: landscape) and (hover: none) {
-  .que-hace__ilustracion {
-    margin-bottom: -440px;
-    transform: translateY(100px);
-  }
   .faq__ilustracion { display: none; }
 }
 
@@ -3017,17 +2806,6 @@ input, select, textarea { font: inherit; color: inherit; }
   .faq__ilustracion { display: none; }
 }
 
-/* ============================================
-   RESPONSIVE: Desktop ventana estrecha (hover:hover excluye tablets táctiles)
-   Evita que la laptop + badge "DESDE CUALQUIER DISPOSITIVO" se peguen al borde derecho
-   al reducir la ventana. Dos escalones: scale(1.0) hasta 1320px, scale(1.1) hasta 1440px.
-   ============================================ */
-@media (min-width: 1025px) and (max-width: 1320px) and (hover: hover) {
-  .que-hace__laptop-frame { transform: scale(1.0) translateZ(0); }
-}
-@media (min-width: 1321px) and (max-width: 1440px) and (hover: hover) {
-  .que-hace__laptop-frame { transform: scale(1.1) translateZ(0); }
-}
 
 /* ============================================
    RESPONSIVE: TABLET SOLO (768px–1023px) + MÓVIL (<768px) + MÓVIL PEQUEÑO (<480px)
@@ -3110,41 +2888,23 @@ input, select, textarea { font: inherit; color: inherit; }
     gap: 16px;
   }
 
-  /* --- QUE-HACE: centrar contenido en 1 columna --- */
-  .que-hace__content {
-    text-align: center;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
+  /* Sección 2: a menos de 768px mantenemos en una línea pero ajustamos tamaño */
+  .que-hace__features { flex-direction: row; flex-wrap: nowrap; justify-content: center; gap: 16px; margin-top: 24px; }
+  .que-hace__title { font-size: 2rem; white-space: nowrap; }
+  .que-hace__title .title-part { display: inline; }
 
-  .que-hace__ilustracion {
-    display: none;
-  }
+}
 
-  .que-hace__features {
-    align-items: center; /* centra cada li como bloque */
-  }
-
-  .que-hace__features li {
-    align-items: flex-start; /* icono anclado al top cuando el texto rompe línea */
-    max-width: 300px;        /* limita el ancho para que el centrado se vea limpio */
-    width: 100%;
-    text-align: left;        /* texto alineado a la izquierda dentro del bloque centrado */
-  }
-
-  /* Neutralizar scale del laptop */
-  .que-hace__laptop-frame {
-    transform: scale(1);
-  }
-
-  .que-hace__badge-dispositivo {
-    top: 8px;
-    transform: scale(0.75);
-    transform-origin: top right;
-    animation: none;
-  }
-
-
+/* ============================================
+   RESPONSIVE: MÓVIL ESTRICTO (<576px)
+   ============================================ */
+@media (max-width: 576px) {
+  /* Sección 2: colapso total */
+  .que-hace__features { flex-direction: column; align-items: center; gap: 8px; margin-top: 24px; }
+  .que-hace__title { font-size: 2.8rem; line-height: 1.05; white-space: normal; }
+  .que-hace__title .title-part { display: block; }
+  
+  .que-hace__video-wrap { aspect-ratio: 4 / 5; }
 
   .contadores__wrapper { background-image: url('../assets/img/bloque_vidrio_cuadrado.png'); }
   .pilares { height: auto; padding: 60px 0; }
@@ -3202,7 +2962,6 @@ input, select, textarea { font: inherit; color: inherit; }
     line-height: 1.45;
     overflow: visible;
     display: block;
-    -webkit-line-clamp: unset;
   }
 
   /* Evita que nombres largos rompan el layout */
@@ -3417,9 +3176,6 @@ input, select, textarea { font: inherit; color: inherit; }
 /* ============================================
    RESPONSIVE: LARGE DESKTOP (1280px+)
    ============================================ */
-@media (min-width: 1280px) {
-  .container { padding: 0 40px; }
-}
 
 /* ============================================
    PREFERENCIA DE MOVIMIENTO REDUCIDO
@@ -3637,6 +3393,7 @@ input, select, textarea { font: inherit; color: inherit; }
   background: transparent !important;
   border: none !important;
   -webkit-appearance: none !important;
+  appearance: none !important;
 }
 
 @media (max-width: 767px) {
@@ -3651,5 +3408,44 @@ input, select, textarea { font: inherit; color: inherit; }
     background: var(--color-gray-800);
     border-color: var(--glass-border);
     box-shadow: none;
+  }
+}
+
+/* ============================================
+   HACK: Ocultar textos de YouTube (Título/UI)
+   Recortamos solo el top/bottom (sin zoom horizontal) y 
+   retrasamos la opacidad para esconder el Play inicial.
+   ============================================ */
+.que-hace__video-wrap {
+  overflow: hidden !important;
+  position: relative;
+  background: var(--color-dark);
+}
+
+.que-hace__video-wrap iframe {
+  position: absolute;
+  top: -80px; 
+  left: 0;
+  width: 100%;
+  height: calc(100% + 160px); 
+}
+
+/* Object-fit cover simulado para el iframe en móviles y tablets (formato 5:4) */
+@media (max-width: 1024px) {
+  .que-hace__video-wrap {
+    aspect-ratio: 5 / 4;
+  }
+  .que-hace__video-wrap iframe {
+    width: auto;
+    aspect-ratio: 16 / 9;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* En móvil estricto forzamos a 4:5 (más vertical) */
+@media (max-width: 576px) {
+  .que-hace__video-wrap {
+    aspect-ratio: 4 / 5;
   }
 }

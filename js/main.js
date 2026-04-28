@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }, { once: true });
         }
       });
-    }, { threshold: 0.2, rootMargin: '0px 0px -160px 0px' });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
     revealElements.forEach(el => {
       if (!el.classList.contains('visible')) revealObserver.observe(el);
@@ -405,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function injectIframe(muted) {
       const muteParam = muted ? '&mute=1' : '';
-      ytFacade.innerHTML = `<iframe src="https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0${muteParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      ytFacade.innerHTML = `<iframe src="https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3${muteParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     }
 
     // Click: autoplay con sonido
@@ -718,6 +718,32 @@ document.addEventListener('DOMContentLoaded', () => {
       new IntersectionObserver((entries) => {
         queHaceArrow.classList.toggle('hidden', entries[0].isIntersecting);
       }, { threshold: 0.15 }).observe(tpvSection);
+    }
+
+    /* Video autoplay sección 2: control nativo de YouTube (permite pausar al clic) */
+    const queHaceVideo = document.getElementById('queHaceVideo');
+    if (queHaceVideo) {
+      let iframe = null;
+
+      new IntersectionObserver((entries) => {
+        const isVisible = entries[0].isIntersecting;
+        
+        if (isVisible && !iframe) {
+          // 1. Inyección inicial
+          iframe = document.createElement('iframe');
+          iframe.src = 'https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&playsinline=1&enablejsapi=1&disablekb=1&modestbranding=1&rel=0&iv_load_policy=3';
+          iframe.allow = 'autoplay; encrypted-media';
+          iframe.allowFullscreen = true;
+          queHaceVideo.appendChild(iframe);
+        } else if (iframe && iframe.contentWindow) {
+          // 2. Control dinámico vía API
+          if (isVisible) {
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+          } else {
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*');
+          }
+        }
+      }, { threshold: 0.15 }).observe(queHaceVideo);
     }
 
     /* Scroll hint: visible al inicio, desaparece en frame 50 */

@@ -40,8 +40,8 @@
     <!-- Navegación Izquierda -->
     <nav class="header__nav header__nav--left" id="navLeft">
       <ul>
-        <li><a href="#">Sobre Nosotros</a></li>
         <li><a href="#que-hace" class="active">La Manzana</a></li>
+        <li><a href="#">Sobre Nosotros</a></li>
         <li><a href="#">Soluciones</a></li>
       </ul>
     </nav>
@@ -75,8 +75,8 @@
   </div>
   <ul>
     <li><a href="#inicio" class="mobile-link">Inicio</a></li>
-    <li><a href="#" class="mobile-link">Sobre Nosotros</a></li>
     <li><a href="#la-manzana" class="mobile-link">La Manzana</a></li>
+    <li><a href="#" class="mobile-link">Sobre Nosotros</a></li>
     <li><a href="#" class="mobile-link">Soluciones</a></li>
     <li><a href="#" class="mobile-link">Prensa</a></li>
     <li><a href="#" class="mobile-link">Trabaja con Nosotros</a></li>
