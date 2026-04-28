@@ -744,6 +744,38 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       }, { threshold: 0.15 }).observe(queHaceVideo);
+
+      /* Animación scrubbed: el video-wrap crece desde abajo al scrollear */
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const queHaceSection = document.getElementById('que-hace');
+        let rafPending = false;
+
+        function updateVideoGrow() {
+          rafPending = false;
+          const vh      = window.innerHeight;
+          const trigger = (queHaceSection || queHaceVideo).getBoundingClientRect();
+          // p=0: sección está 50% del viewport por debajo del fold (antes de ser visible)
+          // p=1: top de la sección llega al 30% del viewport
+          const raw = (vh * 1.5 - trigger.top) / (vh * 1.2);
+          const p   = Math.max(0, Math.min(1, raw));
+
+          const topClip  = (45 * (1 - p)).toFixed(2);
+          const sideClip = (5  * (1 - p)).toFixed(2);
+          const radius   = (24 - 8 * p).toFixed(1);
+
+          queHaceVideo.style.clipPath =
+            `inset(${topClip}% ${sideClip}% 0% ${sideClip}% round ${radius}px)`;
+        }
+
+        window.addEventListener('scroll', () => {
+          if (!rafPending) {
+            rafPending = true;
+            requestAnimationFrame(updateVideoGrow);
+          }
+        }, { passive: true });
+
+        updateVideoGrow(); // calcula el estado correcto al cargar
+      }
     }
 
     /* Scroll hint: visible al inicio, desaparece en frame 50 */

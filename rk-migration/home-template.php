@@ -132,7 +132,7 @@
       </h2>
 
       <!-- Video YouTube autoplay -->
-      <div class="que-hace__video-wrap anim-reveal" id="queHaceVideo"></div>
+      <div class="que-hace__video-wrap" id="queHaceVideo"></div>
 
       <!-- Características alineadas horizontalmente debajo -->
       <ul class="que-hace__features anim-reveal">

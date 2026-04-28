@@ -902,6 +902,7 @@ input, select, textarea { font: inherit; color: inherit; }
   overflow: hidden;
   background: var(--color-dark);
   position: relative;
+  clip-path: inset(45% 5% 0% 5% round 24px); /* estado inicial — JS lo actualiza en scroll */
 }
 
 .que-hace__video-wrap iframe {
@@ -2673,8 +2674,7 @@ input, select, textarea { font: inherit; color: inherit; }
 .planes__grid    .anim-reveal:nth-child(3) { transition-delay: 100ms; }
 
 /* Stagger Sección 2 (Qué hace) */
-.que-hace__title.anim-reveal { transition-delay: 0ms; }
-.que-hace__video-wrap.anim-reveal { transition-delay: 80ms; }
+.que-hace__title.anim-reveal    { transition-delay: 0ms; }
 .que-hace__features.anim-reveal { transition-delay: 160ms; }
 
 /* Stagger Sección 3 (Autónomos) */
@@ -3205,6 +3205,10 @@ input, select, textarea { font: inherit; color: inherit; }
   .anim-slide-up.visible {
     opacity: 1;
     transform: none;
+  }
+
+  .que-hace__video-wrap {
+    clip-path: none !important;
   }
 
   .topbar__lang-menu {
