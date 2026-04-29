@@ -52,7 +52,15 @@
       "WebFetch(domain:evolve.es)",
       "Bash(curl -s https://evolve.es/)",
       "Bash(curl -s 'https://evolve.es/wp-content/themes/evolve/assets/css/style.css')",
-      "Bash(curl -s 'https://evolve.es/wp-content/themes/evolve/style.css')"
+      "Bash(curl -s 'https://evolve.es/wp-content/themes/evolve/style.css')",
+      "Bash(curl -sI -L -A \"Mozilla/5.0\" https://juandiego.rkinformatika.online/)",
+      "Bash(curl -sI -L -A \"Mozilla/5.0\" -H \"Accept-Encoding: gzip, br\" https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration-light/assets/img/frames_tpv/final_motion_tpv_00100.webp)",
+      "Bash(curl -sI -L -A \"Mozilla/5.0\" -H \"Accept-Encoding: gzip, br\" https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration-light/css/styles.css)",
+      "Bash(curl -sI -L -A \"Mozilla/5.0\" -H \"Accept-Encoding: gzip, br\" https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration-light/js/main.js)",
+      "Bash(curl -sI -L -A \"Mozilla/5.0\" https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration-light/assets/img/laptop-mockup.png)",
+      "Bash(curl -sI -L -A \"Mozilla/5.0\" https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration-light/assets/img/video-autonomos.mp4)",
+      "Bash(curl -sI -L -A \"Mozilla/5.0\" https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration-light/assets/img/avatars/avatar-47.jpg)",
+      "Bash(curl -sI -L -A \"Mozilla/5.0\" \"https://i.pravatar.cc/48?img=47\")"
     ]
   }
 }

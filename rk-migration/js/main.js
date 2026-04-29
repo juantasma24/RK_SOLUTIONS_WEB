@@ -988,6 +988,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let sequence = [];
     let seqIdx   = 0;
     let stepTimer = null;
+    let heroPatternRafActive = false;
 
     const svgPaths = [
       'M18.7,7.5c.1-.5.1-1.7,0-2.2s-.5-1.5-.8-1.9c-.4-.5-1.5-1.2-2.1-1.5-1.1-.6-4.5-1.5-4.5-1.5,0,0-.3,3.4-.1,4.4.1.7.6,1.9,1.1,2.4.3.4,1.1,1,1.5,1.2.4.3,1.5.6,2,.7.6.2,2.4.3,2.4.3h0s.4-1.4.5-1.9Z',
@@ -1109,7 +1110,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.filter = 'none';
       }
 
-      requestAnimationFrame(() => draw(imgW, imgG));
+      // Solo continuar el loop mientras haya algo que animar
+      if (dirty || targetCell !== null) requestAnimationFrame(() => draw(imgW, imgG));
+      else heroPatternRafActive = false;
     }
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1146,9 +1149,11 @@ document.addEventListener('DOMContentLoaded', () => {
           seqIdx = 0;
           targetCell = sequence[0];
           scheduleNext();
+          if (!heroPatternRafActive) { heroPatternRafActive = true; draw(imgW, imgG); }
         }, 150);
       });
 
+      heroPatternRafActive = true;
       draw(imgW, imgG);
     });
   })();
