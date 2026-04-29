@@ -782,7 +782,7 @@ document.addEventListener('DOMContentLoaded', () => {
             iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*');
           }
         }
-      }, { threshold: 0.15 }).observe(queHaceVideo);
+      }, { threshold: 0.7 }).observe(queHaceVideo);
 
       /* Animación scrubbed: el video-wrap crece desde abajo al scrollear */
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -888,26 +888,31 @@ document.addEventListener('DOMContentLoaded', () => {
       target = getProgress() * (FRAMES - 1);
     }, { passive: true });
 
-    for (let i = 0; i < FRAMES; i++) {
-      const img = new Image();
-      img.onload = function () {
-        loadedCount++;
-        if (i === 0) {
-          naturalW = img.naturalWidth;
-          naturalH = img.naturalHeight;
-          setCanvasSize();
-          drawFrame(0);
-        }
-        if (loadedCount === FRAMES) {
-          allReady = true;
-          current = target = getProgress() * (FRAMES - 1);
-          drawFrame(Math.round(current));
-          if (inView && !rafId) rafId = requestAnimationFrame(loop);
-        }
-      };
-      img.src   = frameUrl(i);
-      images[i] = img;
-    }
+    // Cargar los 270 frames solo cuando la sección está cerca del viewport
+    new IntersectionObserver((entries, obs) => {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      for (let i = 0; i < FRAMES; i++) {
+        const img = new Image();
+        img.onload = function () {
+          loadedCount++;
+          if (i === 0) {
+            naturalW = img.naturalWidth;
+            naturalH = img.naturalHeight;
+            setCanvasSize();
+            drawFrame(0);
+          }
+          if (loadedCount === FRAMES) {
+            allReady = true;
+            current = target = getProgress() * (FRAMES - 1);
+            drawFrame(Math.round(current));
+            if (inView && !rafId) rafId = requestAnimationFrame(loop);
+          }
+        };
+        img.src   = frameUrl(i);
+        images[i] = img;
+      }
+    }, { rootMargin: '500px 0px 500px 0px', threshold: 0 }).observe(tpvSection);
   }
 
   /* --- Mascot Character Toggle --- */
@@ -1040,12 +1045,14 @@ document.addEventListener('DOMContentLoaded', () => {
       buildSequence();
     }
 
+    let animDone = false;
+
     let scheduleNext = function () {
       clearTimeout(stepTimer);
       seqIdx++;
       if (seqIdx >= sequence.length) {
-        // Una sola pasada — para la animación al terminar
         targetCell = null;
+        animDone = true;
       } else {
         stepTimer = setTimeout(() => {
           targetCell = sequence[seqIdx];
@@ -1143,12 +1150,14 @@ document.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('resize', () => {
         clearTimeout(resizeT);
         resizeT = setTimeout(() => {
-          clearTimeout(stepTimer);
           resize();
           firstFrame = true;
-          seqIdx = 0;
-          targetCell = sequence[0];
-          scheduleNext();
+          if (!animDone) {
+            clearTimeout(stepTimer);
+            seqIdx = 0;
+            targetCell = sequence[0];
+            scheduleNext();
+          }
           if (!heroPatternRafActive) { heroPatternRafActive = true; draw(imgW, imgG); }
         }, 150);
       });
