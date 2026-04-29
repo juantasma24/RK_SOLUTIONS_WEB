@@ -612,12 +612,7 @@ input, select, textarea { font: inherit; color: inherit; }
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.2;
   contain: layout paint;
-  background-image: url('../assets/img/pattern_manzanas_outline.svg');
-  background-repeat: repeat;
-  background-size: 200px;
-  background-position: center;
 }
 
 @keyframes patternScroll {
