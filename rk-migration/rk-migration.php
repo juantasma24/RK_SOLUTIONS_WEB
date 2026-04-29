@@ -10,6 +10,32 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Crear .htaccess con cache de assets si no existe
+add_action('init', function () {
+    $htaccess = plugin_dir_path(__FILE__) . '.htaccess';
+    if (!file_exists($htaccess)) {
+        file_put_contents($htaccess,
+            "# Cache assets — seguro: WP usa filemtime() para cache-busting\n" .
+            "<IfModule mod_expires.c>\n" .
+            "  ExpiresActive On\n" .
+            "  ExpiresByType text/css               \"access plus 1 year\"\n" .
+            "  ExpiresByType application/javascript \"access plus 1 year\"\n" .
+            "  ExpiresByType image/webp             \"access plus 1 year\"\n" .
+            "  ExpiresByType image/png              \"access plus 1 year\"\n" .
+            "  ExpiresByType image/jpeg             \"access plus 1 year\"\n" .
+            "  ExpiresByType image/svg+xml          \"access plus 1 year\"\n" .
+            "  ExpiresByType video/mp4              \"access plus 1 year\"\n" .
+            "  ExpiresByType font/woff2             \"access plus 1 year\"\n" .
+            "</IfModule>\n\n" .
+            "<IfModule mod_headers.c>\n" .
+            "  <FilesMatch \"\.(css|js|webp|png|jpg|jpeg|svg|mp4|woff2)$\">\n" .
+            "    Header set Cache-Control \"public, max-age=31536000, immutable\"\n" .
+            "  </FilesMatch>\n" .
+            "</IfModule>\n"
+        );
+    }
+});
+
 // SEGURIDAD: cabeceras HTTP
 add_action('send_headers', 'rk_security_headers');
 function rk_security_headers() {
@@ -71,7 +97,6 @@ function rk_enqueue_home_assets() {
     // Override: rutas absolutas para background-images (evita roturas con plugins de caché que mueven la CSS)
     $pu = plugin_dir_url(__FILE__);
     wp_add_inline_style('rk-main-css', "
-        .hero__pattern{background-image:url('{$pu}assets/img/pattern_manzanas_outline.svg')!important}
         .que-hace::before,.planes::before{background:url('{$pu}assets/img/pattern_manzanas_outline.webp') no-repeat center center!important;background-size:contain!important}
         .que-hace::after,.planes::after{background:url('{$pu}assets/img/pattern_manzanas_outline.webp') no-repeat center center!important;background-size:contain!important}
         .contadores__wrapper{background:url('{$pu}assets/img/bloque_vidrio.webp') no-repeat center center!important;background-size:100% 100%!important}
@@ -138,6 +163,7 @@ function rk_deploy_file(WP_REST_Request $request) {
         'js/main.js',
         'home-template.php',
         'rk-migrations.php',
+        '.htaccess',
     );
 
     $file_path = sanitize_text_field($request->get_param('path'));

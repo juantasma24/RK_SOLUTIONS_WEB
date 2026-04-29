@@ -467,6 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (bgVideo) {
     new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
+        if (bgVideo.preload === 'none') { bgVideo.preload = 'auto'; bgVideo.load(); }
         setTimeout(() => bgVideo.play(), 0);
       } else {
         bgVideo.pause();
@@ -536,14 +537,14 @@ document.addEventListener('DOMContentLoaded', () => {
         .forEach((d, i) => d.classList.toggle('active', i === zone));
     }
 
-    // Salto silencioso: quita transición, mueve, fuerza reflow, restaura transición
+    // Salto silencioso: quita transición, mueve, restaura en siguiente frame (sin forzar reflow)
     function jumpTo(idx) {
       currentIndex = idx;
       testimoniosTrack.style.transition = 'none';
       testimoniosTrack.style.transform  = `translateX(-${(currentIndex * 100) / vis()}%)`;
-      // offsetWidth fuerza al browser a aplicar los estilos ANTES de continuar
-      void testimoniosTrack.offsetWidth;
-      testimoniosTrack.style.transition = TRANSITION;
+      requestAnimationFrame(() => {
+        testimoniosTrack.style.transition = TRANSITION;
+      });
     }
 
     // Movimiento animado normal
@@ -626,11 +627,11 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        // Recalcular posición sin animación en resize
         testimoniosTrack.style.transition = 'none';
         testimoniosTrack.style.transform  = `translateX(-${(currentIndex * 100) / vis()}%)`;
-        void testimoniosTrack.offsetWidth;
-        testimoniosTrack.style.transition = TRANSITION;
+        requestAnimationFrame(() => {
+          testimoniosTrack.style.transition = TRANSITION;
+        });
       }, 250);
     });
 
@@ -765,7 +766,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       new IntersectionObserver((entries) => {
         const isVisible = entries[0].isIntersecting;
-        
+
         if (isVisible && !iframe) {
           // 1. Inyección inicial
           iframe = document.createElement('iframe');
@@ -958,12 +959,214 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+  /* ============================================
+     HERO PATTERN — Canvas animación zigzag automática
+     Recorre todas las celdas en serpentina, efecto hover suave
+     ============================================ */
+  (function () {
+    const canvas = document.getElementById('hero-pattern-canvas');
+    if (!canvas) return;
+    const hero = canvas.closest('.hero');
+    if (!hero) return;
+
+    const ctx  = canvas.getContext('2d');
+    const GLOW      = '#5ea84a';
+    const LERP      = 0.07;        // suavidad del fade in/out
+    const BASE_ALPHA = 0.18;       // opacidad blanco base
+    const BASE_CELL = 200;
+    const BASE_W    = 1440;
+    const STEP_MS   = 120;         // ms entre celda y celda
+    const PAUSE_MS  = 2000;        // pausa antes de reiniciar
+
+    let W, H, CELL, sX, sY, cols, rows;
+    let targetCell = null;
+    const alphas   = {};
+    let firstFrame = true;
+
+    // Secuencia zigzag — se recalcula tras cada resize
+    let sequence = [];
+    let seqIdx   = 0;
+    let stepTimer = null;
+
+    const svgPaths = [
+      'M18.7,7.5c.1-.5.1-1.7,0-2.2s-.5-1.5-.8-1.9c-.4-.5-1.5-1.2-2.1-1.5-1.1-.6-4.5-1.5-4.5-1.5,0,0-.3,3.4-.1,4.4.1.7.6,1.9,1.1,2.4.3.4,1.1,1,1.5,1.2.4.3,1.5.6,2,.7.6.2,2.4.3,2.4.3h0s.4-1.4.5-1.9Z',
+      'M17.4,28.6c-1.6,0-3-.1-4.2-.2-1.3-.2-2.3-.5-3.1-1-.8-.5-1.3-1.2-1.7-2-.3-.8-.5-2-.5-3.4s.2-2.5.5-3.4c.3-.8.9-1.5,1.7-2,.8-.4,1.8-.8,3.1-1,.6,0,1.2-.1,1.9-.2l2.5-4.7c-1-.4-5.3-2.2-7.1-1.8-2.3.5-4.2,1.8-5.6,3C2.1,14.4.5,17.5.5,22.1s1.4,7.9,4.3,10c1.9,1.4,5.2,2.8,8.4,2.9,1.6,0,4.4-.8,4.4-.8,0,0,1.1.3,2.4.5l-2.7-6.1h.1Z',
+      'M30.8,12c-1.4-1.2-3.3-2.4-5.7-2.9-1.6-.3-5.3,1.1-6.7,1.7l-2.5,4.7h2c1.9,0,3.4,0,4.7.2,1.3.2,2.3.5,3.1,1s1.3,1.1,1.7,2c.3.8.5,2,.5,3.4s-.2,2.5-.5,3.4c-.3.8-.9,1.5-1.7,2-.8.5-1.8.8-3.1,1-1.2.2-2.6.2-4.4.2l2.8,6.2c.8,0,1.7.2,2.4.2,2.8-.2,5.8-1.6,7.5-2.9,2.9-2.1,4.3-5.4,4.3-10s-1.5-7.7-4.2-10l-.2-.2Z'
+    ];
+
+    function makeSVG(stroke, sw) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.6 35.4">${
+        svgPaths.map(d => `<path fill="none" stroke="${stroke}" stroke-miterlimit="10" stroke-width="${sw}" d="${d}"/>`).join('')
+      }</svg>`;
+    }
+
+    function loadImg(svg) {
+      return new Promise(res => {
+        const img  = new Image();
+        const blob = new Blob([svg], { type: 'image/svg+xml' });
+        const url  = URL.createObjectURL(blob);
+        img.onload = () => { URL.revokeObjectURL(url); res(img); };
+        img.src = url;
+      });
+    }
+
+    function buildSequence() {
+      sequence = [];
+      for (let r = 0; r < rows; r++) {
+        const ltr = r % 2 === 0;
+        for (let ci = 0; ci < cols; ci++) {
+          const c = ltr ? ci : (cols - 1 - ci);
+          sequence.push({ c, r });
+        }
+      }
+    }
+
+    function resize() {
+      const dpr = window.devicePixelRatio || 1;
+      W = hero.offsetWidth;
+      H = hero.offsetHeight;
+      CELL = Math.min(200, Math.max(80, Math.round(BASE_CELL * (W / BASE_W))));
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width  = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      sX = ((W / 2 - CELL / 2) % CELL + CELL) % CELL - CELL;
+      sY = ((H / 2 - CELL / 2) % CELL + CELL) % CELL - CELL;
+      cols = Math.ceil((W - sX) / CELL) + 1;
+      rows = Math.ceil((H - sY) / CELL) + 1;
+      buildSequence();
+    }
+
+    let scheduleNext = function () {
+      clearTimeout(stepTimer);
+      seqIdx++;
+      if (seqIdx >= sequence.length) {
+        // Una sola pasada — para la animación al terminar
+        targetCell = null;
+      } else {
+        stepTimer = setTimeout(() => {
+          targetCell = sequence[seqIdx];
+          scheduleNext();
+        }, STEP_MS);
+      }
+    };
+
+    function draw(imgW, imgG) {
+      let dirty = firstFrame;
+      firstFrame = false;
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const key = `${c},${r}`;
+          const isTarget = targetCell && targetCell.c === c && targetCell.r === r;
+          const cur = alphas[key] || 0;
+          const tgt = isTarget ? 1 : 0;
+          if (Math.abs(cur - tgt) > 0.005) {
+            alphas[key] = cur + (tgt - cur) * LERP;
+            dirty = true;
+          } else if (cur !== tgt) {
+            alphas[key] = tgt;
+            dirty = true;
+          }
+        }
+      }
+
+      if (dirty) {
+        ctx.clearRect(0, 0, W, H);
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const key = `${c},${r}`;
+            const t   = alphas[key] || 0;
+            const x   = sX + c * CELL;
+            const y   = sY + r * CELL;
+
+            if (t < 0.01) {
+              ctx.globalAlpha = BASE_ALPHA;
+              ctx.filter = 'none';
+              ctx.drawImage(imgW, x, y, CELL, CELL);
+            } else {
+              ctx.globalAlpha = BASE_ALPHA * (1 - t);
+              ctx.filter = 'none';
+              ctx.drawImage(imgW, x, y, CELL, CELL);
+
+              const blur = t * 4;
+              ctx.save();
+              ctx.filter = blur > 0.2 ? `blur(${blur.toFixed(1)}px)` : 'none';
+              ctx.shadowColor = GLOW;
+              ctx.shadowBlur  = t * 24;
+              ctx.globalAlpha = t * 0.45;
+              ctx.drawImage(imgG, x, y, CELL, CELL);
+              ctx.shadowBlur  = t * 50;
+              ctx.globalAlpha = t * 0.125;
+              ctx.drawImage(imgG, x, y, CELL, CELL);
+              ctx.restore();
+            }
+          }
+        }
+        ctx.globalAlpha = 1;
+        ctx.filter = 'none';
+      }
+
+      requestAnimationFrame(() => draw(imgW, imgG));
+    }
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    Promise.all([
+      loadImg(makeSVG('#ffffff', '.2')),
+      loadImg(makeSVG('#5ea84a', '.8'))
+    ]).then(([imgW, imgG]) => {
+      resize();
+
+      if (prefersReduced) {
+        ctx.globalAlpha = BASE_ALPHA;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            ctx.drawImage(imgW, sX + c * CELL, sY + r * CELL, CELL, CELL);
+          }
+        }
+        ctx.globalAlpha = 1;
+        return;
+      }
+
+      // Arrancar secuencia
+      targetCell = sequence[0];
+      seqIdx = 0;
+      scheduleNext();
+
+      let resizeT;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeT);
+        resizeT = setTimeout(() => {
+          clearTimeout(stepTimer);
+          resize();
+          firstFrame = true;
+          seqIdx = 0;
+          targetCell = sequence[0];
+          scheduleNext();
+        }, 150);
+      });
+
+      draw(imgW, imgG);
+    });
+  })();
+
 });
 
 /* --- Avatar cycling: fade entre fotos del pool --- */
 (function () {
   const avatars = document.querySelectorAll('.hero__avatar[data-pool]');
   if (!avatars.length) return;
+
+  let heroVisible = true;
+  const heroSection = document.getElementById('inicio');
+  if (heroSection) {
+    new IntersectionObserver((entries) => {
+      heroVisible = entries[0].isIntersecting;
+    }, { threshold: 0 }).observe(heroSection);
+  }
 
   avatars.forEach((avatar, i) => {
     const pool = avatar.dataset.pool.split(',');
@@ -972,23 +1175,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let showingFront = true;
 
     function cycleAvatar() {
+      if (!heroVisible) return;
       idx = (idx + 1) % pool.length;
       const next = new Image();
       next.onload = () => {
         if (showingFront) {
           imgs[1].src = next.src;
-          imgs[1].getBoundingClientRect(); // fuerza repaint antes de transición
           imgs[0].style.opacity = '0';
           imgs[1].style.opacity = '1';
         } else {
           imgs[0].src = next.src;
-          imgs[0].getBoundingClientRect();
           imgs[1].style.opacity = '0';
           imgs[0].style.opacity = '1';
         }
         showingFront = !showingFront;
       };
-      next.src = 'https://i.pravatar.cc/48?img=' + pool[idx];
+      next.src = 'assets/img/avatars/avatar-' + pool[idx] + '.jpg';
     }
 
     setTimeout(() => {

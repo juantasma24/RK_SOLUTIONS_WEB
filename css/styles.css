@@ -615,6 +615,13 @@ input, select, textarea { font: inherit; color: inherit; }
   contain: layout paint;
 }
 
+/* Anula cualquier background-image cacheado por plugins de optimización */
+#hero-pattern-canvas {
+  background-image: none !important;
+  background: none !important;
+  animation: none !important;
+}
+
 @keyframes patternScroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -2148,6 +2155,7 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .faq-item {
   border-bottom: none;
+  contain: layout style;
 }
 
 .faq-item__question {

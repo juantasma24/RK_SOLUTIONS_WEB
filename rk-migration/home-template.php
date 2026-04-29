@@ -90,7 +90,7 @@
        SECCIÓN 1: HERO
        ============================================ -->
   <section class="hero" id="inicio">
-    <div class="hero__pattern" aria-hidden="true"></div>
+    <canvas id="hero-pattern-canvas" class="hero__pattern" aria-hidden="true"></canvas>
     <div class="container hero__container">
       <!-- Título con tipografías mixtas -->
       <h1 class="hero__title">

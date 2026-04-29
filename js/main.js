@@ -467,6 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (bgVideo) {
     new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
+        if (bgVideo.preload === 'none') { bgVideo.preload = 'auto'; bgVideo.load(); }
         setTimeout(() => bgVideo.play(), 0);
       } else {
         bgVideo.pause();
@@ -536,14 +537,14 @@ document.addEventListener('DOMContentLoaded', () => {
         .forEach((d, i) => d.classList.toggle('active', i === zone));
     }
 
-    // Salto silencioso: quita transición, mueve, fuerza reflow, restaura transición
+    // Salto silencioso: quita transición, mueve, restaura en siguiente frame (sin forzar reflow)
     function jumpTo(idx) {
       currentIndex = idx;
       testimoniosTrack.style.transition = 'none';
       testimoniosTrack.style.transform  = `translateX(-${(currentIndex * 100) / vis()}%)`;
-      // offsetWidth fuerza al browser a aplicar los estilos ANTES de continuar
-      void testimoniosTrack.offsetWidth;
-      testimoniosTrack.style.transition = TRANSITION;
+      requestAnimationFrame(() => {
+        testimoniosTrack.style.transition = TRANSITION;
+      });
     }
 
     // Movimiento animado normal
@@ -626,11 +627,11 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        // Recalcular posición sin animación en resize
         testimoniosTrack.style.transition = 'none';
         testimoniosTrack.style.transform  = `translateX(-${(currentIndex * 100) / vis()}%)`;
-        void testimoniosTrack.offsetWidth;
-        testimoniosTrack.style.transition = TRANSITION;
+        requestAnimationFrame(() => {
+          testimoniosTrack.style.transition = TRANSITION;
+        });
       }, 250);
     });
 
@@ -1111,11 +1112,24 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(() => draw(imgW, imgG));
     }
 
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     Promise.all([
       loadImg(makeSVG('#ffffff', '.2')),
       loadImg(makeSVG('#5ea84a', '.8'))
     ]).then(([imgW, imgG]) => {
       resize();
+
+      if (prefersReduced) {
+        ctx.globalAlpha = BASE_ALPHA;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            ctx.drawImage(imgW, sX + c * CELL, sY + r * CELL, CELL, CELL);
+          }
+        }
+        ctx.globalAlpha = 1;
+        return;
+      }
 
       // Arrancar secuencia
       targetCell = sequence[0];
@@ -1146,6 +1160,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const avatars = document.querySelectorAll('.hero__avatar[data-pool]');
   if (!avatars.length) return;
 
+  let heroVisible = true;
+  const heroSection = document.getElementById('inicio');
+  if (heroSection) {
+    new IntersectionObserver((entries) => {
+      heroVisible = entries[0].isIntersecting;
+    }, { threshold: 0 }).observe(heroSection);
+  }
+
   avatars.forEach((avatar, i) => {
     const pool = avatar.dataset.pool.split(',');
     const imgs = avatar.querySelectorAll('img');
@@ -1153,23 +1175,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let showingFront = true;
 
     function cycleAvatar() {
+      if (!heroVisible) return;
       idx = (idx + 1) % pool.length;
       const next = new Image();
       next.onload = () => {
         if (showingFront) {
           imgs[1].src = next.src;
-          imgs[1].getBoundingClientRect(); // fuerza repaint antes de transición
           imgs[0].style.opacity = '0';
           imgs[1].style.opacity = '1';
         } else {
           imgs[0].src = next.src;
-          imgs[0].getBoundingClientRect();
           imgs[1].style.opacity = '0';
           imgs[0].style.opacity = '1';
         }
         showingFront = !showingFront;
       };
-      next.src = 'https://i.pravatar.cc/48?img=' + pool[idx];
+      next.src = 'assets/img/avatars/avatar-' + pool[idx] + '.jpg';
     }
 
     setTimeout(() => {

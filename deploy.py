@@ -20,10 +20,11 @@ import json
 CONFIG_FILE = os.path.join(os.path.dirname(__file__), 'deploy.config')
 
 FILES = {
-    'css':  ('rk-migration/css/styles.css',      'css/styles.css'),
-    'js':   ('rk-migration/js/main.js',           'js/main.js'),
-    'html': ('rk-migration/home-template.php',    'home-template.php'),
-    'php':  ('rk-migration/rk-migration.php',     'rk-migrations.php'),
+    'css':      ('rk-migration/css/styles.css',   'css/styles.css'),
+    'js':       ('rk-migration/js/main.js',        'js/main.js'),
+    'html':     ('rk-migration/home-template.php', 'home-template.php'),
+    'php':      ('rk-migration/rk-migration.php',  'rk-migrations.php'),
+    'htaccess': ('rk-migration/.htaccess',         '.htaccess'),
 }
 
 def load_config():
