@@ -60,7 +60,15 @@
       "Bash(curl -sI -L -A \"Mozilla/5.0\" https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration-light/assets/img/laptop-mockup.png)",
       "Bash(curl -sI -L -A \"Mozilla/5.0\" https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration-light/assets/img/video-autonomos.mp4)",
       "Bash(curl -sI -L -A \"Mozilla/5.0\" https://juandiego.rkinformatika.online/wp-content/plugins/rk-migration-light/assets/img/avatars/avatar-47.jpg)",
-      "Bash(curl -sI -L -A \"Mozilla/5.0\" \"https://i.pravatar.cc/48?img=47\")"
+      "Bash(curl -sI -L -A \"Mozilla/5.0\" \"https://i.pravatar.cc/48?img=47\")",
+      "WebFetch(domain:demos.gsap.com)",
+      "WebFetch(domain:codepen.io)",
+      "WebFetch(domain:cdpn.io)",
+      "WebFetch(domain:pen.new)",
+      "WebFetch(domain:cdnjs.cloudflare.com)",
+      "WebFetch(domain:cdn.jsdelivr.net)",
+      "Read(//c/Users/usuario/.claude/**)",
+      "Read(//c//**)"
     ]
   }
 }

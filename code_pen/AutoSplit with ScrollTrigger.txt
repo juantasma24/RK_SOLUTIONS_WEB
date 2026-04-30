@@ -1,0 +1,102 @@
+<div class="spacer"></div>
+
+<div class="container">
+  <h2 class="split">This demo shows the correct way to set up your SplitText line animations with ScrollTrigger. It's important to return your animation inside the onSplit callback and set autoSplit to true so that your lines resplit and your animation gets recreated if the browser resizes.</h2>
+</div>
+<div class="container">
+  <h2 class="split">This demo shows the correct way to set up your SplitText line animations with ScrollTrigger. It's important to return your animation inside the onSplit callback and set autoSplit to true so that your lines resplit and your animation gets recreated if the browser resizes.</h2>
+</div>
+<div class="container">
+  <h2 class="split">This demo shows the correct way to set up your SplitText line animations with ScrollTrigger. It's important to return your animation inside the onSplit callback and set autoSplit to true so that your lines resplit and your animation gets recreated if the browser resizes.</h2>
+</div>
+
+<div class="spacer"></div>
+
+@font-face {
+  font-display: block;
+  font-family: Mori;
+  font-style: normal;
+  font-weight: 900;
+  src: url(https://assets.codepen.io/16327/PPMori-SemiBold.woff) format("woff");
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Mori";
+  /*   background: #0e100f; */
+  background: radial-gradient(
+      129% 99% at 112% 85%,
+      rgb(223, 220, 255) 20%,
+      rgb(166, 158, 255) 90%
+    ),
+    url("https://assets.codepen.io/16327/noise-e82662fe.png");
+  background-blend-mode: color-dodge;
+}
+
+.container {
+  width: 90vw;
+  margin-top: 40vh;
+}
+
+.split {
+  opacity: 0;
+  text-align: center;
+  color: rgb(14, 16, 15);
+  font-size: 2rem;
+  will-change: transform;
+  color: #0e100f;
+}
+
+.split * {
+  will-change: transform;
+}
+
+.spacer {
+  height: 40vh
+}
+
+gsap.registerPlugin(SplitText, ScrollTrigger);
+
+console.clear();
+
+gsap.set(".split", { opacity: 1 });
+
+document.fonts.ready.then(() => {
+  let containers = gsap.utils.toArray(".container");
+
+  containers.forEach((container) => {
+    let text = container.querySelector(".split");
+    let animation;
+
+    SplitText.create(text, {
+      type: "words,lines",
+      mask: "lines",
+      linesClass: "line",
+      autoSplit: true,
+      onSplit: (instance) => {
+        console.log("split")
+        return gsap.from(instance.lines, {
+          yPercent: 120,
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: container,
+            // markers: true,
+            scrub: true,
+            start: "clamp(top center)",
+            end: "clamp(bottom center)"
+          }
+        });
+      }
+    });
+  });
+});

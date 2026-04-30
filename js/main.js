@@ -199,16 +199,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Mobile: forzar reveals visibles tras el scroll suave (content-visibility
-        // puede retrasar el disparo del IntersectionObserver en móvil)
-        if (window.innerWidth < 768) {
-          setTimeout(() => {
-            document.querySelectorAll('.anim-reveal:not(.visible), .anim-slide-up:not(.visible)').forEach(el => {
-              const r = el.getBoundingClientRect();
-              if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
-            });
-          }, 650);
-        }
+        // Forzar reveals visibles tras el scroll suave en cualquier viewport
+        // (el rootMargin -50px del observer puede excluir elementos al borde del fold)
+        setTimeout(() => {
+          document.querySelectorAll('.anim-reveal:not(.visible), .anim-slide-up:not(.visible)').forEach(el => {
+            const r = el.getBoundingClientRect();
+            if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
+          });
+        }, 650);
       }
     });
   });
@@ -278,12 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Posición inicial
   onScrollFrame();
 
-  /* --- Limpiar will-change del hero tras terminar sus animaciones CSS --- */
-  document.querySelectorAll('.hero__title-line').forEach(el => {
-    el.addEventListener('animationend', () => {
-      el.style.willChange = 'auto';
-    }, { once: true });
-  });
 
   /* --- Counter animation --- */
   const counterSpans = document.querySelectorAll('.counter-animated');
@@ -465,14 +457,38 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- Pausar vídeo de autónomos cuando no es visible --- */
   const bgVideo = document.querySelector('.autonomos__video-bg video');
   if (bgVideo) {
+    const autonomosSection = bgVideo.closest('section');
+    let userWantsPlay = false;
+
+    // Observer 1: descarga + pre-decode silencioso (play+pause inmediato)
+    const preloadObs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        bgVideo.preload = 'auto';
+        bgVideo.load();
+        bgVideo.addEventListener('canplay', () => {
+          // Si el usuario ya llegó a la sección, no interferir
+          if (userWantsPlay) return;
+          // Play+pause silencioso: sube los frames a la GPU
+          bgVideo.play().then(() => {
+            if (!userWantsPlay) bgVideo.pause();
+          }).catch(() => {});
+        }, { once: true });
+        preloadObs.disconnect();
+      }
+    }, { rootMargin: '0px 0px 800px 0px', threshold: 0 });
+    preloadObs.observe(autonomosSection);
+
+    // Observer 2: play/pause real controlado por visibilidad
     new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        if (bgVideo.preload === 'none') { bgVideo.preload = 'auto'; bgVideo.load(); }
-        setTimeout(() => bgVideo.play(), 0);
+        userWantsPlay = true;
+        const p = bgVideo.play();
+        if (p) p.catch(() => bgVideo.addEventListener('canplay', () => bgVideo.play(), { once: true }));
       } else {
+        userWantsPlay = false;
         bgVideo.pause();
       }
-    }, { rootMargin: '800px 0px 800px 0px' }).observe(bgVideo.closest('section'));
+    }, { threshold: 0.1 }).observe(autonomosSection);
   }
 
   /* ============================================
@@ -784,36 +800,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }, { threshold: 0.7 }).observe(queHaceVideo);
 
-      /* Animación scrubbed: el video-wrap crece desde abajo al scrollear */
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      /* Animación scrubbed: el video-wrap crece al scrollear — GSAP ScrollTrigger */
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof gsap !== 'undefined') {
         const queHaceSection = document.getElementById('que-hace');
-        let rafPending = false;
+        gsap.registerPlugin(ScrollTrigger);
 
-        function updateVideoGrow() {
-          rafPending = false;
-          const vh      = window.innerHeight;
-          const trigger = (queHaceSection || queHaceVideo).getBoundingClientRect();
-          // p=0: sección está 50% del viewport por debajo del fold (antes de ser visible)
-          // p=1: top de la sección llega al 30% del viewport
-          const raw = (vh * 1.5 - trigger.top) / (vh * 1.2);
-          const p   = Math.max(0, Math.min(1, raw));
-
-          const topClip  = (62 * (1 - p)).toFixed(2);
-          const sideClip = (12 * (1 - p)).toFixed(2);
-          const radius   = (24 - 8 * p).toFixed(1);
-
-          queHaceVideo.style.clipPath =
-            `inset(${topClip}% ${sideClip}% 0% ${sideClip}% round ${radius}px)`;
-        }
-
-        window.addEventListener('scroll', () => {
-          if (!rafPending) {
-            rafPending = true;
-            requestAnimationFrame(updateVideoGrow);
+        gsap.fromTo(queHaceVideo,
+          { clipPath: 'inset(62% 12% 0% 12% round 24px)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0% round 16px)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: queHaceSection || queHaceVideo,
+              start: 'top 85%',
+              end:   'top 25%',
+              scrub: 1.5
+            }
           }
-        }, { passive: true });
-
-        updateVideoGrow(); // calcula el estado correcto al cargar
+        );
       }
     }
 
@@ -1168,6 +1172,72 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
 });
+
+/* --- GSAP WORDS: hero title --- */
+(function () {
+  if (typeof gsap === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const titleLines = document.querySelectorAll('.hero__title-line');
+  if (!titleLines.length) return;
+
+  // Dividir cada línea en spans por palabra
+  const allWords = [];
+  titleLines.forEach(line => {
+    const words = line.textContent.trim().split(/\s+/);
+    line.innerHTML = words.map(w => `<span class="hero__word" style="display:inline-block">${w}</span>`).join(' ');
+    line.querySelectorAll('.hero__word').forEach(w => allWords.push(w));
+  });
+
+  gsap.from(allWords, {
+    y: -100,
+    opacity: 0,
+    rotation: 'random(-80, 80)',
+    duration: 0.7,
+    ease: 'back',
+    stagger: 0.1,
+    delay: 0.3
+  });
+}());
+
+
+/* --- GSAP SplitText: autonomos title line reveal on scroll --- */
+(function () {
+  if (typeof gsap === 'undefined' || typeof SplitText === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const titleEl = document.querySelector('.autonomos__title');
+  if (!titleEl) return;
+
+  gsap.registerPlugin(SplitText);
+
+  document.fonts.ready.then(() => {
+    SplitText.create(titleEl, {
+      type: 'lines',
+      mask: 'lines',
+      autoSplit: true,
+      onSplit(self) {
+        return gsap.from(self.lines, {
+          yPercent: 120,
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: titleEl,
+            start: 'top 85%',
+            end: 'top 30%',
+            scrub: 1.5,
+          }
+        });
+      }
+    });
+  });
+}());
+
+/* --- ScrollTrigger.refresh() tras carga de fuentes --- */
+if (typeof ScrollTrigger !== 'undefined') {
+  document.fonts.ready.then(() => {
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  });
+}
 
 /* --- Avatar cycling: fade entre fotos del pool --- */
 (function () {

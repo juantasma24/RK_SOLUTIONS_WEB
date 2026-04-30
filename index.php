@@ -125,13 +125,15 @@
        ============================================ -->
   <section class="autonomos section" id="autonomos">
     <div class="autonomos__video-bg">
-      <video muted loop playsinline preload="metadata">
+      <?php /* VIDEO COMENTADO
+      <video muted loop playsinline preload="auto">
         <source src="assets/img/video-autonomos.mp4" type="video/mp4">
       </video>
+      */ ?>
       <div class="autonomos__overlay"></div>
     </div>
     <div class="container">
-      <h2 class="autonomos__title anim-reveal">
+      <h2 class="autonomos__title">
         Para autónomos, hostelería<br class="br--desktop"><span class="nowrap"> y <br class="br--mobile">comercio<span class="dot-green">.</span></span>
       </h2>
       <a href="#tpv-seq" class="hero__cta anim-reveal">
@@ -675,6 +677,11 @@
   </section>
 
   <?php include 'includes/footer.php'; ?>
+
+  <!-- GSAP + ScrollTrigger + SplitText -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
 
   <!-- JavaScript -->
   <script src="js/main.js" defer></script>
