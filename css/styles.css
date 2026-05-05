@@ -1144,6 +1144,16 @@ input, select, textarea { font: inherit; color: inherit; }
     color: var(--color-primary);
   }
 
+  .sectores__nav-btn:focus,
+  .sectores__nav-btn:focus-visible,
+  .sectores__nav-btn:active {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    color: var(--color-white) !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
   .sectores__nav-btn:disabled {
     opacity: 0.25;
     cursor: default;
