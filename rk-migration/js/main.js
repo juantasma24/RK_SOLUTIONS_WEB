@@ -137,14 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* --- Hero actions: quitar animación al terminar para que el hover del CTA funcione --- */
-  const heroActions = document.querySelector('.hero__actions');
-  if (heroActions) {
-    heroActions.addEventListener('animationend', () => {
-      heroActions.style.opacity   = '1';
-      heroActions.style.animation = 'none';
-    }, { once: true });
-  }
 
   /* --- Scroll unificado: header + back-to-top + parallax vídeo --- */
   const header = document.querySelector('.header');
@@ -199,16 +191,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Mobile: forzar reveals visibles tras el scroll suave (content-visibility
-        // puede retrasar el disparo del IntersectionObserver en móvil)
-        if (window.innerWidth < 768) {
-          setTimeout(() => {
-            document.querySelectorAll('.anim-reveal:not(.visible), .anim-slide-up:not(.visible)').forEach(el => {
-              const r = el.getBoundingClientRect();
-              if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
-            });
-          }, 650);
-        }
+        // Forzar reveals visibles tras el scroll suave en cualquier viewport
+        // (el rootMargin -50px del observer puede excluir elementos al borde del fold)
+        setTimeout(() => {
+          document.querySelectorAll('.anim-reveal:not(.visible), .anim-slide-up:not(.visible)').forEach(el => {
+            const r = el.getBoundingClientRect();
+            if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
+          });
+        }, 650);
       }
     });
   });
@@ -278,12 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Posición inicial
   onScrollFrame();
 
-  /* --- Limpiar will-change del hero tras terminar sus animaciones CSS --- */
-  document.querySelectorAll('.hero__title-line').forEach(el => {
-    el.addEventListener('animationend', () => {
-      el.style.willChange = 'auto';
-    }, { once: true });
-  });
 
   /* --- Counter animation --- */
   const counterSpans = document.querySelectorAll('.counter-animated');
@@ -462,18 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ytObserver.observe(ytFacade);
   });
 
-  /* --- Pausar vídeo de autónomos cuando no es visible --- */
-  const bgVideo = document.querySelector('.autonomos__video-bg video');
-  if (bgVideo) {
-    new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        if (bgVideo.preload === 'none') { bgVideo.preload = 'auto'; bgVideo.load(); }
-        setTimeout(() => bgVideo.play(), 0);
-      } else {
-        bgVideo.pause();
-      }
-    }, { rootMargin: '800px 0px 800px 0px' }).observe(bgVideo.closest('section'));
-  }
+  /* (vídeo autónomos eliminado — sección reemplazada por bento gallery) */
 
   /* ============================================
      TESTIMONIOS CARRUSEL
@@ -784,36 +757,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }, { threshold: 0.7 }).observe(queHaceVideo);
 
-      /* Animación scrubbed: el video-wrap crece desde abajo al scrollear */
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      /* Animación scrubbed: el video-wrap crece al scrollear — GSAP ScrollTrigger */
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof gsap !== 'undefined') {
         const queHaceSection = document.getElementById('que-hace');
-        let rafPending = false;
+        gsap.registerPlugin(ScrollTrigger);
 
-        function updateVideoGrow() {
-          rafPending = false;
-          const vh      = window.innerHeight;
-          const trigger = (queHaceSection || queHaceVideo).getBoundingClientRect();
-          // p=0: sección está 50% del viewport por debajo del fold (antes de ser visible)
-          // p=1: top de la sección llega al 30% del viewport
-          const raw = (vh * 1.5 - trigger.top) / (vh * 1.2);
-          const p   = Math.max(0, Math.min(1, raw));
-
-          const topClip  = (62 * (1 - p)).toFixed(2);
-          const sideClip = (12 * (1 - p)).toFixed(2);
-          const radius   = (24 - 8 * p).toFixed(1);
-
-          queHaceVideo.style.clipPath =
-            `inset(${topClip}% ${sideClip}% 0% ${sideClip}% round ${radius}px)`;
-        }
-
-        window.addEventListener('scroll', () => {
-          if (!rafPending) {
-            rafPending = true;
-            requestAnimationFrame(updateVideoGrow);
+        gsap.fromTo(queHaceVideo,
+          { clipPath: 'inset(62% 12% 0% 12% round 24px)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0% round 16px)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: queHaceSection || queHaceVideo,
+              start: 'top 85%',
+              end:   'top 25%',
+              scrub: 1.5
+            }
           }
-        }, { passive: true });
-
-        updateVideoGrow(); // calcula el estado correcto al cargar
+        );
       }
     }
 
@@ -1168,6 +1129,137 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
 });
+
+/* --- GSAP WORDS: hero title --- */
+(function () {
+  const titleLines = document.querySelectorAll('.hero__title-line');
+  if (!titleLines.length) return;
+
+  // Sin GSAP o con reduced-motion: revelar sin animación
+  if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    titleLines.forEach(line => { line.style.opacity = '1'; });
+    return;
+  }
+
+  // Dividir cada línea en spans por palabra
+  // Se pone opacity:1 en el contenedor ANTES de que GSAP tome las palabras
+  // (misma ejecución síncrona → el browser no repinta entre medias)
+  const allWords = [];
+  titleLines.forEach(line => {
+    line.style.opacity = '1';
+    const words = line.textContent.trim().split(/\s+/);
+    line.innerHTML = words.map(w => `<span class="hero__word" style="display:inline-block">${w}</span>`).join(' ');
+    line.querySelectorAll('.hero__word').forEach(w => allWords.push(w));
+  });
+
+  gsap.from(allWords, {
+    y: -100,
+    opacity: 0,
+    rotation: 'random(-80, 80)',
+    duration: 0.7,
+    ease: 'back',
+    stagger: 0.1,
+    delay: 0.3
+  });
+
+  // heroActions entra cuando las palabras están casi terminadas (~1.5s desde inicio GSAP)
+  const heroActions = document.querySelector('.hero__actions');
+  if (heroActions) {
+    gsap.fromTo(heroActions,
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: 1.5 }
+    );
+  }
+}());
+
+
+/* --- Sectores: SplitText header + cards fade-in --- */
+(function () {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  const section = document.querySelector('.sectores');
+  if (!section) return;
+
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  // SplitText: título y descripción línea a línea
+  const split = SplitText.create(
+    section.querySelectorAll('.sectores__title, .sectores__desc'),
+    { type: 'words,lines', linesClass: 'sectores__line', autoSplit: true, mask: 'lines' }
+  );
+
+  gsap.fromTo(split.lines,
+    { opacity: 0, y: 50 },
+    {
+      opacity: 1, y: 0,
+      duration: 1.5,
+      ease: 'power3.out',
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: section.querySelector('.sectores__header'),
+        start: 'top 80%',
+        once: true,
+      },
+    }
+  );
+
+  // Cards: fade-in escalonado
+  const cards = section.querySelectorAll('.sector-card');
+  gsap.fromTo(cards,
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1, y: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      stagger: 0.2,
+      force3D: true,
+      scrollTrigger: {
+        trigger: section.querySelector('.sectores__grid'),
+        start: 'top 80%',
+        once: true,
+      },
+    }
+  );
+}());
+
+/* --- Sectores: navegación con flechas (solo móvil) --- */
+(function () {
+  const grid = document.querySelector('.sectores__grid');
+  const prevBtn = document.getElementById('sectoresPrev');
+  const nextBtn = document.getElementById('sectoresNext');
+  if (!grid || !prevBtn || !nextBtn) return;
+
+  function getCardWidth() {
+    const card = grid.querySelector('.sector-card');
+    if (!card) return grid.clientWidth;
+    const gap = parseFloat(getComputedStyle(grid).gap) || 0;
+    return card.offsetWidth + gap;
+  }
+
+  function updateButtons() {
+    prevBtn.disabled = grid.scrollLeft <= 1;
+    nextBtn.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    grid.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    grid.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
+  });
+
+  grid.addEventListener('scroll', updateButtons, { passive: true });
+  new ResizeObserver(updateButtons).observe(grid);
+  updateButtons();
+}());
+
+/* --- ScrollTrigger.refresh() tras carga de fuentes --- */
+if (typeof ScrollTrigger !== 'undefined') {
+  document.fonts.ready.then(() => {
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  });
+}
 
 /* --- Avatar cycling: fade entre fotos del pool --- */
 (function () {

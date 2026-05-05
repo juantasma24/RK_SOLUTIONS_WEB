@@ -82,20 +82,26 @@ function rk_remove_ver_query($src) {
 add_action('wp_enqueue_scripts', 'rk_enqueue_home_assets', 999);
 
 function rk_enqueue_home_assets() {
+    $pu = plugin_dir_url(__FILE__);
+    $pp = plugin_dir_path(__FILE__);
+
     // DNS Prefetch & Preconnect
     echo '<link rel="dns-prefetch" href="https://www.youtube.com">';
-    echo '<link rel="dns-prefetch" href="https://www.google.com">';
     echo '<link rel="preconnect" href="https://www.youtube.com" crossorigin>';
     echo '<link rel="preconnect" href="https://i.ytimg.com" crossorigin>';
 
-    // Fuentes (DM Serif Display eliminada — no se usa)
+    // Preload GSAP — browser empieza a descargarlos desde el <head>, en paralelo
+    echo '<link rel="preload" href="' . $pu . 'js/lib/gsap.min.js" as="script">';
+    echo '<link rel="preload" href="' . $pu . 'js/lib/ScrollTrigger.min.js" as="script">';
+    echo '<link rel="preload" href="' . $pu . 'js/lib/SplitText.min.js" as="script">';
+
+    // Google Fonts
     wp_enqueue_style('rk-google-fonts', 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,300;0,600;0,700;0,800;1,300;1,800&display=swap', array(), null);
 
     // CSS Local
-    wp_enqueue_style('rk-main-css', plugin_dir_url(__FILE__) . 'css/styles.css', array(), filemtime(plugin_dir_path(__FILE__) . 'css/styles.css'));
+    wp_enqueue_style('rk-main-css', $pu . 'css/styles.css', array(), filemtime($pp . 'css/styles.css'));
 
-    // Override: rutas absolutas para background-images (evita roturas con plugins de caché que mueven la CSS)
-    $pu = plugin_dir_url(__FILE__);
+    // Override: rutas absolutas para background-images
     wp_add_inline_style('rk-main-css', "
         .que-hace::before,.planes::before{background:url('{$pu}assets/img/pattern_manzanas_outline.webp') no-repeat center center!important;background-size:contain!important}
         .que-hace::after,.planes::after{background:url('{$pu}assets/img/pattern_manzanas_outline.webp') no-repeat center center!important;background-size:contain!important}
@@ -105,19 +111,34 @@ function rk_enqueue_home_assets() {
         @media(max-width:767px){.contadores__wrapper{background-image:url('{$pu}assets/img/bloque_vidrio_cuadrado.webp')!important}}
     ");
 
-    // JS Local con defer
-    wp_enqueue_script('rk-main-js', plugin_dir_url(__FILE__) . 'js/main.js', array(), filemtime(plugin_dir_path(__FILE__) . 'js/main.js'), true);
+    // JS principal con defer
+    wp_enqueue_script('rk-main-js', $pu . 'js/main.js', array(), filemtime($pp . 'js/main.js'), true);
 
-    // Pasa la URL del plugin al JS (necesario para rutas de assets en JS, ej. frames TPV)
-    wp_localize_script('rk-main-js', 'rkConfig', array(
-        'pluginUrl' => plugin_dir_url(__FILE__),
-    ));
+    // URL del plugin disponible en JS (rutas de assets como frames TPV)
+    wp_localize_script('rk-main-js', 'rkConfig', array('pluginUrl' => $pu));
 
-    // Añadir defer
+    // Añadir defer a main.js
     add_filter('script_loader_tag', function($tag, $handle) {
         if ('rk-main-js' !== $handle) return $tag;
-        return str_replace(' src', ' defer="defer" src', $tag);
+        if (strpos($tag, 'defer') !== false) return $tag;
+        return str_replace(' src=', ' defer src=', $tag);
     }, 10, 2);
+
+    // WP Rocket: excluir nuestros scripts de Delay JS y Combine para no romper el orden
+    add_filter('rocket_delay_js_exclusions', function($exclusions) {
+        $exclusions[] = 'gsap.min.js';
+        $exclusions[] = 'ScrollTrigger.min.js';
+        $exclusions[] = 'SplitText.min.js';
+        $exclusions[] = 'main.js';
+        return $exclusions;
+    });
+    add_filter('rocket_excluded_deferred_assets', function($exclusions) {
+        $exclusions[] = 'gsap.min.js';
+        $exclusions[] = 'ScrollTrigger.min.js';
+        $exclusions[] = 'SplitText.min.js';
+        $exclusions[] = 'main.js';
+        return $exclusions;
+    });
 }
 
 // 2. ELIMINAR TODOS LOS ESTILOS EXTERNOS — página 100% custom
@@ -161,6 +182,9 @@ function rk_deploy_file(WP_REST_Request $request) {
     $allowed = array(
         'css/styles.css',
         'js/main.js',
+        'js/lib/gsap.min.js',
+        'js/lib/ScrollTrigger.min.js',
+        'js/lib/SplitText.min.js',
         'home-template.php',
         'rk-migrations.php',
         '.htaccess',

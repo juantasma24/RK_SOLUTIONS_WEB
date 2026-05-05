@@ -650,6 +650,7 @@ input, select, textarea { font: inherit; color: inherit; }
 .hero__title-line {
   display: block;
   cursor: default;
+  opacity: 0; /* GSAP anima a 1; evita flash antes de que cargue */
 }
 
 
@@ -743,7 +744,7 @@ input, select, textarea { font: inherit; color: inherit; }
   justify-content: center;
   gap: 24px;
   opacity: 0;
-  animation: titleLineIn 0.7s var(--ease-out) forwards 1.55s;
+  /* timing delegado a GSAP para mantener sincronía con las palabras en producción */
 }
 
 .hero__social-proof {

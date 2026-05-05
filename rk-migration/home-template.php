@@ -157,22 +157,48 @@
   </section>
 
   <!-- ============================================
-       SECCIÓN 3: PARA AUTÓNOMOS, HOSTELERÍA Y COMERCIO
+       SECCIÓN 3: SECTORES
        ============================================ -->
-  <section class="autonomos section" id="autonomos">
-    <div class="autonomos__video-bg">
-      <video muted loop playsinline preload="none" data-lazy-video>
-        <source src="assets/img/video-autonomos.mp4" type="video/mp4">
-      </video>
-      <div class="autonomos__overlay"></div>
-    </div>
-    <div class="container">
-      <h2 class="autonomos__title anim-reveal">
-        Para autónomos, hostelería<br>y comercio<span class="dot-green">.</span>
-      </h2>
-      <a href="#tpv-seq" class="hero__cta anim-reveal">
-        <span>Así inicia tu negocio</span>
-      </a>
+  <section class="sectores" id="autonomos">
+    <div class="sectores__inner">
+      <div class="sectores__header">
+        <h2 class="sectores__title"><span class="sectores__title-break">Control de venta y clientes,</span><span class="sectores__title-break"> todo conectado.</span><br class="sectores__title-br"><span class="sectores__brand">That's La Manzana</span></h2>
+        <p class="sectores__desc">El software de gestión para facturar, controlar, fichar y cumplir.</p>
+      </div>
+      <div class="sectores__grid">
+        <a href="#" class="sector-card">
+          <div class="sector-card__bg"><img src="assets/img/fotos_sectores/img_autonomo.webp" alt="Autónomos" loading="lazy" width="600" height="800" draggable="false"></div>
+          <div class="sector-card__content">
+            <span class="sector-card__label">Autónomos</span>
+          </div>
+        </a>
+        <a href="#" class="sector-card">
+          <div class="sector-card__bg"><img src="assets/img/fotos_sectores/img_hosteleria.webp" alt="Hostelería" loading="lazy" width="600" height="800" draggable="false"></div>
+          <div class="sector-card__content">
+            <span class="sector-card__label">Hostelería</span>
+          </div>
+        </a>
+        <a href="#" class="sector-card">
+          <div class="sector-card__bg"><img src="assets/img/fotos_sectores/img_comercio.webp" alt="Comercio" loading="lazy" width="600" height="800" draggable="false"></div>
+          <div class="sector-card__content">
+            <span class="sector-card__label">Comercio</span>
+          </div>
+        </a>
+        <a href="#" class="sector-card">
+          <div class="sector-card__bg"><img src="assets/img/fotos_sectores/img_asesores.webp" alt="Asesores" loading="lazy" width="600" height="800" draggable="false"></div>
+          <div class="sector-card__content">
+            <span class="sector-card__label">Asesores</span>
+          </div>
+        </a>
+      </div>
+      <div class="sectores__nav" id="sectoresNav">
+        <button class="sectores__nav-btn sectores__nav-btn--prev" id="sectoresPrev" aria-label="Card anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="sectores__nav-btn sectores__nav-btn--next" id="sectoresNext" aria-label="Card siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -799,3 +825,9 @@
     <img src="assets/img/personaje_manzana.svg" alt="Personaje La Manzana" class="mascot-btn__img" width="200" height="200" draggable="false">
   </button>
 </div>
+
+<!-- GSAP autoalojado: síncronos para garantizar ejecución antes que main.js -->
+<script src="<?php echo $rk_plugin_url; ?>js/lib/gsap.min.js"></script>
+<script src="<?php echo $rk_plugin_url; ?>js/lib/ScrollTrigger.min.js"></script>
+<script src="<?php echo $rk_plugin_url; ?>js/lib/SplitText.min.js"></script>
+

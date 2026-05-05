@@ -137,14 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* --- Hero actions: quitar animación al terminar para que el hover del CTA funcione --- */
-  const heroActions = document.querySelector('.hero__actions');
-  if (heroActions) {
-    heroActions.addEventListener('animationend', () => {
-      heroActions.style.opacity   = '1';
-      heroActions.style.animation = 'none';
-    }, { once: true });
-  }
 
   /* --- Scroll unificado: header + back-to-top + parallax vídeo --- */
   const header = document.querySelector('.header');
@@ -1140,15 +1132,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* --- GSAP WORDS: hero title --- */
 (function () {
-  if (typeof gsap === 'undefined') return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
   const titleLines = document.querySelectorAll('.hero__title-line');
   if (!titleLines.length) return;
 
+  // Sin GSAP o con reduced-motion: revelar sin animación
+  if (typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    titleLines.forEach(line => { line.style.opacity = '1'; });
+    return;
+  }
+
   // Dividir cada línea en spans por palabra
+  // Se pone opacity:1 en el contenedor ANTES de que GSAP tome las palabras
+  // (misma ejecución síncrona → el browser no repinta entre medias)
   const allWords = [];
   titleLines.forEach(line => {
+    line.style.opacity = '1';
     const words = line.textContent.trim().split(/\s+/);
     line.innerHTML = words.map(w => `<span class="hero__word" style="display:inline-block">${w}</span>`).join(' ');
     line.querySelectorAll('.hero__word').forEach(w => allWords.push(w));
@@ -1163,6 +1161,15 @@ document.addEventListener('DOMContentLoaded', () => {
     stagger: 0.1,
     delay: 0.3
   });
+
+  // heroActions entra cuando las palabras están casi terminadas (~1.5s desde inicio GSAP)
+  const heroActions = document.querySelector('.hero__actions');
+  if (heroActions) {
+    gsap.fromTo(heroActions,
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: 1.5 }
+    );
+  }
 }());
 
 

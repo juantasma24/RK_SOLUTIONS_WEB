@@ -649,11 +649,8 @@ input, select, textarea { font: inherit; color: inherit; }
 
 .hero__title-line {
   display: block;
-  opacity: 0;
-  transform: translateY(18px);
-  animation: titleLineIn 0.65s var(--ease-out) forwards;
   cursor: default;
-  will-change: transform, opacity, filter;
+  opacity: 0; /* GSAP anima a 1; evita flash antes de que cargue */
 }
 
 
@@ -747,7 +744,7 @@ input, select, textarea { font: inherit; color: inherit; }
   justify-content: center;
   gap: 24px;
   opacity: 0;
-  animation: titleLineIn 0.7s var(--ease-out) forwards 1.55s;
+  /* timing delegado a GSAP para mantener sincronía con las palabras en producción */
 }
 
 .hero__social-proof {
@@ -871,6 +868,7 @@ input, select, textarea { font: inherit; color: inherit; }
   white-space: nowrap;
   text-align: center;
   margin-bottom: 32px;
+  transform: translateY(25px);
 }
 
 
@@ -907,7 +905,8 @@ input, select, textarea { font: inherit; color: inherit; }
 
 /* Video YouTube autoplay */
 .que-hace__video-wrap {
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
   aspect-ratio: 16 / 9;
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -926,76 +925,234 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 /* ============================================
-   SECCI�N: PARA AUT�NOMOS
+   SECCION: SECTORES
    ============================================ */
-.autonomos {
-  position: relative;
-  height: calc(100vh - var(--header-height));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: var(--color-black);
-  isolation: isolate;
+.sectores {
+  background: #000000;
+  padding: 5rem 5%;
   scroll-margin-top: var(--header-height);
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-.autonomos__video-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.autonomos__video-bg video {
+.sectores__inner {
+  max-width: 1400px;
+  margin: 0 auto;
   width: 100%;
-  height: 130%; /* sobredimensionado para tener margen de movimiento */
-  object-fit: cover;
-  position: absolute;
-  top: -15%;
-  left: 0;
-  transform: translateZ(0); /* Aísla la decodificación del vídeo del render principal */
 }
 
-.autonomos__overlay {
+.sectores__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.sectores__title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3.5vw, 3.25rem);
+  letter-spacing: -0.03em;
+  color: var(--color-white);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.sectores__brand {
+  font-style: normal;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.sectores__desc {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.225rem, 1.8vw, 1.425rem);
+  color: var(--color-primary);
+  line-height: 1.65;
+  margin: 0;
+  align-self: end;
+}
+
+/* Grid de cards */
+.sectores__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.sector-card {
+  display: block;
+  position: relative;
+  border-radius: 20px;
+  /* clip-path en lugar de overflow:hidden — mismo recorte visual pero
+     100% GPU-composited: elimina el temblor subpíxel al animar translateY */
+  clip-path: inset(0 round 20px);
+  height: 460px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow:
+    rgba(0,0,0,0.43) 0px 0.6px 0.6px -1.25px,
+    rgba(0,0,0,0.38) 0px 2.3px 2.3px -2.5px,
+    rgba(0,0,0,0.15) 0px 10px 10px -3.75px;
+  transition: transform 0.5s ease;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.sector-card:hover {
+  transform: scale(1.02);
+}
+
+.sector-card__bg {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
 }
 
-.autonomos__title {
+.sector-card__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.sector-card:hover .sector-card__bg img {
+  transform: scale(1.1);
+}
+
+.sector-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 1.25rem;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.sector-card__content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 45%, transparent 100%);
+  z-index: -1;
+}
+
+.sector-card__label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
   color: var(--color-white);
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-.dot-green {
-  color: var(--color-primary);
 }
 
-.autonomos .hero__cta {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: fit-content;
-  margin: 32px auto 0;
+.dot-green { color: var(--color-primary); }
+
+/* Responsive */
+@media (max-width: 991px) {
+  .sectores__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sector-card {
+    height: 380px;
+  }
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .autonomos .hero__cta.visible {
-    transition:
-      transform        0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
-      background-color 0.22s ease,
-      color            0.22s ease,
-      box-shadow       0.28s ease,
-      opacity          0.65s var(--ease-out);
+/* Carrusel horizontal en móvil */
+@media (max-width: 767px) {
+  .sectores {
+    padding-right: 0;
   }
-  .autonomos .hero__cta.visible:hover {
-    transform: translateY(-4px);
+
+  .sectores__header {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-right: 5%;
   }
-  .autonomos .hero__cta.visible:active {
-    transform: scale(0.95) !important;
-    transition-duration: 0.1s;
+
+  .sectores__title-break {
+    display: block;
+  }
+
+  .sectores__title-br {
+    display: none;
+  }
+
+  .sectores__grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 20vw;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .sectores__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sector-card {
+    flex: 0 0 80vw;
+    scroll-snap-align: start;
+    height: 420px;
+  }
+}
+
+@media (max-width: 575px) {
+  .sectores {
+    padding: 4rem 0 4rem 5%;
+  }
+
+  .sector-card {
+    height: 380px;
+  }
+}
+
+/* Sectores nav — solo visible en carrusel móvil */
+.sectores__nav {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .sectores__nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .sectores__nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--color-white);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    padding: 0;
+  }
+
+  .sectores__nav-btn:hover:not(:disabled) {
+    background: rgba(94, 168, 74, 0.15);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .sectores__nav-btn:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+
+  .sectores__nav-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }
 }
 
@@ -2028,6 +2185,8 @@ input, select, textarea { font: inherit; color: inherit; }
   color: rgba(255,255,255,0.9);
 }
 
+.que-hace__arrow { bottom: 31px; }
+
 .que-hace__arrow.hidden {
   opacity: 0;
   pointer-events: none;
@@ -2577,13 +2736,11 @@ input, select, textarea { font: inherit; color: inherit; }
 .anim-reveal {
   opacity: 0;
   transform: translateY(22px);
-  filter: blur(4px);
-  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out), filter 0.65s var(--ease-out);
+  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
 }
 .anim-reveal.visible {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0px);
 }
 
 /* Modificador escala — para tarjetas: sube + crece, easing spring */
@@ -3283,7 +3440,6 @@ input, select, textarea { font: inherit; color: inherit; }
     transition: opacity 0.15s ease !important;
   }
 
-  .hero__title-line,
   .hero__actions {
     animation: none !important;
     opacity: 1 !important;

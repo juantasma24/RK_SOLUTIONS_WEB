@@ -20,11 +20,14 @@ import json
 CONFIG_FILE = os.path.join(os.path.dirname(__file__), 'deploy.config')
 
 FILES = {
-    'css':      ('rk-migration/css/styles.css',   'css/styles.css'),
-    'js':       ('rk-migration/js/main.js',        'js/main.js'),
-    'html':     ('rk-migration/home-template.php', 'home-template.php'),
-    'php':      ('rk-migration/rk-migration.php',  'rk-migrations.php'),
-    'htaccess': ('rk-migration/.htaccess',         '.htaccess'),
+    'css':      ('rk-migration/css/styles.css',              'css/styles.css'),
+    'js':       ('rk-migration/js/main.js',                  'js/main.js'),
+    'html':     ('rk-migration/home-template.php',           'home-template.php'),
+    'php':      ('rk-migration/rk-migration.php',            'rk-migrations.php'),
+    'htaccess': ('rk-migration/.htaccess',                   '.htaccess'),
+    'gsap':     ('rk-migration/js/lib/gsap.min.js',          'js/lib/gsap.min.js'),
+    'gsap-st':  ('rk-migration/js/lib/ScrollTrigger.min.js', 'js/lib/ScrollTrigger.min.js'),
+    'gsap-sp':  ('rk-migration/js/lib/SplitText.min.js',     'js/lib/SplitText.min.js'),
 }
 
 def load_config():
@@ -65,15 +68,19 @@ def upload_file(wp_url, token, local_path, remote_path):
         return False, str(e.reason)
 
 def sync_root_to_migration():
-    """Copia css y js desde la raíz del proyecto a rk-migration/ antes de deployar."""
+    """Copia css, js y libs GSAP desde la raíz del proyecto a rk-migration/ antes de deployar."""
     base = os.path.dirname(__file__)
     pairs = [
-        ('css/styles.css',  'rk-migration/css/styles.css'),
-        ('js/main.js',      'rk-migration/js/main.js'),
+        ('css/styles.css',              'rk-migration/css/styles.css'),
+        ('js/main.js',                  'rk-migration/js/main.js'),
+        ('js/lib/gsap.min.js',          'rk-migration/js/lib/gsap.min.js'),
+        ('js/lib/ScrollTrigger.min.js', 'rk-migration/js/lib/ScrollTrigger.min.js'),
+        ('js/lib/SplitText.min.js',     'rk-migration/js/lib/SplitText.min.js'),
     ]
     for src_rel, dst_rel in pairs:
         src = os.path.join(base, src_rel)
         dst = os.path.join(base, dst_rel)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
         if os.path.exists(src):
             shutil.copy2(src, dst)
 

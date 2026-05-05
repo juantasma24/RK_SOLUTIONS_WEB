@@ -782,10 +782,10 @@
 
   <?php include 'includes/footer.php'; ?>
 
-  <!-- GSAP + ScrollTrigger + SplitText -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <!-- GSAP + ScrollTrigger + SplitText (autoalojado, defer para descarga en paralelo) -->
+  <script src="js/lib/gsap.min.js" defer></script>
+  <script src="js/lib/ScrollTrigger.min.js" defer></script>
+  <script src="js/lib/SplitText.min.js" defer></script>
 
   <!-- JavaScript -->
   <script src="js/main.js" defer></script>
