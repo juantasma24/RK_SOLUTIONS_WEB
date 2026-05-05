@@ -582,62 +582,57 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.contacto__form-shine'),
   ].forEach(el => { if (el) shineObserver.observe(el); });
 
-  /* --- Reel animation en contadores (slot-machine vertical) — construcción lazy --- */
+  /* --- Reel animation en contadores (slot-machine vertical) --- */
   const counterSlots = document.querySelectorAll('.counter-slot');
   if (counterSlots.length) {
-    function buildReels(alreadyVisible) {
-      counterSlots.forEach(el => {
-        const target = parseInt(el.dataset.target, 10);
-        const wrap = document.createElement('span');
-        wrap.className = 'counter-reel-wrap';
-        const reel = document.createElement('span');
-        reel.className = 'counter-reel';
-        reel.style.setProperty('--reel-items', target + 1);
-        for (let i = 0; i <= target; i++) {
-          const digit = document.createElement('span');
-          digit.className = 'counter-reel__digit';
-          digit.textContent = i;
-          reel.appendChild(digit);
+    // 1. Construir el DOM inmediatamente para evitar reflows durante el scroll
+    counterSlots.forEach(el => {
+      const target = parseInt(el.dataset.target, 10);
+      const wrap = document.createElement('span');
+      wrap.className = 'counter-reel-wrap';
+      const reel = document.createElement('span');
+      reel.className = 'counter-reel';
+      reel.style.setProperty('--reel-items', target + 1);
+      
+      for (let i = 0; i <= target; i++) {
+        const digit = document.createElement('span');
+        digit.className = 'counter-reel__digit';
+        digit.textContent = i;
+        reel.appendChild(digit);
+      }
+      
+      // Posición final para evitar parpadeos antes de que comience la animación
+      reel.style.transform = `translateY(calc(-1em * ${target}))`;
+      wrap.appendChild(reel);
+      el.parentNode.replaceChild(wrap, el);
+    });
+
+    // 2. Usar ScrollTrigger para animar (sincronizado con el resto de GSAP)
+    // Se añade un pequeño retardo con requestAnimationFrame para asegurar
+    // que ScrollTrigger esté definido si el script de GSAP carga asíncronamente
+    window.addEventListener('load', () => {
+      if (typeof ScrollTrigger !== 'undefined') {
+        const reelWraps = document.querySelectorAll('.counter-reel-wrap');
+        const contadoresSection = document.querySelector('.contadores__wrapper');
+        
+        if (contadoresSection) {
+          ScrollTrigger.create({
+            trigger: contadoresSection,
+            start: 'top 85%',
+            once: true,
+            onEnter: () => {
+              reelWraps.forEach((wrap, idx) => {
+                const reel = wrap.querySelector('.counter-reel');
+                setTimeout(() => {
+                  reel.style.transform = '';
+                  reel.classList.add('is-spinning');
+                }, 600 + (idx * 150)); // Escalado después del fade-up
+              });
+            }
+          });
         }
-        reel.style.transform = `translateY(calc(-1em * ${target}))`;
-        wrap.appendChild(reel);
-        el.parentNode.replaceChild(wrap, el);
-      });
-
-      const reelObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          reelObserver.unobserve(entry.target);
-          const reel = entry.target.querySelector('.counter-reel');
-          const idx  = Array.from(document.querySelectorAll('.counter-reel-wrap')).indexOf(entry.target);
-          // Si ya era visible al cargar: delay corto (cards ya en estado final vía gsap.set)
-          // Si llega scrolleando: delay largo (esperar animación GSAP de cards)
-          const delay = alreadyVisible ? 100 + idx * 100 : 900 + idx * 150;
-          setTimeout(() => {
-            reel.style.transform = '';
-            reel.classList.add('is-spinning');
-          }, delay);
-        });
-      }, { threshold: 0.5 });
-
-      document.querySelectorAll('.counter-reel-wrap').forEach(el => reelObserver.observe(el));
-    }
-
-    // Construir el DOM del reel de forma lazy (async) — evita forced reflow sobre
-    // contenido visible cuando el usuario refresca con la sección ya en pantalla
-    const pilaresSection = document.querySelector('.pilares');
-    if (pilaresSection) {
-      const buildObserver = new IntersectionObserver((entries, obs) => {
-        if (!entries[0].isIntersecting) return;
-        obs.disconnect();
-        const wrapper = document.querySelector('.contadores__wrapper');
-        const alreadyVisible = wrapper
-          ? wrapper.getBoundingClientRect().top < window.innerHeight
-          : false;
-        buildReels(alreadyVisible);
-      }, { rootMargin: '500px 0px 500px 0px', threshold: 0 });
-      buildObserver.observe(pilaresSection);
-    }
+      }
+    });
   }
 
   /* --- Pausar badges flotantes cuando no son visibles --- */
