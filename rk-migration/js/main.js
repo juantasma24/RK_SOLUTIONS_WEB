@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
       wrap.className = 'counter-reel-wrap';
       const reel = document.createElement('span');
       reel.className = 'counter-reel';
-      reel.style.setProperty('--reel-items', target + 1);
+      reel.dataset.target = target; // Guardar para GSAP
       
       for (let i = 0; i <= target; i++) {
         const digit = document.createElement('span');
@@ -601,32 +601,36 @@ document.addEventListener('DOMContentLoaded', () => {
         reel.appendChild(digit);
       }
       
-      // Posición final para evitar parpadeos antes de que comience la animación
-      reel.style.transform = `translateY(calc(-1em * ${target}))`;
+      // Posición final (en em) para evitar parpadeos
+      reel.style.transform = `translateY(-${target}em)`;
       wrap.appendChild(reel);
       el.parentNode.replaceChild(wrap, el);
     });
 
-    // 2. Usar ScrollTrigger para animar (sincronizado con el resto de GSAP)
-    // Se añade un pequeño retardo con requestAnimationFrame para asegurar
-    // que ScrollTrigger esté definido si el script de GSAP carga asíncronamente
+    // 2. Usar ScrollTrigger + GSAP nativo (100% GPU, 0% layout thrashing)
     window.addEventListener('load', () => {
-      if (typeof ScrollTrigger !== 'undefined') {
-        const reelWraps = document.querySelectorAll('.counter-reel-wrap');
+      if (typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
         const contadoresSection = document.querySelector('.contadores__wrapper');
+        const reels = document.querySelectorAll('.counter-reel');
         
-        if (contadoresSection) {
+        if (contadoresSection && reels.length) {
           ScrollTrigger.create({
             trigger: contadoresSection,
             start: 'top 85%',
             once: true,
             onEnter: () => {
-              reelWraps.forEach((wrap, idx) => {
-                const reel = wrap.querySelector('.counter-reel');
-                setTimeout(() => {
-                  reel.style.transform = '';
-                  reel.classList.add('is-spinning');
-                }, 600 + (idx * 150)); // Escalado después del fade-up
+              reels.forEach((reel, idx) => {
+                const target = reel.dataset.target;
+                gsap.fromTo(reel,
+                  { y: "0em" },
+                  {
+                    y: `-${target}em`,
+                    duration: 1.6,
+                    ease: "power3.out",
+                    delay: 0.6 + (idx * 0.15),
+                    force3D: true // Asegura capa compositada dedicada en la GPU
+                  }
+                );
               });
             }
           });
