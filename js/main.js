@@ -454,42 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ytObserver.observe(ytFacade);
   });
 
-  /* --- Pausar vídeo de autónomos cuando no es visible --- */
-  const bgVideo = document.querySelector('.autonomos__video-bg video');
-  if (bgVideo) {
-    const autonomosSection = bgVideo.closest('section');
-    let userWantsPlay = false;
-
-    // Observer 1: descarga + pre-decode silencioso (play+pause inmediato)
-    const preloadObs = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        bgVideo.preload = 'auto';
-        bgVideo.load();
-        bgVideo.addEventListener('canplay', () => {
-          // Si el usuario ya llegó a la sección, no interferir
-          if (userWantsPlay) return;
-          // Play+pause silencioso: sube los frames a la GPU
-          bgVideo.play().then(() => {
-            if (!userWantsPlay) bgVideo.pause();
-          }).catch(() => {});
-        }, { once: true });
-        preloadObs.disconnect();
-      }
-    }, { rootMargin: '0px 0px 800px 0px', threshold: 0 });
-    preloadObs.observe(autonomosSection);
-
-    // Observer 2: play/pause real controlado por visibilidad
-    new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        userWantsPlay = true;
-        const p = bgVideo.play();
-        if (p) p.catch(() => bgVideo.addEventListener('canplay', () => bgVideo.play(), { once: true }));
-      } else {
-        userWantsPlay = false;
-        bgVideo.pause();
-      }
-    }, { threshold: 0.1 }).observe(autonomosSection);
-  }
+  /* (vídeo autónomos eliminado — sección reemplazada por bento gallery) */
 
   /* ============================================
      TESTIMONIOS CARRUSEL
@@ -1201,35 +1166,85 @@ document.addEventListener('DOMContentLoaded', () => {
 }());
 
 
-/* --- GSAP SplitText: autonomos title line reveal on scroll --- */
+/* --- Sectores: SplitText header + cards fade-in --- */
 (function () {
-  if (typeof gsap === 'undefined' || typeof SplitText === 'undefined') return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-  const titleEl = document.querySelector('.autonomos__title');
-  if (!titleEl) return;
+  const section = document.querySelector('.sectores');
+  if (!section) return;
 
-  gsap.registerPlugin(SplitText);
+  gsap.registerPlugin(ScrollTrigger, SplitText);
 
-  document.fonts.ready.then(() => {
-    SplitText.create(titleEl, {
-      type: 'lines',
-      mask: 'lines',
-      autoSplit: true,
-      onSplit(self) {
-        return gsap.from(self.lines, {
-          yPercent: 120,
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: titleEl,
-            start: 'top 85%',
-            end: 'top 30%',
-            scrub: 1.5,
-          }
-        });
-      }
-    });
+  // SplitText: título y descripción línea a línea
+  const split = SplitText.create(
+    section.querySelectorAll('.sectores__title, .sectores__desc'),
+    { type: 'words,lines', linesClass: 'sectores__line', autoSplit: true, mask: 'lines' }
+  );
+
+  gsap.fromTo(split.lines,
+    { opacity: 0, y: 50 },
+    {
+      opacity: 1, y: 0,
+      duration: 1.5,
+      ease: 'power3.out',
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: section.querySelector('.sectores__header'),
+        start: 'top 80%',
+        once: true,
+      },
+    }
+  );
+
+  // Cards: fade-in escalonado
+  const cards = section.querySelectorAll('.sector-card');
+  gsap.fromTo(cards,
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1, y: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      stagger: 0.2,
+      force3D: true,
+      scrollTrigger: {
+        trigger: section.querySelector('.sectores__grid'),
+        start: 'top 80%',
+        once: true,
+      },
+    }
+  );
+}());
+
+/* --- Sectores: navegación con flechas (solo móvil) --- */
+(function () {
+  const grid = document.querySelector('.sectores__grid');
+  const prevBtn = document.getElementById('sectoresPrev');
+  const nextBtn = document.getElementById('sectoresNext');
+  if (!grid || !prevBtn || !nextBtn) return;
+
+  function getCardWidth() {
+    const card = grid.querySelector('.sector-card');
+    if (!card) return grid.clientWidth;
+    const gap = parseFloat(getComputedStyle(grid).gap) || 0;
+    return card.offsetWidth + gap;
+  }
+
+  function updateButtons() {
+    prevBtn.disabled = grid.scrollLeft <= 1;
+    nextBtn.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    grid.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
   });
+
+  nextBtn.addEventListener('click', () => {
+    grid.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
+  });
+
+  grid.addEventListener('scroll', updateButtons, { passive: true });
+  new ResizeObserver(updateButtons).observe(grid);
+  updateButtons();
 }());
 
 /* --- ScrollTrigger.refresh() tras carga de fuentes --- */

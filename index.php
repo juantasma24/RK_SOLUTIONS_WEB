@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="RK Solutions — La Manzana: facturación, fichajes y cumplimiento normativo en una sola plataforma. Solicita tu demo gratis.">
+  <meta name="description"
+    content="RK Solutions — La Manzana: facturación, fichajes y cumplimiento normativo en una sola plataforma. Solicita tu demo gratis.">
   <title>La Manzana - RK Solutions</title>
 
   <!-- Google Fonts: Poppins + Manrope -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,300;0,600;0,700;0,800;1,300;1,800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Poppins:ital,wght@0,300;0,600;0,700;0,800;1,300;1,800&display=swap"
+    rel="stylesheet">
 
   <!-- DNS Prefetch & Preconnect: resolver dominios externos por adelantado -->
   <link rel="dns-prefetch" href="https://www.youtube.com">
@@ -46,6 +50,7 @@
     }());
   </script>
 </head>
+
 <body>
 
   <?php include 'includes/header.php'; ?>
@@ -69,10 +74,18 @@
 
         <div class="hero__social-proof">
           <div class="hero__avatars">
-            <div class="hero__avatar" data-pool="47,12,33,56,63"><img src="https://i.pravatar.cc/48?img=47" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=47" alt="" width="38" height="38" aria-hidden="true"></div>
-            <div class="hero__avatar" data-pool="32,5,44,19,68"><img src="https://i.pravatar.cc/48?img=32" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=32" alt="" width="38" height="38" aria-hidden="true"></div>
-            <div class="hero__avatar" data-pool="21,8,37,52,70"><img src="https://i.pravatar.cc/48?img=21" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=21" alt="" width="38" height="38" aria-hidden="true"></div>
-            <div class="hero__avatar" data-pool="10,25,41,60,15"><img src="https://i.pravatar.cc/48?img=10" alt="" width="38" height="38"><img src="https://i.pravatar.cc/48?img=10" alt="" width="38" height="38" aria-hidden="true"></div>
+            <div class="hero__avatar" data-pool="47,12,33,56,63"><img src="https://i.pravatar.cc/48?img=47" alt=""
+                width="38" height="38"><img src="https://i.pravatar.cc/48?img=47" alt="" width="38" height="38"
+                aria-hidden="true"></div>
+            <div class="hero__avatar" data-pool="32,5,44,19,68"><img src="https://i.pravatar.cc/48?img=32" alt=""
+                width="38" height="38"><img src="https://i.pravatar.cc/48?img=32" alt="" width="38" height="38"
+                aria-hidden="true"></div>
+            <div class="hero__avatar" data-pool="21,8,37,52,70"><img src="https://i.pravatar.cc/48?img=21" alt=""
+                width="38" height="38"><img src="https://i.pravatar.cc/48?img=21" alt="" width="38" height="38"
+                aria-hidden="true"></div>
+            <div class="hero__avatar" data-pool="10,25,41,60,15"><img src="https://i.pravatar.cc/48?img=10" alt=""
+                width="38" height="38"><img src="https://i.pravatar.cc/48?img=10" alt="" width="38" height="38"
+                aria-hidden="true"></div>
           </div>
           <p class="hero__social-text">
             <strong>+3.000</strong> usuarios<br>eligen La Manzana
@@ -95,7 +108,7 @@
       <h2 class="que-hace__title anim-reveal text-center">
         <span class="title-part">¿Qué hace</span> <span class="title-part">La Manzana por ti?</span>
       </h2>
-      
+
       <!-- Video YouTube autoplay -->
       <div class="que-hace__video-wrap" id="queHaceVideo"></div>
 
@@ -116,29 +129,66 @@
       </ul>
     </div>
     <a href="#autonomos" class="que-hace__arrow" id="queHaceArrow" aria-label="Ir a la siguiente sección">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
     </a>
   </section>
 
   <!-- ============================================
-       SECCIÓN 3: PARA AUTÓNOMOS, HOSTELERÍA Y COMERCIO
+       SECCIÓN 3: SECTORES
        ============================================ -->
-  <section class="autonomos section" id="autonomos">
-    <div class="autonomos__video-bg">
-      <?php /* VIDEO COMENTADO
-      <video muted loop playsinline preload="auto">
-        <source src="assets/img/video-autonomos.mp4" type="video/mp4">
-      </video>
-      */ ?>
-      <div class="autonomos__overlay"></div>
-    </div>
-    <div class="container">
-      <h2 class="autonomos__title">
-        Para autónomos, hostelería<br class="br--desktop"><span class="nowrap"> y <br class="br--mobile">comercio<span class="dot-green">.</span></span>
-      </h2>
-      <a href="#tpv-seq" class="hero__cta anim-reveal">
-        <span>Así inicia tu negocio</span>
-      </a>
+  <section class="sectores" id="autonomos">
+    <div class="sectores__inner">
+      <div class="sectores__header">
+        <h2 class="sectores__title"><span class="sectores__title-break">Control de venta y clientes,</span><span
+            class="sectores__title-break"> todo conectado.</span><br class="sectores__title-br"><span
+            class="sectores__brand">That's La Manzana</span></h2>
+        <p class="sectores__desc">El software de gestión para facturar, controlar, fichar y cumplir.</p>
+      </div>
+      <div class="sectores__grid">
+        <a href="#" class="sector-card">
+          <div class="sector-card__bg"><img src="assets/img/fotos_sectores/img_autonomo.webp" alt="Autónomos"
+              loading="lazy" width="600" height="800"></div>
+          <div class="sector-card__content">
+            <span class="sector-card__label">Autónomos</span>
+          </div>
+        </a>
+        <a href="#" class="sector-card">
+          <div class="sector-card__bg"><img src="assets/img/fotos_sectores/img_hosteleria.webp" alt="Hostelería"
+              loading="lazy" width="600" height="800"></div>
+          <div class="sector-card__content">
+            <span class="sector-card__label">Hostelería</span>
+          </div>
+        </a>
+        <a href="#" class="sector-card">
+          <div class="sector-card__bg"><img src="assets/img/fotos_sectores/img_comercio.webp" alt="Comercio"
+              loading="lazy" width="600" height="800"></div>
+          <div class="sector-card__content">
+            <span class="sector-card__label">Comercio</span>
+          </div>
+        </a>
+        <a href="#" class="sector-card">
+          <div class="sector-card__bg"><img src="assets/img/fotos_sectores/img_asesores.webp" alt="Asesores"
+              loading="lazy" width="600" height="800"></div>
+          <div class="sector-card__content">
+            <span class="sector-card__label">Asesores</span>
+          </div>
+        </a>
+      </div>
+      <div class="sectores__nav" id="sectoresNav">
+        <button class="sectores__nav-btn sectores__nav-btn--prev" id="sectoresPrev" aria-label="Card anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <button class="sectores__nav-btn sectores__nav-btn--next" id="sectoresNext" aria-label="Card siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -149,7 +199,11 @@
     <div class="tpv-seq__sticky">
       <canvas class="tpv-seq__canvas" id="tpvCanvas"></canvas>
       <div class="tpv-scroll-hint" id="tpvScrollHint" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="16" rx="5"/><line x1="12" y1="6" x2="12" y2="9"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round">
+          <rect x="7" y="2" width="10" height="16" rx="5" />
+          <line x1="12" y1="6" x2="12" y2="9" />
+        </svg>
         <span>Scroll</span>
       </div>
     </div>
@@ -244,7 +298,10 @@
 
     </div>
     <a href="#testimonios" class="pilares__arrow" aria-label="Ir a la siguiente sección">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
     </a>
   </section>
 
@@ -253,12 +310,16 @@
        ============================================ -->
   <section class="testimonios section" id="testimonios">
     <div class="container">
-      <h2 class="section-title text-center anim-reveal">Lo que dicen <span class="highlight">nuestros clientes</span></h2>
+      <h2 class="section-title text-center anim-reveal">Lo que dicen <span class="highlight">nuestros clientes</span>
+      </h2>
       <!-- Carrusel de testimonios -->
       <div class="testimonios__carousel anim-reveal" id="testimoniosCarousel">
         <!-- Botón anterior -->
         <button class="testimonios__nav testimonios__nav--prev" id="testimoniosPrev" aria-label="Testimonio anterior">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
         </button>
 
         <!-- Track de slides -->
@@ -269,7 +330,9 @@
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
                   <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-                  <p class="testimonio-card__quote">"Desde que uso La Manzana, mi negocio funciona como un reloj. La facturación es automática y el fichaje de empleados es súper sencillo. El soporte 24/7 me ha salvado varias veces."</p>
+                  <p class="testimonio-card__quote">"Desde que uso La Manzana, mi negocio funciona como un reloj. La
+                    facturación es automática y el fichaje de empleados es súper sencillo. El soporte 24/7 me ha salvado
+                    varias veces."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
@@ -288,7 +351,9 @@
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
                   <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-                  <p class="testimonio-card__quote">"Autónoma desde hace 15 años, he probado muchos programas. La Manzana es el único que entiendo sin necesitar un máster. Cumple con TicketBAI y me quita un peso de encima."</p>
+                  <p class="testimonio-card__quote">"Autónoma desde hace 15 años, he probado muchos programas. La
+                    Manzana es el único que entiendo sin necesitar un máster. Cumple con TicketBAI y me quita un peso de
+                    encima."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
@@ -307,7 +372,8 @@
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
                   <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-                  <p class="testimonio-card__quote">"Tenía 3 tiendas y cada una con su sistema. Ahora con La Manzana lo veo todo desde el móvil. Los reportes son claros y la formación que me dieron fue excelente."</p>
+                  <p class="testimonio-card__quote">"Tenía 3 tiendas y cada una con su sistema. Ahora con La Manzana lo
+                    veo todo desde el móvil. Los reportes son claros y la formación que me dieron fue excelente."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
@@ -326,7 +392,8 @@
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
                   <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-                  <p class="testimonio-card__quote">"El mejor software que he usado en mis 10 años gestionando hoteles. La integración con los canales de reserva es perfecta y el soporte técnico responde en minutos."</p>
+                  <p class="testimonio-card__quote">"El mejor software que he usado en mis 10 años gestionando hoteles.
+                    La integración con los canales de reserva es perfecta y el soporte técnico responde en minutos."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
@@ -345,7 +412,8 @@
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
                   <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-                  <p class="testimonio-card__quote">"Como gestoría, necesitamos control total. La Manzana nos da reportes detallados de cada cliente y nos ahorra horas de trabajo administrativo."</p>
+                  <p class="testimonio-card__quote">"Como gestoría, necesitamos control total. La Manzana nos da
+                    reportes detallados de cada cliente y nos ahorra horas de trabajo administrativo."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
@@ -364,7 +432,8 @@
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
                   <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-                  <p class="testimonio-card__quote">"La migración desde mi antiguo software fue gratuita y sin dolor. El equipo de La Manzana se encargó de todo. Llevo 2 años sin incidencias."</p>
+                  <p class="testimonio-card__quote">"La migración desde mi antiguo software fue gratuita y sin dolor. El
+                    equipo de La Manzana se encargó de todo. Llevo 2 años sin incidencias."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
@@ -383,7 +452,8 @@
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
                   <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-                  <p class="testimonio-card__quote">"Tengo una academia y el módulo de facturación me permite generar recibos automáticos para 200 alumnos. Un cambio radical en mi productividad."</p>
+                  <p class="testimonio-card__quote">"Tengo una academia y el módulo de facturación me permite generar
+                    recibos automáticos para 200 alumnos. Un cambio radical en mi productividad."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
@@ -402,7 +472,8 @@
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
                   <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-                  <p class="testimonio-card__quote">"Lo que más valoro es la tranquilidad de estar cumpliendo la normativa sin tener que preocuparme. La Manzana se actualiza sola y eso no tiene precio."</p>
+                  <p class="testimonio-card__quote">"Lo que más valoro es la tranquilidad de estar cumpliendo la
+                    normativa sin tener que preocuparme. La Manzana se actualiza sola y eso no tiene precio."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
@@ -421,7 +492,8 @@
               <div class="testimonio-card">
                 <div class="testimonio-card__bubble">
                   <img src="assets/img/comillas.svg" alt="" class="testimonio-card__comillas" aria-hidden="true">
-                  <p class="testimonio-card__quote">"Mis camareros aprendieron a usar el TPV en una tarde. La interfaz es intuitiva y los clientes agradecen la rapidez en las cuentas."</p>
+                  <p class="testimonio-card__quote">"Mis camareros aprendieron a usar el TPV en una tarde. La interfaz
+                    es intuitiva y los clientes agradecen la rapidez en las cuentas."</p>
                 </div>
                 <div class="testimonio-card__author">
                   <div class="testimonio-card__avatar">
@@ -439,7 +511,10 @@
 
         <!-- Botón siguiente -->
         <button class="testimonios__nav testimonios__nav--next" id="testimoniosNext" aria-label="Testimonio siguiente">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
         </button>
       </div>
 
@@ -460,11 +535,13 @@
         <!-- Columna izquierda: texto -->
         <div class="planes__texto anim-reveal">
           <h2 class="planes__titulo">Elige el plan<br><strong>que se adapte<br>a tu negocio</strong></h2>
-          <p class="planes__subtitulo"><strong>VERI*FACTU</strong> llega y adaptarse a tiempo <strong>marca la diferencia.</strong></p>
+          <p class="planes__subtitulo"><strong>VERI*FACTU</strong> llega y adaptarse a tiempo <strong>marca la
+              diferencia.</strong></p>
 
           <!-- Ilustración decorativa -->
           <div class="planes__ilustracion" aria-hidden="true">
-            <img src="assets/img/ilustraciones/personaje_cohete.svg" alt="" loading="lazy" decoding="async" width="418" height="377">
+            <img src="assets/img/ilustraciones/personaje_cohete.svg" alt="" loading="lazy" decoding="async" width="418"
+              height="377">
           </div>
         </div>
 
@@ -482,8 +559,10 @@
               <ul class="plan-card__features">
                 <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">TPV</li>
                 <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Fichas de cliente</li>
-                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas</li>
-                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos, empleados, etc.</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de
+                  facturas</li>
+                <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos,
+                  empleados, etc.</li>
                 <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Personalización de pestañas</li>
               </ul>
               <a href="#contacto" class="btn btn--primary plan-card__btn">Quiero este plan</a>
@@ -500,8 +579,10 @@
             <ul class="plan-card__features">
               <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">TPV</li>
               <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Fichas de cliente</li>
-              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas</li>
-              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos, empleados, etc.</li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Control y realización de facturas
+              </li>
+              <li><img src="assets/img/check_verde.svg" width="18" height="18" alt="">Economía: gastos, presupuestos,
+                empleados, etc.</li>
             </ul>
             <a href="#contacto" class="btn plan-card__btn plan-card__btn--standard">Quiero este plan</a>
           </div>
@@ -510,7 +591,10 @@
       </div>
     </div>
     <a href="#contacto" class="planes__arrow" aria-label="Ir a la siguiente sección">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
     </a>
   </section>
 
@@ -522,7 +606,8 @@
       <div class="contacto__inner">
         <!-- Lado izquierdo -->
         <div class="contacto__info anim-reveal">
-          <h2 class="contacto__title">Trabaja con<br><span class="highlight">La Manzana</span>,<br>sin coste<br>por 12 meses</h2>
+          <h2 class="contacto__title">Trabaja con<br><span class="highlight">La Manzana</span>,<br>sin coste<br>por 12
+            meses</h2>
           <p class="contacto__subtitle">INCLUYE:</p>
           <ul class="contacto__list">
             <li><img src="assets/img/check.svg" width="20" height="20" alt="">Software La Manzana</li>
@@ -536,7 +621,8 @@
         <div class="contacto__form-wrapper anim-slide-up">
           <form class="contacto__form" id="contactForm" action="#" method="POST">
             <div class="contacto__form-shine" aria-hidden="true"></div>
-            <p class="contacto__form-intro">Déjanos tus datos y te contamos cómo empezar con La Manzana <strong>sin coste el primer año.</strong></p>
+            <p class="contacto__form-intro">Déjanos tus datos y te contamos cómo empezar con La Manzana <strong>sin
+                coste el primer año.</strong></p>
 
             <div class="contacto__form-group">
               <input type="text" name="name" class="contacto__input" placeholder="Nombre y apellido" required>
@@ -553,9 +639,13 @@
 
             <div class="contacto__form-group">
               <div class="contacto__dropdown" id="comunidadDropdown">
-                <button type="button" class="contacto__dropdown-btn" id="comunidadToggle" aria-haspopup="listbox" aria-expanded="false">
+                <button type="button" class="contacto__dropdown-btn" id="comunidadToggle" aria-haspopup="listbox"
+                  aria-expanded="false">
                   <span class="contacto__dropdown-label" id="comunidadLabel">Comunidad autónoma</span>
-                  <svg class="contacto__dropdown-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  <svg class="contacto__dropdown-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
                 </button>
                 <div class="contacto__dropdown-menu" id="comunidadMenu" role="listbox">
                   <button type="button" class="contacto__dropdown-option" data-value="andalucia">Andalucía</button>
@@ -564,8 +654,10 @@
                   <button type="button" class="contacto__dropdown-option" data-value="baleares">Islas Baleares</button>
                   <button type="button" class="contacto__dropdown-option" data-value="canarias">Canarias</button>
                   <button type="button" class="contacto__dropdown-option" data-value="cantabria">Cantabria</button>
-                  <button type="button" class="contacto__dropdown-option" data-value="castilla-leon">Castilla y León</button>
-                  <button type="button" class="contacto__dropdown-option" data-value="castilla-mancha">Castilla-La Mancha</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="castilla-leon">Castilla y
+                    León</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="castilla-mancha">Castilla-La
+                    Mancha</button>
                   <button type="button" class="contacto__dropdown-option" data-value="cataluna">Cataluña</button>
                   <button type="button" class="contacto__dropdown-option" data-value="ceuta">Ceuta</button>
                   <button type="button" class="contacto__dropdown-option" data-value="extremadura">Extremadura</button>
@@ -576,7 +668,8 @@
                   <button type="button" class="contacto__dropdown-option" data-value="navarra">Navarra</button>
                   <button type="button" class="contacto__dropdown-option" data-value="pais-vasco">País Vasco</button>
                   <button type="button" class="contacto__dropdown-option" data-value="rioja">La Rioja</button>
-                  <button type="button" class="contacto__dropdown-option" data-value="valencia">Comunidad Valenciana</button>
+                  <button type="button" class="contacto__dropdown-option" data-value="valencia">Comunidad
+                    Valenciana</button>
                 </div>
                 <input type="hidden" name="comunidad" id="comunidadInput">
               </div>
@@ -601,10 +694,12 @@
 
     <!-- Ilustraciones decorativas -->
     <div class="faq__ilustracion faq__ilustracion--izq" aria-hidden="true">
-      <img src="assets/img/ilustraciones/personaje_faq01.svg" alt="" loading="lazy" decoding="async" width="320" height="456">
+      <img src="assets/img/ilustraciones/personaje_faq01.svg" alt="" loading="lazy" decoding="async" width="320"
+        height="456">
     </div>
     <div class="faq__ilustracion faq__ilustracion--der" aria-hidden="true">
-      <img src="assets/img/ilustraciones/personaje_faq02.svg" alt="" loading="lazy" decoding="async" width="353" height="353">
+      <img src="assets/img/ilustraciones/personaje_faq02.svg" alt="" loading="lazy" decoding="async" width="353"
+        height="353">
     </div>
 
     <div class="container">
@@ -619,7 +714,9 @@
             <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">La Manzana es un software de gestión integral que unifica facturación, fichajes, TPV y cumplimiento normativo (TicketBAI y VERI*FACTU) en una sola plataforma. Diseñado para autónomos, hostelería y comercio.</div>
+            <div class="faq-item__answer-inner">La Manzana es un software de gestión integral que unifica facturación,
+              fichajes, TPV y cumplimiento normativo (TicketBAI y VERI*FACTU) en una sola plataforma. Diseñado para
+              autónomos, hostelería y comercio.</div>
           </div>
         </div>
 
@@ -629,7 +726,9 @@
             <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Sí. La Manzana se adapta a cualquier tipo de comercio: retail, hostelería, servicios profesionales y más. Si necesitas gestionar ventas, fichajes o cumplir la normativa fiscal, es para ti.</div>
+            <div class="faq-item__answer-inner">Sí. La Manzana se adapta a cualquier tipo de comercio: retail,
+              hostelería, servicios profesionales y más. Si necesitas gestionar ventas, fichajes o cumplir la normativa
+              fiscal, es para ti.</div>
           </div>
         </div>
 
@@ -639,7 +738,8 @@
             <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Sí. Funciona desde ordenador, tablet y móvil. Accede a todos tus datos en tiempo real desde cualquier lugar con conexión a internet.</div>
+            <div class="faq-item__answer-inner">Sí. Funciona desde ordenador, tablet y móvil. Accede a todos tus datos
+              en tiempo real desde cualquier lugar con conexión a internet.</div>
           </div>
         </div>
 
@@ -649,7 +749,9 @@
             <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Sí, al 100%. La Manzana está homologada y actualizada para cumplir con TicketBAI (País Vasco) y VERI*FACTU (resto de España). Nos encargamos de las actualizaciones normativas.</div>
+            <div class="faq-item__answer-inner">Sí, al 100%. La Manzana está homologada y actualizada para cumplir con
+              TicketBAI (País Vasco) y VERI*FACTU (resto de España). Nos encargamos de las actualizaciones normativas.
+            </div>
           </div>
         </div>
 
@@ -659,7 +761,8 @@
             <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Totalmente. Si sabes enviar un correo electrónico, sabes usar La Manzana. Además, incluimos formación completa y soporte humano 24/7 para cualquier duda.</div>
+            <div class="faq-item__answer-inner">Totalmente. Si sabes enviar un correo electrónico, sabes usar La
+              Manzana. Además, incluimos formación completa y soporte humano 24/7 para cualquier duda.</div>
           </div>
         </div>
 
@@ -669,7 +772,8 @@
             <span class="faq-item__plus">+</span>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Sí. Ofrecemos 12 meses sin coste para que pruebes todas las funcionalidades sin compromiso. Déjanos tus datos y te contactamos para empezar.</div>
+            <div class="faq-item__answer-inner">Sí. Ofrecemos 12 meses sin coste para que pruebes todas las
+              funcionalidades sin compromiso. Déjanos tus datos y te contactamos para empezar.</div>
           </div>
         </div>
       </div>
@@ -687,4 +791,5 @@
   <script src="js/main.js" defer></script>
 
 </body>
+
 </html>

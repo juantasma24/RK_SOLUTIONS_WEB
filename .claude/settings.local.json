@@ -68,7 +68,8 @@
       "WebFetch(domain:cdnjs.cloudflare.com)",
       "WebFetch(domain:cdn.jsdelivr.net)",
       "Read(//c/Users/usuario/.claude/**)",
-      "Read(//c//**)"
+      "Read(//c//**)",
+      "Bash(curl *)"
     ]
   }
 }
