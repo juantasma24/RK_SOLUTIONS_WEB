@@ -3618,3 +3618,12 @@ input, select, textarea { font: inherit; color: inherit; }
     aspect-ratio: 4 / 5;
   }
 }
+
+/* ============================================
+   FIX: Evitar que SplitText recorte descendentes (g, p, y, q, j)
+   cuando aplica overflow: hidden a las líneas.
+   ============================================ */
+.split-line {
+  padding-bottom: 0.15em !important;
+  margin-bottom: -0.15em !important;
+}
