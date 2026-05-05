@@ -2742,28 +2742,6 @@ input, select, textarea { font: inherit; color: inherit; }
    ANIMATIONS
    ============================================ */
 
-/* Base reveal — igual al estilo titleLineIn del header: blur + translateY */
-.anim-reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
-}
-.anim-reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Modificador escala — para tarjetas: sube + crece, easing spring */
-.anim-reveal.anim-reveal--scale {
-  transform: translateY(16px) scale(0.96);
-  filter: blur(3px);
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--spring), filter 0.55s var(--ease-out);
-}
-.anim-reveal.anim-reveal--scale.visible {
-  transform: translateY(0) scale(1);
-  filter: blur(0px);
-}
-
 /* Hover states unificados con spring para respuesta viva */
 @media (hover: hover) and (pointer: fine) {
   .contador-item:hover .contador-card__number .roll-1,
@@ -2774,46 +2752,6 @@ input, select, textarea { font: inherit; color: inherit; }
 }
 
 
-.anim-slide-up {
-  opacity: 0;
-  transform: translateY(36px);
-  filter: blur(5px);
-  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out), filter 0.75s var(--ease-out);
-}
-.anim-slide-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0px);
-}
-
-/* ── Stagger de entrada por grids — 50ms: cascada fluida sin sentirse lenta ── */
-.pilares__grid   .anim-reveal:nth-child(1) { transition-delay:   0ms; }
-.pilares__grid   .anim-reveal:nth-child(2) { transition-delay:  50ms; }
-.pilares__grid   .anim-reveal:nth-child(3) { transition-delay: 100ms; }
-.pilares__grid   .anim-reveal:nth-child(4) { transition-delay: 150ms; }
-
-.contadores__grid .anim-reveal:nth-child(1) { transition-delay:   0ms; }
-.contadores__grid .anim-reveal:nth-child(2) { transition-delay:  50ms; }
-.contadores__grid .anim-reveal:nth-child(3) { transition-delay: 100ms; }
-.contadores__grid .anim-reveal:nth-child(4) { transition-delay: 150ms; }
-
-.planes__grid    .anim-reveal:nth-child(1) { transition-delay:   0ms; }
-.planes__grid    .anim-reveal:nth-child(2) { transition-delay:  50ms; }
-.planes__grid    .anim-reveal:nth-child(3) { transition-delay: 100ms; }
-
-/* Stagger Sección 2 (Qué hace) */
-.que-hace__title.anim-reveal    { transition-delay: 0ms; }
-.que-hace__features.anim-reveal { transition-delay: 160ms; }
-
-/* Stagger Sección 3 (Autónomos) */
-.autonomos .anim-reveal:nth-child(1) { transition-delay: 0ms; }
-.autonomos .anim-reveal:nth-child(2) { transition-delay: 60ms; }
-.autonomos .anim-reveal:nth-child(3) { transition-delay: 120ms; }
-
-/* Anular delay en hover para respuesta inmediata */
-@media (hover: hover) and (pointer: fine) {
-  .anim-reveal.visible:hover { transition-delay: 0ms !important; }
-}
 
 /* ============================================
    RESPONSIVE: TABLET (768px+)

@@ -104,13 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
       target.style.scrollMarginTop = headerH + 'px';
       document.documentElement.style.scrollBehavior = 'auto';
 
-      const forceRevealVisible = () => {
-        document.querySelectorAll('.anim-reveal:not(.visible), .anim-slide-up:not(.visible)').forEach(el => {
-          const r = el.getBoundingClientRect();
-          if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
-        });
-      };
-
       const doRestore = () => {
         target.scrollIntoView({ behavior: 'instant', block: 'start' });
         requestAnimationFrame(() => {
@@ -118,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
           document.documentElement.style.scrollBehavior = '';
           const restoreStyle = document.getElementById('rk-restore-style');
           if (restoreStyle) restoreStyle.remove();
-          forceRevealVisible();
         });
       };
 
@@ -129,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(() => {
           const restoreStyle = document.getElementById('rk-restore-style');
           if (restoreStyle) restoreStyle.remove();
-          forceRevealVisible();
         });
       } else {
         doRestore();
@@ -191,45 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Forzar reveals visibles tras el scroll suave en cualquier viewport
-        // (el rootMargin -50px del observer puede excluir elementos al borde del fold)
-        setTimeout(() => {
-          document.querySelectorAll('.anim-reveal:not(.visible), .anim-slide-up:not(.visible)').forEach(el => {
-            const r = el.getBoundingClientRect();
-            if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
-          });
-        }, 650);
       }
     });
   });
-
-  /* --- IntersectionObserver: scroll-reveal --- */
-  const revealElements = document.querySelectorAll('.anim-reveal, .anim-slide-up');
-  if (revealElements.length) {
-    // Elementos ya por encima del viewport al cargar: marcarlos visibles sin animación
-    revealElements.forEach(el => {
-      if (el.getBoundingClientRect().bottom < 0) {
-        el.classList.add('visible');
-      }
-    });
-
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-          // Liberar capa compositor cuando termina la transición
-          entry.target.addEventListener('transitionend', () => {
-            entry.target.style.willChange = 'auto';
-          }, { once: true });
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-    revealElements.forEach(el => {
-      if (!el.classList.contains('visible')) revealObserver.observe(el);
-    });
-  }
 
   /* --- Back to top --- */
   const backToTop = document.querySelector('.back-to-top');
@@ -623,55 +578,66 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.1 });
 
   [
-    document.querySelector('.contadores__wrapper'),
     document.querySelector('.plan-card__inner'),
     document.querySelector('.contacto__form-shine'),
   ].forEach(el => { if (el) shineObserver.observe(el); });
 
-  /* --- Reel animation en contadores (slot-machine vertical) --- */
+  /* --- Reel animation en contadores (slot-machine vertical) — construcción lazy --- */
   const counterSlots = document.querySelectorAll('.counter-slot');
   if (counterSlots.length) {
-    counterSlots.forEach(el => {
-      const target = parseInt(el.dataset.target, 10);
-
-      // Construir reel: números 0..target, empieza mostrando el target (último)
-      const wrap = document.createElement('span');
-      wrap.className = 'counter-reel-wrap';
-
-      const reel = document.createElement('span');
-      reel.className = 'counter-reel';
-      reel.style.setProperty('--reel-items', target + 1);
-
-      for (let i = 0; i <= target; i++) {
-        const digit = document.createElement('span');
-        digit.className = 'counter-reel__digit';
-        digit.textContent = i;
-        reel.appendChild(digit);
-      }
-
-      // Posicionar el reel en el target desde el inicio (sin animación)
-      reel.style.transform = `translateY(calc(-1em * ${target}))`;
-
-      wrap.appendChild(reel);
-      el.parentNode.replaceChild(wrap, el);
-    });
-
-    const reelObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        reelObserver.unobserve(entry.target);
-        const reel = entry.target.querySelector('.counter-reel');
-        const idx  = Array.from(document.querySelectorAll('.counter-reel-wrap')).indexOf(entry.target);
-        // Esperar: reveal (550ms) + stagger CSS (idx*50ms) + buffer (120ms)
-        setTimeout(() => {
-          // Quitar la posición inline para que la animación parta desde 0
-          reel.style.transform = '';
-          reel.classList.add('is-spinning');
-        }, 670 + idx * 50);
+    function buildReels(alreadyVisible) {
+      counterSlots.forEach(el => {
+        const target = parseInt(el.dataset.target, 10);
+        const wrap = document.createElement('span');
+        wrap.className = 'counter-reel-wrap';
+        const reel = document.createElement('span');
+        reel.className = 'counter-reel';
+        reel.style.setProperty('--reel-items', target + 1);
+        for (let i = 0; i <= target; i++) {
+          const digit = document.createElement('span');
+          digit.className = 'counter-reel__digit';
+          digit.textContent = i;
+          reel.appendChild(digit);
+        }
+        reel.style.transform = `translateY(calc(-1em * ${target}))`;
+        wrap.appendChild(reel);
+        el.parentNode.replaceChild(wrap, el);
       });
-    }, { threshold: 0.5 });
 
-    document.querySelectorAll('.counter-reel-wrap').forEach(el => reelObserver.observe(el));
+      const reelObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          reelObserver.unobserve(entry.target);
+          const reel = entry.target.querySelector('.counter-reel');
+          const idx  = Array.from(document.querySelectorAll('.counter-reel-wrap')).indexOf(entry.target);
+          // Si ya era visible al cargar: delay corto (cards ya en estado final vía gsap.set)
+          // Si llega scrolleando: delay largo (esperar animación GSAP de cards)
+          const delay = alreadyVisible ? 100 + idx * 100 : 900 + idx * 150;
+          setTimeout(() => {
+            reel.style.transform = '';
+            reel.classList.add('is-spinning');
+          }, delay);
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.counter-reel-wrap').forEach(el => reelObserver.observe(el));
+    }
+
+    // Construir el DOM del reel de forma lazy (async) — evita forced reflow sobre
+    // contenido visible cuando el usuario refresca con la sección ya en pantalla
+    const pilaresSection = document.querySelector('.pilares');
+    if (pilaresSection) {
+      const buildObserver = new IntersectionObserver((entries, obs) => {
+        if (!entries[0].isIntersecting) return;
+        obs.disconnect();
+        const wrapper = document.querySelector('.contadores__wrapper');
+        const alreadyVisible = wrapper
+          ? wrapper.getBoundingClientRect().top < window.innerHeight
+          : false;
+        buildReels(alreadyVisible);
+      }, { rootMargin: '500px 0px 500px 0px', threshold: 0 });
+      buildObserver.observe(pilaresSection);
+    }
   }
 
   /* --- Pausar badges flotantes cuando no son visibles --- */
@@ -1173,53 +1139,95 @@ document.addEventListener('DOMContentLoaded', () => {
 }());
 
 
-/* --- Sectores: SplitText header + cards fade-in --- */
+/* --- Animaciones Globales Unificadas (Evolve style) --- */
 (function () {
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-  const section = document.querySelector('.sectores');
-  if (!section) return;
-
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
-  // SplitText: título y descripción línea a línea
-  const split = SplitText.create(
-    section.querySelectorAll('.sectores__title, .sectores__desc'),
-    { type: 'words,lines', linesClass: 'sectores__line', autoSplit: true, mask: 'lines' }
+  // 1. Fade-up en batch (Tarjetas, Iconos, Textos sueltos, Elementos del DOM)
+  // Agrupamos todas las clases que deben tener fade-up
+  const fadeElements = document.querySelectorAll(
+    '.anim-reveal, .sector-card, .pilar-item, .contador-item, .plan-card, .faq-item, .contacto__info'
   );
 
-  gsap.fromTo(split.lines,
-    { opacity: 0, y: 50 },
-    {
-      opacity: 1, y: 0,
-      duration: 1.5,
-      ease: 'power3.out',
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: section.querySelector('.sectores__header'),
-        start: 'top 80%',
-        once: true,
-      },
-    }
+  if (fadeElements.length) {
+    // Esconder todo primero (batch reads before writes)
+    gsap.set(fadeElements, { opacity: 0, y: 40 });
+
+    ScrollTrigger.batch(fadeElements, {
+      start: 'top 85%',
+      once: true,
+      onEnter: (batch) => {
+        gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          stagger: 0.15,
+          force3D: true,
+          // Limpiar transformaciones en línea al terminar para no pisar
+          // transiciones CSS de :hover (ej: el scale() de sector-card)
+          onComplete: () => {
+            gsap.set(batch, { clearProps: 'transform' });
+          }
+        });
+      }
+    });
+  }
+
+  // 2. Títulos SplitText (Ejecución perezosa: solo se dividen al entrar en pantalla)
+  const titleElements = document.querySelectorAll(
+    '.section-title, .sectores__title, .sectores__desc, .que-hace__title, .planes__titulo, .contacto__title, .faq__title'
   );
 
-  // Cards: fade-in escalonado
-  const cards = section.querySelectorAll('.sector-card');
-  gsap.fromTo(cards,
-    { opacity: 0, y: 40 },
-    {
-      opacity: 1, y: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.2,
-      force3D: true,
-      scrollTrigger: {
-        trigger: section.querySelector('.sectores__grid'),
-        start: 'top 80%',
+  if (titleElements.length) {
+    // Ocultar base
+    gsap.set(titleElements, { opacity: 0 });
+
+    titleElements.forEach(el => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 85%',
         once: true,
-      },
-    }
-  );
+        onEnter: () => {
+          gsap.set(el, { opacity: 1 }); // Mostrar contenedor
+          const split = new SplitText(el, {
+            type: 'words,lines',
+            linesClass: 'split-line',
+            autoSplit: true,
+            mask: 'lines'
+          });
+
+          gsap.fromTo(split.lines,
+            { opacity: 0, y: 50 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.2,
+              ease: 'power3.out',
+              stagger: 0.1,
+              force3D: true
+            }
+          );
+        }
+      });
+    });
+  }
+
+  // 3. Shine especial del bloque de vidrio (Contadores)
+  const shineWrapper = document.querySelector('.contadores__wrapper');
+  if (shineWrapper) {
+    ScrollTrigger.create({
+      trigger: shineWrapper,
+      start: 'top 90%',
+      end: 'bottom top',
+      onEnter:      () => shineWrapper.classList.add('shine-active'),
+      onLeave:      () => shineWrapper.classList.remove('shine-active'),
+      onEnterBack:  () => shineWrapper.classList.add('shine-active'),
+      onLeaveBack:  () => shineWrapper.classList.remove('shine-active'),
+    });
+  }
 }());
 
 /* --- Sectores: navegación con flechas (solo móvil) --- */

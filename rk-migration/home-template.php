@@ -128,7 +128,7 @@
        ============================================ -->
   <section class="que-hace section" id="que-hace">
     <div class="container">
-      <h2 class="que-hace__title anim-reveal text-center">
+      <h2 class="que-hace__title text-center">
         <span class="title-part">¿Qué hace</span> <span class="title-part">La Manzana por ti?</span>
       </h2>
 
@@ -136,7 +136,7 @@
       <div class="que-hace__video-wrap" id="queHaceVideo"></div>
 
       <!-- Características alineadas horizontalmente debajo -->
-      <ul class="que-hace__features anim-reveal">
+      <ul class="que-hace__features">
         <li>
           <span class="que-hace__check"><img src="assets/img/check.svg" alt="✓" width="50" height="50" draggable="false"></span>
           <span><strong>Gestiona</strong> tus ventas</span>
@@ -313,9 +313,9 @@
        ============================================ -->
   <section class="testimonios section" id="testimonios">
     <div class="container">
-      <h2 class="section-title text-center anim-reveal">Lo que dicen <span class="highlight">nuestros clientes</span></h2>
+      <h2 class="section-title text-center">Lo que dicen <span class="highlight">nuestros clientes</span></h2>
       <!-- Carrusel de testimonios -->
-      <div class="testimonios__carousel anim-reveal" id="testimoniosCarousel">
+      <div class="testimonios__carousel" id="testimoniosCarousel">
         <!-- Botón anterior -->
         <button class="testimonios__nav testimonios__nav--prev" id="testimoniosPrev" aria-label="Testimonio anterior">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -518,7 +518,7 @@
       <div class="planes__layout">
 
         <!-- Columna izquierda: texto -->
-        <div class="planes__texto anim-reveal">
+        <div class="planes__texto">
           <h2 class="planes__titulo">Elige el plan<br><strong>que se adapte<br>a tu negocio</strong></h2>
           <p class="planes__subtitulo"><strong>VERI*FACTU</strong> llega y adaptarse a tiempo <strong>marca la diferencia.</strong></p>
 
