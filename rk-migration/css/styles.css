@@ -1248,7 +1248,7 @@ input, select, textarea { font: inherit; color: inherit; }
 
   position: relative;
   z-index: 1;
-  overflow: hidden;
+  clip-path: inset(0 round var(--radius-xl));
 }
 
 /* Brillo que pasa por el bloque de vidrio — no afecta a las cards */
