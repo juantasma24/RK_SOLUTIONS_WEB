@@ -1147,7 +1147,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Fade-up en batch (Tarjetas, Iconos, Textos sueltos, Elementos del DOM)
   // Agrupamos todas las clases que deben tener fade-up
   const fadeElements = document.querySelectorAll(
-    '.anim-reveal, .sector-card, .pilar-item, .contador-item, .plan-card, .faq-item, .contacto__info'
+    '.anim-reveal, .sector-card, .pilar-item, .contadores__wrapper, .plan-card, .faq-item, .contacto__info'
   );
 
   if (fadeElements.length) {
