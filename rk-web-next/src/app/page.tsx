@@ -1,19 +1,25 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import HeroSection from "@/components/sections/HeroSection";
+import QueHaceSection from "@/components/sections/QueHaceSection";
+import SectoresSection from "@/components/sections/SectoresSection";
+import TpvSection from "@/components/sections/TpvSection";
+import PilaresSection from "@/components/sections/PilaresSection";
+import TestimoniosSection from "@/components/sections/TestimoniosSection";
+import PlanesSection from "@/components/sections/PlanesSection";
+import ContactoSection from "@/components/sections/ContactoSection";
+import FaqSection from "@/components/sections/FaqSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <Navbar />
-      
-      {/* Hero Section Placeholder */}
-      <section className="h-screen flex items-center justify-center bg-black">
-        <h1 className="text-6xl font-heading font-bold text-white">
-          Migración <span className="text-primary">Next.js</span> en progreso
-        </h1>
-      </section>
-
-      <Footer />
+    <main>
+      <HeroSection />
+      <QueHaceSection />
+      <SectoresSection />
+      <TpvSection />
+      <PilaresSection />
+      <TestimoniosSection />
+      <PlanesSection />
+      <ContactoSection />
+      <FaqSection />
     </main>
   );
 }

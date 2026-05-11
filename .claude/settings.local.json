@@ -69,7 +69,22 @@
       "WebFetch(domain:cdn.jsdelivr.net)",
       "Read(//c/Users/usuario/.claude/**)",
       "Read(//c//**)",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "Bash(Select-Object -First 40)",
+      "Bash(npx tsc *)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\xampp\\\\htdocs\\\\TEST\" -Directory | ForEach-Object { $_.Name })",
+      "Bash(Get-ChildItem -Path \"C:\\\\xampp\\\\htdocs\\\\TEST\" -Recurse -Directory)",
+      "Bash(Select-Object -First 20)",
+      "Bash(findstr /N \"que-hace\" css\\\\styles.css)",
+      "Bash(dir *)",
+      "Bash(findstr gsap *)",
+      "Bash(Get-Content \"C:\\\\xampp\\\\htdocs\\\\TEST\\\\rk-web-next\\\\package.json\")",
+      "Bash(Select-String gsap *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\xampp\\\\htdocs\\\\TEST\" -Recurse -Filter \"*.php\")",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Get-ChildItem -Path \"C:\\\\xampp\\\\htdocs\\\\TEST\" -Recurse -Include \"index.php\", \"styles.css\", \"main.js\")",
+      "Bash(Select-Object FullName)",
+      "Bash(npx next *)"
     ]
   }
 }
