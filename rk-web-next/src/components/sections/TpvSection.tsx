@@ -3,16 +3,17 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 
-const FRAMES     = 270;
-const LERP       = 0.10;
-const FRAME_BASE = "/assets/img/frames_tpv/final_motion_tpv_";
+const FRAMES      = 270;
+const LERP        = 0.10;
+const CONCURRENCY = 8;
+const FRAME_BASE  = "/assets/img/frames_tpv/final_motion_tpv_";
 
 const frameUrl = (i: number) =>
   FRAME_BASE + String(i).padStart(5, "0") + ".webp";
 
 export default function TpvSection() {
-  const sectionRef   = useRef<HTMLElement>(null);
-  const canvasRef    = useRef<HTMLCanvasElement>(null);
+  const sectionRef    = useRef<HTMLElement>(null);
+  const canvasRef     = useRef<HTMLCanvasElement>(null);
   const scrollHintRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,14 +25,12 @@ export default function TpvSection() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    const DPR = 1;
 
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
-
-    const images: HTMLImageElement[] = new Array(FRAMES);
+    /* HTMLImageElement: browser manages GPU texture lifecycle lazily.
+       No upfront GPU upload burst — each frame uploads on first drawImage. */
+    const frames: (HTMLImageElement | null)[] = new Array(FRAMES).fill(null);
     let loadedCount = 0;
-    let allReady    = false;
     let lastDrawn   = -1;
     let current     = 0;
     let target      = 0;
@@ -39,31 +38,20 @@ export default function TpvSection() {
     let inView      = false;
     let naturalW    = 0;
     let naturalH    = 0;
-    let tpvTotal    = section.offsetHeight - window.innerHeight;
+    let destroyed   = false;
     let sectionTop  = window.scrollY + section.getBoundingClientRect().top;
+    let tpvTotal    = section.offsetHeight - window.innerHeight;
 
     const getProgress = () => {
       const scrolled = window.scrollY - sectionTop;
       return Math.max(0, Math.min(1, scrolled / tpvTotal));
     };
 
-    const setCanvasSize = () => {
-      const portrait = window.innerHeight > window.innerWidth;
-      let cw: number, ch: number;
-      if (portrait && naturalW) {
-        const sticky = section.querySelector<HTMLElement>(".tpv-seq__sticky");
-        cw = sticky?.offsetWidth  || naturalW;
-        ch = sticky?.offsetHeight || naturalH;
-      } else {
-        cw = naturalW;
-        ch = naturalH;
-      }
-      if (!cw || !ch) return;
-      canvas.width        = Math.round(cw * DPR);
-      canvas.height       = Math.round(ch * DPR);
-      canvas.style.width  = cw + "px";
-      canvas.style.height = ch + "px";
-      ctx.scale(DPR, DPR);
+    const setCanvasSize = (w: number, h: number) => {
+      canvas.width        = w * DPR;
+      canvas.height       = h * DPR;
+      canvas.style.width  = w + "px";
+      canvas.style.height = h + "px";
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = "high";
       lastDrawn = -1;
@@ -71,20 +59,10 @@ export default function TpvSection() {
 
     const drawFrame = (idx: number) => {
       if (idx === lastDrawn) return;
-      const img = images[idx];
-      if (!img?.complete || !img.naturalWidth) return;
-      const cw = canvas.width / DPR;
-      const ch = canvas.height / DPR;
-      ctx.clearRect(0, 0, cw, ch);
-      const portrait = window.innerHeight > window.innerWidth;
-      if (portrait && naturalW) {
-        const scale = Math.min(cw / naturalW, ch / naturalH) * 1.2;
-        const dw = naturalW * scale;
-        const dh = naturalH * scale;
-        ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
-      } else {
-        ctx.drawImage(img, 0, 0, naturalW, naturalH);
-      }
+      const img = frames[idx];
+      if (!img) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, naturalW * DPR, naturalH * DPR);
       lastDrawn = idx;
     };
 
@@ -95,10 +73,12 @@ export default function TpvSection() {
       else rafId = null;
     };
 
+    /* naturalW acts as "first frame ready" guard */
     const onScroll = () => {
-      if (!allReady) return;
-      target = getProgress() * (FRAMES - 1);
-      if (hint) hint.classList.toggle("hidden", target > 50 / (FRAMES - 1) * (FRAMES - 1));
+      if (!naturalW) return;
+      const progress = getProgress();
+      target = progress * (FRAMES - 1);
+      if (hint) hint.classList.toggle("hidden", progress > 0.18);
     };
 
     let resizeTimer: ReturnType<typeof setTimeout> | null = null;
@@ -107,51 +87,75 @@ export default function TpvSection() {
       resizeTimer = setTimeout(() => {
         sectionTop = window.scrollY + section.getBoundingClientRect().top;
         tpvTotal   = section.offsetHeight - window.innerHeight;
-        if (naturalW) { setCanvasSize(); drawFrame(Math.round(current)); }
+        if (naturalW) { setCanvasSize(naturalW, naturalH); drawFrame(Math.round(current)); }
       }, 200);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize, { passive: true });
-
     const viewObs = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
-      if (inView && allReady && !rafId) rafId = requestAnimationFrame(loop);
-    }, { threshold: 0 });
-    viewObs.observe(section);
-
-    const loadObs = new IntersectionObserver(([entry], obs) => {
-      if (!entry.isIntersecting) return;
-      obs.disconnect();
-      for (let i = 0; i < FRAMES; i++) {
-        const img = new window.Image();
-        const idx = i;
-        img.onload = () => {
-          loadedCount++;
-          if (idx === 0) {
-            naturalW = img.naturalWidth;
-            naturalH = img.naturalHeight;
-            setCanvasSize();
-            drawFrame(0);
-          }
-          if (loadedCount === FRAMES) {
-            allReady = true;
-            current = target = getProgress() * (FRAMES - 1);
-            drawFrame(Math.round(current));
-            if (inView && !rafId) rafId = requestAnimationFrame(loop);
-          }
-        };
-        img.src   = frameUrl(i);
-        images[i] = img;
+      if (inView) {
+        sectionTop = window.scrollY + section.getBoundingClientRect().top;
+        tpvTotal   = section.offsetHeight - window.innerHeight;
+        /* Restore canvas size if it was freed on exit */
+        if (naturalW && canvas.width === 1) {
+          setCanvasSize(naturalW, naturalH);
+          drawFrame(Math.round(current));
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        if (naturalW && !rafId) rafId = requestAnimationFrame(loop);
+      } else {
+        window.removeEventListener("scroll", onScroll);
+        /* Free the 1920×1080 GPU texture so the next section has VRAM headroom */
+        canvas.width  = 1;
+        canvas.height = 1;
+        lastDrawn = -1;
       }
-    }, { rootMargin: "500px 0px 500px 0px", threshold: 0 });
-    loadObs.observe(section);
+    }, { threshold: 0 });
+
+    /* ── 8 sequential lanes starting immediately on mount ──
+       Frames 0-7 load first, animation starts on frame 0.
+       Browser queues the rest; onload callbacks arrive in trickle, not burst. */
+    let nextToLoad = 0;
+
+    const loadNext = () => {
+      if (destroyed || nextToLoad >= FRAMES) return;
+      const idx = nextToLoad++;
+      const img = new window.Image();
+      img.onload = () => {
+        if (destroyed) return;
+        frames[idx] = img;
+        loadedCount++;
+
+        if (idx === 0) {
+          naturalW = img.naturalWidth;
+          naturalH = img.naturalHeight;
+          setCanvasSize(naturalW, naturalH);
+          drawFrame(0);
+          if (inView && !rafId) rafId = requestAnimationFrame(loop);
+        }
+
+        if (loadedCount === FRAMES) {
+          current = target = getProgress() * (FRAMES - 1);
+          drawFrame(Math.round(current));
+          if (inView && !rafId) rafId = requestAnimationFrame(loop);
+        }
+
+        loadNext();
+      };
+      img.onerror = () => { if (!destroyed) loadNext(); };
+      img.src = frameUrl(idx);
+    };
+
+    for (let i = 0; i < CONCURRENCY; i++) loadNext();
+
+    viewObs.observe(section);
+    window.addEventListener("resize", onResize, { passive: true });
 
     return () => {
+      destroyed = true;
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       viewObs.disconnect();
-      loadObs.disconnect();
       if (rafId) cancelAnimationFrame(rafId);
       if (resizeTimer) clearTimeout(resizeTimer);
     };

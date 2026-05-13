@@ -19,36 +19,36 @@ export default function QueHaceSection() {
   const videoWrapRef = useRef<HTMLDivElement>(null);
   const arrowRef    = useRef<HTMLAnchorElement>(null);
 
-  /* ── YouTube lazy load + play/pause ───────────────────────── */
+  /* ── YouTube: inject immediately so it initialises while the user
+       reads the hero — fully loaded before reaching TpvSection.
+       IntersectionObserver only controls play/pause. ─────────── */
   useEffect(() => {
     const wrap = videoWrapRef.current;
     if (!wrap) return;
 
-    let iframe: HTMLIFrameElement | null = null;
+    const iframe = document.createElement("iframe");
+    iframe.src = YT_SRC;
+    iframe.setAttribute("allow", "autoplay; encrypted-media");
+    iframe.allowFullscreen = true;
+    wrap.appendChild(iframe);
 
     const obs = new IntersectionObserver(
       ([entry]) => {
-        const visible = entry.isIntersecting;
-
-        if (visible && !iframe) {
-          iframe = document.createElement("iframe");
-          iframe.src = YT_SRC;
-          iframe.setAttribute("allow", "autoplay; encrypted-media");
-          iframe.allowFullscreen = true;
-          wrap.appendChild(iframe);
-        } else if (iframe?.contentWindow) {
-          const cmd = visible ? "playVideo" : "pauseVideo";
-          iframe.contentWindow.postMessage(
-            JSON.stringify({ event: "command", func: cmd, args: [] }),
-            "*"
-          );
-        }
+        if (!iframe.contentWindow) return;
+        const cmd = entry.isIntersecting ? "playVideo" : "pauseVideo";
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: "command", func: cmd, args: [] }),
+          "*"
+        );
       },
       { threshold: 0.7 }
     );
 
     obs.observe(wrap);
-    return () => obs.disconnect();
+    return () => {
+      obs.disconnect();
+      iframe.remove();
+    };
   }, []);
 
   /* ── GSAP ScrollTrigger clip-path ──────────────────────────── */

@@ -1179,6 +1179,7 @@ html.is-at-top .header {
   border-radius: 20px;
   clip-path: inset(0 round 20px);
   height: 460px;
+  will-change: transform, opacity;
   cursor: pointer;
   text-decoration: none;
   box-shadow: rgba(0,0,0,0.43) 0px 0.6px 0.6px -1.25px,
@@ -1318,6 +1319,7 @@ html.is-at-top .header {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  will-change: transform;
 }
 
 .tpv-seq__canvas {
@@ -1327,6 +1329,7 @@ html.is-at-top .header {
   width: auto;
   height: auto;
   object-fit: contain;
+  will-change: transform;
 }
 
 .tpv-seq__mobile { display: none; }
@@ -1438,6 +1441,7 @@ html.is-at-top .header {
   padding: 8px 16px;
   text-align: center;
   opacity: 0;
+  will-change: transform, opacity;
 }
 
 .pilar-item__icon {
@@ -1469,6 +1473,7 @@ html.is-at-top .header {
   position: relative;
   z-index: 1;
   opacity: 0;
+  will-change: transform, opacity;
 }
 
 .contadores__wrapper::after {
@@ -1570,6 +1575,7 @@ html.is-at-top .header {
 .counter-reel {
   display: flex;
   flex-direction: column;
+  will-change: transform;
 }
 
 .counter-reel__digit {
@@ -2568,11 +2574,18 @@ html.is-at-top .header {
 .faq-item__text { flex: 1; }
 
 .faq-item__answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s var(--ease-out);
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s var(--ease-out);
+}
+.faq-item__answer.is-open {
+  grid-template-rows: 1fr;
 }
 .faq-item__answer-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+.faq-item__answer-body {
   padding: 16px 24px 8px;
   font-size: 1rem;
   color: rgba(255,255,255,0.9);
@@ -2595,7 +2608,7 @@ html.is-at-top .header {
   .faq__title { font-size: 1.875rem; }
   .faq-item__question { border-radius: 16px; align-items: flex-start; padding: 14px 16px 14px 18px; }
   .faq-item__text { min-width: 0; overflow-wrap: break-word; word-break: break-word; white-space: normal; }
-  .faq-item__answer-inner { padding: 16px 16px 8px 20px; }
+  .faq-item__answer-body { padding: 16px 16px 8px 20px; }
 }
 @media (max-width: 479px) { .faq__title { font-size: 1.5rem; } }
 

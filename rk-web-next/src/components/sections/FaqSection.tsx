@@ -52,9 +52,8 @@ export default function FaqSection() {
     return () => gsapCtx.revert();
   }, []);
 
-  const toggle = (idx: number) => {
+  const toggle = (idx: number) =>
     setOpenIdx(prev => prev === idx ? null : idx);
-  };
 
   return (
     <section className="faq section" id="faq" ref={sectionRef}>
@@ -83,11 +82,10 @@ export default function FaqSection() {
                   <span className="faq-item__text">{q}</span>
                   <span className="faq-item__plus">+</span>
                 </button>
-                <div
-                  className="faq-item__answer"
-                  style={{ maxHeight: isOpen ? "500px" : "0" }}
-                >
-                  <div className="faq-item__answer-inner">{a}</div>
+                <div className={`faq-item__answer${isOpen ? " is-open" : ""}`}>
+                  <div className="faq-item__answer-inner">
+                    <div className="faq-item__answer-body">{a}</div>
+                  </div>
                 </div>
               </div>
             );

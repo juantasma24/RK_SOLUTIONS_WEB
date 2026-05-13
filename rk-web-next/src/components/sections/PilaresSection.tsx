@@ -41,7 +41,7 @@ export default function PilaresSection() {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const gsapCtx = gsap.context(() => {
-      /* Batch fade-up: pilar items + wrapper */
+      // Batch fade-up: pilar items + wrapper
       const fadeEls = section.querySelectorAll<HTMLElement>(".pilar-item, .contadores__wrapper");
       gsap.set(fadeEls, { y: 40 });
       ScrollTrigger.batch(fadeEls, {
@@ -59,7 +59,7 @@ export default function PilaresSection() {
         },
       });
 
-      /* Title reveal */
+      // Title reveal
       const wordEls = Array.from(title.querySelectorAll<HTMLElement>(".pilares__word"));
       ScrollTrigger.create({
         trigger: title,
@@ -79,7 +79,7 @@ export default function PilaresSection() {
         },
       });
 
-      /* Counter reels */
+      // Counter reels
       if (!prefersReduced) {
         ScrollTrigger.create({
           trigger: wrapper,
@@ -105,7 +105,7 @@ export default function PilaresSection() {
         });
       }
 
-      /* Glass shine toggle */
+      // Glass shine toggle
       ScrollTrigger.create({
         trigger: wrapper,
         start: "top 90%",
