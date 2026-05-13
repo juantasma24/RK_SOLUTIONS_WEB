@@ -26,6 +26,16 @@
   --topbar-height: 46px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* Blocks transitions ONLY on topbar and header during page load — prevents jump/animate on refresh */
+html.no-animate .topbar,
+html.no-animate .header {
+  transition: none !important;
+}
+
 body {
   background-color: var(--color-black);
   color: var(--color-white);
@@ -86,9 +96,23 @@ body.no-scroll { overflow: hidden; }
   z-index: 1001;
   height: var(--topbar-height);
   background: var(--color-primary);
+  /* Hidden by default — SSR renders this state, so no topbar flash on refresh when scrolled */
+  transform: translateY(-100%);
   transition: transform 0.3s ease;
 }
-.topbar--scrolled { transform: translateY(-100%); }
+.topbar--visible { transform: translateY(0); }
+
+/* Pre-hydration state set by inline <head> script — no transition so there's no pop/jump */
+html.is-at-top .topbar {
+  transform: translateY(0);
+  transition: none;
+}
+html.is-at-top .header {
+  transform: translateY(var(--topbar-height));
+  background: rgba(8, 8, 8, 0.9);
+  box-shadow: none;
+  transition: none;
+}
 
 .topbar__inner {
   display: flex;
@@ -170,8 +194,15 @@ body.no-scroll { overflow: hidden; }
   transform: scale(1) translateY(0);
 }
 
+.topbar__lang-check {
+  color: var(--color-primary);
+  margin-right: 6px;
+  font-size: 0.85em;
+}
+
 .topbar__lang-option {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
   text-align: left;
   padding: 8px 16px;
@@ -192,18 +223,23 @@ body.no-scroll { overflow: hidden; }
    ============================================================ */
 .header {
   position: fixed;
-  top: var(--topbar-height);
+  /* Default = scrolled state (top: 0). Server renders this → no jump on refresh when scrolled */
+  top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   height: var(--header-height);
-  background: rgba(8, 8, 8, 0.9);
+  background: rgba(5, 5, 5, 0.9);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
   border-radius: 0 0 24px 24px;
   overflow: visible;
   transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
-.header.header--top-hidden {
-  transform: translateY(calc(-1 * var(--topbar-height)));
+/* Added when user is at the top (topbar visible) */
+.header--at-top {
+  transform: translateY(var(--topbar-height));
+  background: rgba(8, 8, 8, 0.9);
+  box-shadow: none;
 }
 .header::before {
   content: '';
@@ -214,10 +250,6 @@ body.no-scroll { overflow: hidden; }
   height: var(--topbar-height);
   background: rgba(10, 10, 10, 0.92);
   z-index: -1;
-}
-.header.header--scrolled {
-  background: rgba(5, 5, 5, 0.9);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
 .header__inner {
@@ -980,8 +1012,7 @@ body.no-scroll { overflow: hidden; }
   color: var(--color-white-pure);
   white-space: nowrap;
   text-align: center;
-  margin-bottom: 32px;
-  transform: translateY(25px);
+  margin-bottom: 48px; /* Aumentado de 32px para separar del video */
 }
 
 .que-hace__check {
@@ -1392,7 +1423,11 @@ body.no-scroll { overflow: hidden; }
   margin: 0 auto 56px;
 }
 
-.pilares .section-title { opacity: 0; }
+.pilares .section-title { 
+  opacity: 0; 
+  margin-bottom: 48px; 
+  transform: translateY(-10px);
+}
 .pilares__word { display: inline-block; }
 
 .pilar-item {

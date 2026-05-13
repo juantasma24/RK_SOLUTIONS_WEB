@@ -1,29 +1,15 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { tr } from "@/lib/translations";
 
-const NAV_LEFT = [
-  { label: "La Manzana", href: "#que-hace" },
-  { label: "Sobre Nosotros", href: "#" },
-  { label: "Soluciones", href: "#" },
-];
+// useLayoutEffect runs synchronously before browser paint (client only).
+// useEffect is used as fallback for SSR to avoid hydration warnings.
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-const NAV_RIGHT = [
-  { label: "Prensa", href: "#" },
-  { label: "Trabaja con Nosotros", href: "#" },
-  { label: "Contacto", href: "#contacto" },
-];
-
-const MOBILE_LINKS = [
-  { label: "Inicio", href: "#inicio" },
-  { label: "La Manzana", href: "#que-hace" },
-  { label: "Sobre Nosotros", href: "#" },
-  { label: "Soluciones", href: "#" },
-  { label: "Prensa", href: "#" },
-  { label: "Trabaja con Nosotros", href: "#" },
-  { label: "Contacto", href: "#contacto" },
-];
 
 const SOCIALS = [
   {
@@ -44,18 +30,27 @@ const SOCIALS = [
 ];
 
 export default function Navbar() {
+  const { lang, setLang }  = useLanguage();
+  const t                  = tr.navbar[lang];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState<boolean | null>(null);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [selectedLang, setSelectedLang] = useState("Idioma");
-  const langRef      = useRef<HTMLDivElement>(null);
+  const langRef       = useRef<HTMLDivElement>(null);
   const isLangOpenRef = useRef(false);
 
   useEffect(() => {
     isLangOpenRef.current = isLangOpen;
   }, [isLangOpen]);
 
+  useIsomorphicLayoutEffect(() => {
+    setIsScrolled(window.scrollY > 60);
+  }, []);
+
   useEffect(() => {
+    // Remove pre-hydration CSS helpers, then re-enable transitions
+    document.documentElement.classList.remove("is-at-top");
+    document.documentElement.classList.remove("no-animate");
+
     let rafId: number | null = null;
     const onScroll = () => {
       if (rafId !== null) return;
@@ -66,10 +61,16 @@ export default function Navbar() {
         if (scrolled && isLangOpenRef.current) setIsLangOpen(false);
       });
     };
+
+    const onBeforeUnload = () => {
+      try { sessionStorage.setItem("rkSY", String(window.scrollY)); } catch (_) {}
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    window.addEventListener("beforeunload", onBeforeUnload);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("beforeunload", onBeforeUnload);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);
@@ -92,15 +93,12 @@ export default function Navbar() {
 
   const closeMenu = () => setIsMenuOpen(false);
 
-  const selectLang = (label: string) => {
-    setSelectedLang(label);
-    setIsLangOpen(false);
-  };
-
   return (
     <>
       {/* Topbar */}
-      <div className={`topbar${isScrolled ? " topbar--scrolled" : ""}`}>
+      <div
+        className={`topbar${isScrolled === false ? " topbar--visible" : ""}`}
+      >
         <div className="topbar__inner">
           <div className="topbar__social">
             {SOCIALS.map((s) => (
@@ -123,17 +121,19 @@ export default function Navbar() {
               onClick={(e) => { e.stopPropagation(); setIsLangOpen((v) => !v); }}
               aria-expanded={isLangOpen}
             >
-              {selectedLang}
+              {t.idioma}
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="6 9 12 15 18 9" />
               </svg>
             </button>
             <div className="topbar__lang-menu">
-              <button className="topbar__lang-option" data-lang="eu" onClick={() => selectLang("Euskera")}>
-                Euskera
+              <button className="topbar__lang-option" data-lang="eu" onClick={() => { setLang("eu"); setIsLangOpen(false); }}>
+                {lang === "eu" && <span className="topbar__lang-check">✓</span>}
+                {tr.navbar.es.euskera}
               </button>
-              <button className="topbar__lang-option" data-lang="es" onClick={() => selectLang("Castellano")}>
-                Castellano
+              <button className="topbar__lang-option" data-lang="es" onClick={() => { setLang("es"); setIsLangOpen(false); }}>
+                {lang === "es" && <span className="topbar__lang-check">✓</span>}
+                {tr.navbar.es.castellano}
               </button>
             </div>
           </div>
@@ -141,7 +141,9 @@ export default function Navbar() {
       </div>
 
       {/* Header */}
-      <header className={`header${isScrolled ? " header--scrolled header--top-hidden" : ""}`}>
+      <header
+        className={`header${isScrolled === false ? " header--at-top" : ""}`}
+      >
         <div className="header__inner">
 
           {/* Logo */}
@@ -159,7 +161,7 @@ export default function Navbar() {
           {/* Nav izquierda */}
           <nav className="header__nav header__nav--left" id="navLeft">
             <ul>
-              {NAV_LEFT.map(({ label, href }) => (
+              {t.left.map(({ label, href }) => (
                 <li key={label}>
                   <a href={href}>{label}</a>
                 </li>
@@ -182,7 +184,7 @@ export default function Navbar() {
           {/* Nav derecha */}
           <nav className="header__nav header__nav--right" id="navRight">
             <ul>
-              {NAV_RIGHT.map(({ label, href }) => (
+              {t.right.map(({ label, href }) => (
                 <li key={label}>
                   <a href={href}>{label}</a>
                 </li>
@@ -194,7 +196,7 @@ export default function Navbar() {
           <button
             className={`header__mobile-toggle${isMenuOpen ? " active" : ""}`}
             onClick={() => setIsMenuOpen((v) => !v)}
-            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
           >
             <span />
             <span />
@@ -207,7 +209,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div className={`mobile-menu${isMenuOpen ? " active" : ""}`} id="mobileMenu">
         <ul>
-          {MOBILE_LINKS.map(({ label, href }) => (
+          {t.mobile.map(({ label, href }) => (
             <li key={label}>
               <a href={href} className="mobile-link" onClick={closeMenu}>
                 {label}

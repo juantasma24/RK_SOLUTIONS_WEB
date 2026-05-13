@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { tr } from "@/lib/translations";
 
 // Apple outline SVG paths (same as original)
 const SVG_PATHS = [
@@ -19,6 +21,8 @@ const AVATAR_DATA: { initial: number; pool: number[] }[] = [
 ];
 
 export default function HeroSection() {
+  const { lang }    = useLanguage();
+  const t           = tr.hero[lang];
   const canvasRef   = useRef<HTMLCanvasElement>(null);
   const heroRef     = useRef<HTMLElement>(null);
   const avatarsRef  = useRef<HTMLDivElement>(null);
@@ -227,6 +231,8 @@ export default function HeroSection() {
   useEffect(() => {
     const lines = lineRefs.current.filter(Boolean) as HTMLSpanElement[];
     if (!lines.length) return;
+    // Reset any previous word-split markup before re-running
+    lines.forEach(l => { l.style.opacity = "0"; l.innerHTML = l.dataset.raw ?? l.textContent ?? ""; });
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -268,7 +274,7 @@ export default function HeroSection() {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [lang]);
 
   /* ── Avatar cycling ─────────────────────────────────────── */
   useEffect(() => {
@@ -341,30 +347,15 @@ export default function HeroSection() {
 
       <div className="container hero__container">
         <h1 className="hero__title">
-          <span
-            className="hero__title-line hero__title-line--1"
-            ref={el => { lineRefs.current[0] = el; }}
-          >
-            La Manzana,
-          </span>
-          <span
-            className="hero__title-line hero__title-line--3"
-            ref={el => { lineRefs.current[1] = el; }}
-          >
-            el software
-          </span>
-          <span
-            className="hero__title-line hero__title-line--4"
-            ref={el => { lineRefs.current[2] = el; }}
-          >
-            que entiende
-          </span>
-          <span
-            className="hero__title-line hero__title-line--5"
-            ref={el => { lineRefs.current[3] = el; }}
-          >
-            tu negocio.
-          </span>
+          {t.lines.map((line, i) => (
+            <span
+              key={i}
+              className={`hero__title-line hero__title-line--${[1, 3, 4, 5][i]}`}
+              ref={el => { lineRefs.current[i] = el; }}
+            >
+              {line}
+            </span>
+          ))}
         </h1>
 
         <div className="hero__actions" ref={actionsRef}>
@@ -391,12 +382,16 @@ export default function HeroSection() {
               ))}
             </div>
             <p className="hero__social-text">
-              <strong>+3.000</strong> usuarios<br />eligen La Manzana
+              <strong>{t.socialStrong}</strong>
+              {t.socialText.split("\n").map((part, i) => i === 0
+                ? part
+                : <React.Fragment key={i}><br />{part}</React.Fragment>
+              )}
             </p>
           </div>
 
           <a href="#que-hace" className="hero__cta" id="heroCtaBtn">
-            <span>Descubre más</span>
+            <span>{t.cta}</span>
           </a>
         </div>
       </div>

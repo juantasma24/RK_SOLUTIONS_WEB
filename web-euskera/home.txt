@@ -1,0 +1,121 @@
+============================================================
+PÁGINA: HOME (INICIO) - VERSIÓN EUSKERA (BIZKAIERA / GERNIKALDEA)
+============================================================
+
+------------------------------------------------------------
+1. NAVBAR & MENÚ
+------------------------------------------------------------
+Inicio: Hasiera
+La Manzana: La Manzana
+Sobre Nosotros: Guri buruz
+Soluciones: Soluzinoak
+Prensa: Prentsea
+Trabaja con Nosotros: Lan egin guregaz
+Contacto: Kontaktua
+Idioma: Hizkuntza
+Euskera: Euskerea
+Castellano: Gaztelania
+Abrir menú: Menua zabaldu
+Cerrar menú: Menua itxi
+
+------------------------------------------------------------
+2. HERO SECTION
+------------------------------------------------------------
+Titular: La Manzana, zure negozioa ulertzen dauen softwarea.
+Prueba social: 3.000 erabiltzaile baino gehiagok aukeratzen dabe La Manzana.
+Botón CTA: Jakin gehiago
+
+------------------------------------------------------------
+3. SECCIÓN: ¿QUÉ HACE? (ZER EGITEN DAU?)
+------------------------------------------------------------
+Titular: Zer egiten dau La Manzanak zuregaitik?
+Feature 1: Kudeatu zure salmentak
+Feature 2: Kontrolatu fitxaketak eta ordutegiak
+Feature 3: Bete TicketBAI eta VERI*FACTU araudiak
+
+------------------------------------------------------------
+4. SECCIÓN: SECTORES (SEKTOREAK)
+------------------------------------------------------------
+Titular: Salmenten eta bezeroen kontrola, dana lotuta.
+Eslogan: Hori da La Manzana.
+Descripción: Fakturatzeko, kontrolatzeko, fitxatzeko eta araudia betetzeko kudeaketa-softwarea.
+
+Sectores:
+- Autónomos: Autonomoak
+- Hostelería: Ostalaritzea
+- Comercio: Merkataritzea
+- Asesores: Aholkulariak
+
+Navegación:
+- Card anterior: Aurreko txartela
+- Card siguiente: Hurrengo txartela
+
+------------------------------------------------------------
+5. SECCIÓN: PILARES (ZUTABEAK)
+------------------------------------------------------------
+Titular: Zergaitik aukeratu La Manzana?
+
+Pilar 1: Erabilteko erraza
+Pilar 2: Laguntza humanoa 24/7
+Pilar 3: Zure negoziora egokitzen da
+Pilar 4: Araudia beteten dau
+
+Contadores:
+- +3K Sagarrak (Erabiltzaileak)
+- +11K Bezeroak
+- +7 Bulegoak
+- +20 Urteak
+
+------------------------------------------------------------
+6. SECCIÓN: TESTIMONIOS (TESTIMONIOAK)
+------------------------------------------------------------
+Titular: Gure bezeroek diñoena
+
+Cita Eukene: "La Manzana erabilten dodanetik, nire negozioak erloju baten moduan funtzionetan dau. Fakturazinoa automatikoa da eta langileen fitxaketea oso erraza. 24/7 laguntzak bat baino gehiagotan salbatu nau."
+Cita Pilar: "Duela 15 urtetik autonomoa naz eta programa asko probau dodas. La Manzana da master bat behar barik ulertzen dodan bakarra. TicketBAI beteten dau eta pisu handia kentzen deust gainetik."
+
+Rol: Bezeroa
+Anterior: Aurreko testimonioa
+Siguiente: Hurrengo testimonioa
+
+------------------------------------------------------------
+7. SECCIÓN: PLANES (PLANAK)
+------------------------------------------------------------
+Titular: Aukeratu zure negoziora egokitzen dan plana.
+Subtítulo: VERI*FACTU bidean da, eta garaiz egokitzea da aldea markatzen dauena.
+
+Características:
+- TPV: TPV
+- Fichas de cliente: Bezero-fitxak
+- Control y realización de facturas: Fakturen kontrola eta kudeaketa
+- Economía: gastuak, aurrekontuak, langileak, etab.
+- Personalización de pestañas: Fitxak pertsonalizetea
+
+Botón: Plan hau gura dot
+
+------------------------------------------------------------
+8. SECCIÓN: FAQ (GALDERA ARRUNTAK)
+------------------------------------------------------------
+Titular: Zure zalantzak argituko doguz hasi baino lehen.
+
+Pregunta 1: Zer da La Manzana eta zertarako balio dau?
+Respuesta 1: La Manzana kudeaketa integralerako software bat da: fakturazinoa, fitxaketak, TPVa eta araudia (TicketBAI eta VERI*FACTU) plataforma bakar baten batzen dituena. Autonomo, ostalaritza eta merkataritzako negozioentzat pentsatuta dago.
+
+------------------------------------------------------------
+9. SECCIÓN: CONTACTO (KONTAKTUA)
+------------------------------------------------------------
+Titular: Lan egin La Manzanagaz, kostu barik 12 hilean.
+Incluye:
+- Software La Manzana
+- Sostengu teknikoa 24/7
+- Laguntza eta prestakuntza
+- Ordutegi-fitxaketa integratua
+
+Formulario:
+- Intro: Itxi guretzat zure datuak eta esango deutsugu zelan hasi La Manzanagaz lehenengo urtea doban (kostu barik).
+- Nombre y apellido: Izen-abizenak
+- Correo electrónico: Posta elektronikoa
+- Móvil: Mugikorra
+- Comunidad autónoma: Autonomia-erkidegoa
+- Política: Pribatutasun-politika irakurri eta onartu dot.
+- Botón: Gehiago jakin gura dot

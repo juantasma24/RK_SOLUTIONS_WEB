@@ -2,6 +2,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { tr } from "@/lib/translations";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const COMUNIDADES = [
   { value: "andalucia",        label: "Andalucía" },
@@ -26,11 +32,40 @@ const COMUNIDADES = [
 ];
 
 export default function ContactoSection() {
+  const { lang }    = useLanguage();
+  const t           = tr.contacto[lang];
+  const sectionRef  = useRef<HTMLElement>(null);
   const [isDropdownOpen, setIsDropdownOpen]   = useState(false);
   const [selectedComunidad, setSelectedComunidad] = useState("");
   const [selectedLabel, setSelectedLabel]     = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const shineRef    = useRef<HTMLDivElement>(null);
+
+  /* GSAP: fade-up left info + right form */
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const gsapCtx = gsap.context(() => {
+      const cols = section.querySelectorAll<HTMLElement>(
+        ".contacto__info, .contacto__form-wrapper"
+      );
+      gsap.set(cols, { opacity: 0, y: 40 });
+      ScrollTrigger.batch(cols, {
+        start: "top 85%",
+        once: true,
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
+            stagger: 0.2, force3D: true,
+            onComplete: () => gsap.set(batch, { clearProps: "transform" }),
+          });
+        },
+      });
+    }, section);
+
+    return () => gsapCtx.revert();
+  }, []);
 
   /* Close dropdown on outside click — listener only active while open */
   useEffect(() => {
@@ -74,26 +109,21 @@ export default function ContactoSection() {
   };
 
   return (
-    <section className="contacto section" id="contacto">
+    <section className="contacto section" id="contacto" ref={sectionRef}>
       <div className="container">
         <div className="contacto__inner">
 
           {/* Left: info */}
           <div className="contacto__info">
             <h2 className="contacto__title">
-              Trabaja con<br />
-              <span className="highlight">La Manzana</span>,<br />
-              sin coste<br />
-              por 12 meses
+              {t.title.before}<br />
+              <span className="highlight">{t.title.highlight}</span>{t.title.sep}<br />
+              {t.title.line3}<br />
+              {t.title.line4}
             </h2>
-            <p className="contacto__subtitle">INCLUYE:</p>
+            <p className="contacto__subtitle">{t.incluye}</p>
             <ul className="contacto__list">
-              {[
-                "Software La Manzana",
-                "Soporte técnico 24/7",
-                "Acompañamiento y formación",
-                "Fichaje horario integrado",
-              ].map(item => (
+              {t.items.map(item => (
                 <li key={item}>
                   <Image src="/assets/img/check.svg" width={20} height={20} alt="" />
                   {item}
@@ -107,20 +137,19 @@ export default function ContactoSection() {
             <form className="contacto__form" id="contactForm" onSubmit={handleSubmit} noValidate>
               <div className="contacto__form-shine" ref={shineRef} aria-hidden="true" />
               <p className="contacto__form-intro">
-                Déjanos tus datos y te contamos cómo empezar con La Manzana{" "}
-                <strong>sin coste el primer año.</strong>
+                {t.formIntro}<strong>{t.formIntroStrong}</strong>
               </p>
 
               <div className="contacto__form-group">
-                <input type="text" name="name" className="contacto__input" placeholder="Nombre y apellido" required />
+                <input type="text" name="name" className="contacto__input" placeholder={t.placeholders.name} required />
               </div>
 
               <div className="contacto__form-row">
                 <div className="contacto__form-group">
-                  <input type="email" name="email" className="contacto__input" placeholder="Correo electrónico" required />
+                  <input type="email" name="email" className="contacto__input" placeholder={t.placeholders.email} required />
                 </div>
                 <div className="contacto__form-group">
-                  <input type="tel" name="phone" className="contacto__input" placeholder="Móvil" />
+                  <input type="tel" name="phone" className="contacto__input" placeholder={t.placeholders.phone} />
                 </div>
               </div>
 
@@ -137,7 +166,7 @@ export default function ContactoSection() {
                     onClick={e => { e.stopPropagation(); setIsDropdownOpen(v => !v); }}
                   >
                     <span className="contacto__dropdown-label">
-                      {selectedLabel || "Comunidad autónoma"}
+                      {selectedLabel || t.placeholders.comunidad}
                     </span>
                     <svg className="contacto__dropdown-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="6 9 12 15 18 9" />
@@ -168,12 +197,12 @@ export default function ContactoSection() {
               <div className="contacto__form-group contacto__form-check">
                 <input type="checkbox" id="privacy" name="privacy" required />
                 <label htmlFor="privacy">
-                  He Leído y Acepto la <a href="#">Política de Privacidad</a>.
+                  {t.privacyPre}<a href="#">{t.privacyLink}</a>{t.privacyPost}
                 </label>
               </div>
 
               <button type="submit" className="btn btn--primary btn--lg contacto__submit">
-                Quiero saber más
+                {t.btn}
               </button>
             </form>
           </div>

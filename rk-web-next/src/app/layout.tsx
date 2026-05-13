@@ -3,6 +3,7 @@ import { Manrope, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const manrope = Manrope({
   variable: "--font-body",
@@ -27,13 +28,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${manrope.variable} ${poppins.variable}`}>
+    <html
+      lang="es"
+      className={`${manrope.variable} ${poppins.variable} no-animate`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html:
+          `try{if(!(+sessionStorage.getItem('rkSY')>60))document.documentElement.classList.add('is-at-top');}catch(e){}`
+        }} />
+      </head>
       <body className="antialiased">
-        <Navbar />
-        {children}
-        <Footer />
+        <LanguageProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );
 }
-

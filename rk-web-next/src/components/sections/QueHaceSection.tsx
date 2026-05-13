@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { tr } from "@/lib/translations";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 
@@ -11,6 +13,8 @@ const YT_SRC =
   "https://www.youtube.com/embed/ZVm05C_6VOs?autoplay=1&mute=1&loop=1&playlist=ZVm05C_6VOs&controls=0&playsinline=1&enablejsapi=1&disablekb=1&modestbranding=1&rel=0&iv_load_policy=3";
 
 export default function QueHaceSection() {
+  const { lang }    = useLanguage();
+  const t           = tr.queHace[lang];
   const sectionRef  = useRef<HTMLElement>(null);
   const videoWrapRef = useRef<HTMLDivElement>(null);
   const arrowRef    = useRef<HTMLAnchorElement>(null);
@@ -101,31 +105,25 @@ export default function QueHaceSection() {
     <section className="que-hace section" id="que-hace" ref={sectionRef}>
       <div className="container que-hace__container">
         <h2 className="que-hace__title">
-          <span className="title-part">¿Qué hace</span>{" "}
-          <span className="title-part">La Manzana por ti?</span>
+          {t.titleParts.map((part, i) => (
+            <React.Fragment key={i}>
+              <span className="title-part">{part}</span>
+              {i < t.titleParts.length - 1 && " "}
+            </React.Fragment>
+          ))}
         </h2>
 
         <div className="que-hace__video-wrap" ref={videoWrapRef} />
 
         <ul className="que-hace__features">
-          <li>
-            <span className="que-hace__check">
-              <Image src="/assets/img/check.svg" alt="✓" width={20} height={20} />
-            </span>
-            <span><strong>Gestiona</strong> tus ventas</span>
-          </li>
-          <li>
-            <span className="que-hace__check">
-              <Image src="/assets/img/check.svg" alt="✓" width={20} height={20} />
-            </span>
-            <span><strong>Controla</strong> fichajes y horarios</span>
-          </li>
-          <li>
-            <span className="que-hace__check">
-              <Image src="/assets/img/check.svg" alt="✓" width={20} height={20} />
-            </span>
-            <span><strong>Cumple</strong> con TicketBAI y VERI*FACTU</span>
-          </li>
+          {t.features.map(({ strong, rest }) => (
+            <li key={strong}>
+              <span className="que-hace__check">
+                <Image src="/assets/img/check.svg" alt="✓" width={20} height={20} />
+              </span>
+              <span><strong>{strong}</strong>{rest}</span>
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -133,7 +131,7 @@ export default function QueHaceSection() {
         href="#autonomos"
         className="que-hace__arrow"
         ref={arrowRef}
-        aria-label="Ir a la siguiente sección"
+        aria-label={t.ariaNext}
       >
         <svg
           viewBox="0 0 24 24"

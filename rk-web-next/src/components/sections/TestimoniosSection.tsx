@@ -2,27 +2,70 @@
 
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { tr } from "@/lib/translations";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const TESTIMONIOS = [
-  { name: "Eukene Sanchez",  role: "Cliente", quote: '"Desde que uso La Manzana, mi negocio funciona como un reloj. La facturación es automática y el fichaje de empleados es súper sencillo. El soporte 24/7 me ha salvado varias veces."' },
-  { name: "Pilar Marar",     role: "Cliente", quote: '"Autónoma desde hace 15 años, he probado muchos programas. La Manzana es el único que entiendo sin necesitar un máster. Cumple con TicketBAI y me quita un peso de encima."' },
-  { name: "Sarahí Cabrera",  role: "Cliente", quote: '"Tenía 3 tiendas y cada una con su sistema. Ahora con La Manzana lo veo todo desde el móvil. Los reportes son claros y la formación que me dieron fue excelente."' },
-  { name: "Carlos Mendoza",  role: "Cliente", quote: '"El mejor software que he usado en mis 10 años gestionando hoteles. La integración con los canales de reserva es perfecta y el soporte técnico responde en minutos."' },
-  { name: "Laura Giménez",   role: "Cliente", quote: '"Como gestoría, necesitamos control total. La Manzana nos da reportes detallados de cada cliente y nos ahorra horas de trabajo administrativo."' },
-  { name: "Roberto Díaz",    role: "Cliente", quote: '"La migración desde mi antiguo software fue gratuita y sin dolor. El equipo de La Manzana se encargó de todo. Llevo 2 años sin incidencias."' },
-  { name: "Mónica Torres",   role: "Cliente", quote: '"Tengo una academia y el módulo de facturación me permite generar recibos automáticos para 200 alumnos. Un cambio radical en mi productividad."' },
-  { name: "Javier Ruiz",     role: "Cliente", quote: '"Lo que más valoro es la tranquilidad de estar cumpliendo la normativa sin tener que preocuparme. La Manzana se actualiza sola y eso no tiene precio."' },
-  { name: "Ana Belén López", role: "Cliente", quote: '"Mis camareros aprendieron a usar el TPV en una tarde. La interfaz es intuitiva y los clientes agradecen la rapidez en las cuentas."' },
+gsap.registerPlugin(ScrollTrigger);
+
+const TESTIMONIOS_ES = [
+  { name: "Eukene Sanchez",  quote: '"Desde que uso La Manzana, mi negocio funciona como un reloj. La facturación es automática y el fichaje de empleados es súper sencillo. El soporte 24/7 me ha salvado varias veces."' },
+  { name: "Pilar Marar",     quote: '"Autónoma desde hace 15 años, he probado muchos programas. La Manzana es el único que entiendo sin necesitar un máster. Cumple con TicketBAI y me quita un peso de encima."' },
+  { name: "Sarahí Cabrera",  quote: '"Tenía 3 tiendas y cada una con su sistema. Ahora con La Manzana lo veo todo desde el móvil. Los reportes son claros y la formación que me dieron fue excelente."' },
+  { name: "Carlos Mendoza",  quote: '"El mejor software que he usado en mis 10 años gestionando hoteles. La integración con los canales de reserva es perfecta y el soporte técnico responde en minutos."' },
+  { name: "Laura Giménez",   quote: '"Como gestoría, necesitamos control total. La Manzana nos da reportes detallados de cada cliente y nos ahorra horas de trabajo administrativo."' },
+  { name: "Roberto Díaz",    quote: '"La migración desde mi antiguo software fue gratuita y sin dolor. El equipo de La Manzana se encargó de todo. Llevo 2 años sin incidencias."' },
+  { name: "Mónica Torres",   quote: '"Tengo una academia y el módulo de facturación me permite generar recibos automáticos para 200 alumnos. Un cambio radical en mi productividad."' },
+  { name: "Javier Ruiz",     quote: '"Lo que más valoro es la tranquilidad de estar cumpliendo la normativa sin tener que preocuparme. La Manzana se actualiza sola y eso no tiene precio."' },
+  { name: "Ana Belén López", quote: '"Mis camareros aprendieron a usar el TPV en una tarde. La interfaz es intuitiva y los clientes agradecen la rapidez en las cuentas."' },
+];
+
+const TESTIMONIOS_EU = [
+  ...TESTIMONIOS_ES.slice(0, 2).map((t, i) => ({
+    ...t,
+    quote: i === 0
+      ? '"La Manzana erabilten dodanetik, nire negozioak erloju baten moduan funtzionetan dau. Fakturazinoa automatikoa da eta langileen fitxaketea oso erraza. 24/7 laguntzak bat baino gehiagotan salbatu nau."'
+      : '"Duela 15 urtetik autonomoa naz eta programa asko probau dodas. La Manzana da master bat behar barik ulertzen dodan bakarra. TicketBAI beteten dau eta pisu handia kentzen deust gainetik."',
+  })),
+  ...TESTIMONIOS_ES.slice(2),
 ];
 
 const TRANSITION = "transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
 
 export default function TestimoniosSection() {
+  const { lang }        = useLanguage();
+  const t               = tr.testimonios[lang];
+  const TESTIMONIOS     = lang === "eu" ? TESTIMONIOS_EU : TESTIMONIOS_ES;
+  const sectionRef      = useRef<HTMLElement>(null);
   const carouselRef    = useRef<HTMLDivElement>(null);
   const trackRef       = useRef<HTMLDivElement>(null);
   const indicatorsRef  = useRef<HTMLDivElement>(null);
   const prevRef        = useRef<HTMLButtonElement>(null);
   const nextRef        = useRef<HTMLButtonElement>(null);
+
+  /* GSAP: fade-up section title */
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const gsapCtx = gsap.context(() => {
+      const title = section.querySelector<HTMLElement>(".section-title");
+      if (title) {
+        gsap.set(title, { opacity: 0, y: 40 });
+        ScrollTrigger.create({
+          trigger: title,
+          start: "top 85%",
+          once: true,
+          onEnter: () => {
+            gsap.to(title, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" });
+          },
+        });
+      }
+    }, section);
+
+    return () => gsapCtx.revert();
+  }, []);
 
   useEffect(() => {
     const carousel    = carouselRef.current;
@@ -174,17 +217,17 @@ export default function TestimoniosSection() {
   }, []);
 
   return (
-    <section className="testimonios section" id="testimonios">
+    <section className="testimonios section" id="testimonios" ref={sectionRef}>
       <div className="container">
-        <h2 className="section-title text-center">
-          Lo que dicen <span className="highlight">nuestros clientes</span>
+        <h2 className="section-title text-center" style={{ opacity: 0 }}>
+          {t.title}
         </h2>
 
         <div className="testimonios__carousel" id="testimoniosCarousel" ref={carouselRef}>
           <button
             className="testimonios__nav testimonios__nav--prev"
             ref={prevRef}
-            aria-label="Testimonio anterior"
+            aria-label={t.prevLabel}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6" />
@@ -193,7 +236,7 @@ export default function TestimoniosSection() {
 
           <div className="testimonios__track-wrapper">
             <div className="testimonios__track" ref={trackRef}>
-              {TESTIMONIOS.map(({ name, role, quote }) => (
+              {TESTIMONIOS.map(({ name, quote }) => (
                 <div key={name} className="testimonio-slide">
                   <div className="testimonio-card">
                     <div className="testimonio-card__bubble">
@@ -218,7 +261,7 @@ export default function TestimoniosSection() {
                       </div>
                       <div>
                         <div className="testimonio-card__name">{name}</div>
-                        <div className="testimonio-card__role">{role}</div>
+                        <div className="testimonio-card__role">{t.role}</div>
                       </div>
                     </div>
                   </div>
@@ -230,7 +273,7 @@ export default function TestimoniosSection() {
           <button
             className="testimonios__nav testimonios__nav--next"
             ref={nextRef}
-            aria-label="Testimonio siguiente"
+            aria-label={t.nextLabel}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6" />
