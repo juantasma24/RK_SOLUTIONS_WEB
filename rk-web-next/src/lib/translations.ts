@@ -45,7 +45,7 @@ export const tr = {
       ],
       right:  [
         { label: "Prentsea",            href: "#" },
-        { label: "Portal de Asesores",  href: "#" },
+        { label: "Aholkularitza Ataria", href: "#" },
         { label: "Lan egin guregaz",    href: "#" },
         { label: "Kontaktua",           href: "#contacto" },
       ],
@@ -55,7 +55,7 @@ export const tr = {
         { label: "Guri buruz",          href: "#" },
         { label: "Soluzinoak",          href: "#" },
         { label: "Prentsea",            href: "#" },
-        { label: "Portal de Asesores",  href: "#" },
+        { label: "Aholkularitza Ataria",href: "#" },
         { label: "Lan egin guregaz",    href: "#" },
         { label: "Kontaktua",           href: "#contacto" },
       ],
