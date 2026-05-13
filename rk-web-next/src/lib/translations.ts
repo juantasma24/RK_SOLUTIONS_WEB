@@ -6,10 +6,16 @@ export const tr = {
       left:   [
         { label: "La Manzana",         href: "#que-hace" },
         { label: "Sobre Nosotros",      href: "#" },
-        { label: "Soluciones",          href: "#" },
+        { label: "Soluciones",          href: "#", dropdown: [
+          { label: "Autónomos",   href: "#autonomos" },
+          { label: "Hostelería",  href: "#" },
+          { label: "Comercio",    href: "#" },
+          { label: "Asesores",    href: "#" },
+        ]},
       ],
       right:  [
         { label: "Prensa",              href: "#" },
+        { label: "Portal de Asesores",  href: "#" },
         { label: "Trabaja con Nosotros",href: "#" },
         { label: "Contacto",            href: "#contacto" },
       ],
@@ -19,6 +25,7 @@ export const tr = {
         { label: "Sobre Nosotros",      href: "#" },
         { label: "Soluciones",          href: "#" },
         { label: "Prensa",              href: "#" },
+        { label: "Portal de Asesores",  href: "#" },
         { label: "Trabaja con Nosotros",href: "#" },
         { label: "Contacto",            href: "#contacto" },
       ],
@@ -29,10 +36,16 @@ export const tr = {
       left:   [
         { label: "La Manzana",          href: "#que-hace" },
         { label: "Guri buruz",          href: "#" },
-        { label: "Soluzinoak",          href: "#" },
+        { label: "Soluzinoak",          href: "#", dropdown: [
+          { label: "Autonomoak",  href: "#autonomos" },
+          { label: "Ostalaritza", href: "#" },
+          { label: "Merkataritza",href: "#" },
+          { label: "Aholkulariak",href: "#" },
+        ]},
       ],
       right:  [
         { label: "Prentsea",            href: "#" },
+        { label: "Portal de Asesores",  href: "#" },
         { label: "Lan egin guregaz",    href: "#" },
         { label: "Kontaktua",           href: "#contacto" },
       ],
@@ -42,6 +55,7 @@ export const tr = {
         { label: "Guri buruz",          href: "#" },
         { label: "Soluzinoak",          href: "#" },
         { label: "Prentsea",            href: "#" },
+        { label: "Portal de Asesores",  href: "#" },
         { label: "Lan egin guregaz",    href: "#" },
         { label: "Kontaktua",           href: "#contacto" },
       ],

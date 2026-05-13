@@ -161,9 +161,22 @@ export default function Navbar() {
           {/* Nav izquierda */}
           <nav className="header__nav header__nav--left" id="navLeft">
             <ul>
-              {t.left.map(({ label, href }) => (
-                <li key={label}>
-                  <a href={href}>{label}</a>
+              {t.left.map((item) => (
+                <li key={item.label} className={'dropdown' in item ? "nav-dropdown-wrap" : undefined}>
+                  {'dropdown' in item ? (
+                    <>
+                      <a href={item.href} className="nav-dropdown-trigger">
+                        {item.label}
+                      </a>
+                      <div className="nav-dropdown">
+                        {(item.dropdown as { label: string; href: string }[]).map(({ label, href }) => (
+                          <a key={label} href={href} className="nav-dropdown-option">{label}</a>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <a href={item.href}>{item.label}</a>
+                  )}
                 </li>
               ))}
             </ul>

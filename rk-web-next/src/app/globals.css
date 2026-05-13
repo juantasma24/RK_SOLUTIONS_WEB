@@ -21,12 +21,14 @@
 
 :root {
   --header-opacity: 0.9;
-  --container-max: 1385px;
+  --container-max: clamp(1385px, 72vw, 2500px);
   --header-height: 80px;
   --topbar-height: 46px;
 }
 
 html {
+  /* Escala desde 1920px en adelante, idéntico por debajo */
+  font-size: clamp(16px, 0.8333vw, 28px);
   scroll-behavior: smooth;
 }
 
@@ -271,16 +273,83 @@ html.is-at-top .header {
   grid-column: 2;
   justify-self: center;
   padding-right: 80px;
+  align-self: stretch;
+}
+.header__nav--left ul {
+  height: 100%;
 }
 .header__nav--right {
   grid-column: 4;
-  justify-self: start;
-  padding-left: 40px;
+  justify-self: end;
 }
 .header__nav ul {
   display: flex;
   align-items: center;
   gap: 56px;
+}
+
+/* Dropdown Soluciones */
+.nav-dropdown-wrap {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-dropdown-trigger {
+  display: flex !important;
+  align-items: center;
+  gap: 4px;
+}
+.nav-dropdown-trigger svg {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.nav-dropdown-wrap:hover .nav-dropdown-trigger svg { transform: rotate(180deg); }
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  transform: scale(0.92) translateY(-6px);
+  transform-origin: top left;
+  min-width: 140px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 6px 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.18s;
+  z-index: 1002;
+}
+.nav-dropdown-wrap:hover .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+}
+
+.nav-dropdown-option {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-white);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.nav-dropdown-option::after { display: none !important; }
+@media (hover: hover) and (pointer: fine) {
+  .nav-dropdown-option:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-primary);
+  }
 }
 .header__nav a {
   font-family: var(--font-body);
@@ -953,7 +1022,7 @@ html.is-at-top .header {
   line-height: 1.05;
 }
 
-.section { padding: 80px 0; position: relative; }
+.section { padding: 5rem 0; position: relative; }
 
 /* ============================================================
    QUE-HACE (SECCIÓN 2)
@@ -972,7 +1041,7 @@ html.is-at-top .header {
 }
 
 .que-hace__container {
-  max-width: 1100px;
+  max-width: 68.75rem;
   margin: 0 auto;
 }
 
@@ -1129,7 +1198,7 @@ html.is-at-top .header {
 }
 
 .sectores__inner {
-  max-width: 1400px;
+  max-width: 87.5rem;
   margin: 0 auto;
   width: 100%;
 }
@@ -1422,8 +1491,8 @@ html.is-at-top .header {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
-  max-width: 880px;
-  margin: 0 auto 56px;
+  max-width: 55rem;
+  margin: 0 auto 3.5rem;
 }
 
 .pilares .section-title { 
@@ -2522,7 +2591,7 @@ html.is-at-top .header {
 }
 
 .faq__grid {
-  max-width: 780px;
+  max-width: 48.75rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
