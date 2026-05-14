@@ -84,7 +84,16 @@
       "Bash(Select-Object -ExpandProperty FullName)",
       "Bash(Get-ChildItem -Path \"C:\\\\xampp\\\\htdocs\\\\TEST\" -Recurse -Include \"index.php\", \"styles.css\", \"main.js\")",
       "Bash(Select-Object FullName)",
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "Bash(winget install *)",
+      "PowerShell(ffmpeg *)",
+      "PowerShell(Get-NetTCPConnection *)",
+      "PowerShell(Set-Location \"C:\\\\xampp\\\\htdocs\\\\TEST\\\\rk-web-next\"; Start-Process powershell -ArgumentList \"-NoExit\", \"-Command\", \"npm run dev\" -WindowStyle Normal)",
+      "PowerShell(npm *)",
+      "PowerShell(Test-NetConnection *)",
+      "PowerShell(robocopy \"C:\\\\xampp\\\\htdocs\\\\TEST\\\\rk-web-next\" \"E:\\\\JuanDiego\\\\RK\\\\WEB\\\\rk-web-next\" /E /XD node_modules .next /NFL /NDL /NJH /NJS; \"Exit: $LASTEXITCODE\")",
+      "PowerShell(Remove-Item *)",
+      "PowerShell(Get-Process *)"
     ]
   }
 }
